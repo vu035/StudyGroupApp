@@ -23,6 +23,21 @@
       <height>26</height>
      </rect>
     </property>
+    <item>
+     <property name="text">
+      <string>CS</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>ENGL</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>MATH</string>
+     </property>
+    </item>
    </widget>
    <widget class="QComboBox" name="comboBox_2">
     <property name="geometry">
@@ -33,6 +48,21 @@
       <height>26</height>
      </rect>
     </property>
+    <item>
+     <property name="text">
+      <string>101</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>111</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>211</string>
+     </property>
+    </item>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -41,7 +71,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>31</height>
     </rect>
    </property>
   </widget>

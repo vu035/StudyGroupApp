@@ -16,8 +16,10 @@ LoginWindow::~LoginWindow()
 }
 
 
-void LoginWindow::on_pushButton_clicked()
+
+void LoginWindow::on_loginButton_clicked()
 {
     hide();
+    main_app_window->setGeometry(geometry());
     main_app_window->show();
 }
