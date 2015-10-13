@@ -46,7 +46,7 @@
      <enum>QLineEdit::Password</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="loginButton">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -79,7 +79,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>22</height>
+     <height>31</height>
     </rect>
    </property>
   </widget>
