@@ -15,12 +15,9 @@ TEMPLATE = app
 SOURCES += main.cpp\
         AppWindow.cpp \
     LoginWindow.cpp \
-    CreateAccountWindow.cpp
 
 HEADERS  += AppWindow.h \
     LoginWindow.h \
-    CreateAccountWindow.h
 
 FORMS    += AppWindow.ui \
     LoginWindow.ui \
-    CreateAccountWindow.ui
