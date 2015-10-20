@@ -9,7 +9,6 @@ AppWindow::AppWindow(LoginWindow *login_window) :
     main_login_window = login_window;
 
     ui->setupUi(this);
-
 }
 
 AppWindow::~AppWindow()
