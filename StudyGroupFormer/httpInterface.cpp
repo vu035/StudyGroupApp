@@ -100,7 +100,7 @@ void postRequest(QString department, QString class_number){
         QString strReply = (QString)reply->readAll();
         qDebug() << "Success" << strReply;
 
-        getRequest();
+
         delete reply;
     }
     else {

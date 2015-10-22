@@ -25,15 +25,17 @@ void LoginWindow::on_loginButton_clicked()
     QString uname = ui->username->text();
     qDebug() << uname;
     QString pass = ui->password->text();
-    getRequest();
+
     //postRequest("MATH", "360");
-    //postCreateUser("leeroy@cougars.csusm.edu", "123456");
+    postCreateUser("root@admin", "root");
 
     //if pass matches encrypted pass, show main window
     if(postLogin(uname, pass)){
+       getRequest();
        hide();
        main_app_window->setGeometry(geometry());
        main_app_window->show();
+
     }
 }
 
