@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         AppWindow.cpp \
     LoginWindow.cpp \
-    CreateUser.cpp
+    CreateUser.cpp \
+    httpInterface.cpp
 
 HEADERS  += AppWindow.h \
     LoginWindow.h \
-    CreateUser.h
+    CreateUser.h \
+    HTTPInterface.h
 
 FORMS    += AppWindow.ui \
     LoginWindow.ui \

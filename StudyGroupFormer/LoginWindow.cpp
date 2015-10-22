@@ -1,3 +1,4 @@
+#include "HttpInterface.h"
 #include "LoginWindow.h"
 #include "ui_LoginWindow.h"
 #include "AppWindow.h"
@@ -20,6 +21,9 @@ LoginWindow::~LoginWindow()
 
 void LoginWindow::on_loginButton_clicked()
 {
+
+    //postRequest("CS", "202");
+   // postCreateUser("leeroy@cougars.csusm.edu", "123456");
     hide();
     main_app_window->setGeometry(geometry());
     main_app_window->show();
