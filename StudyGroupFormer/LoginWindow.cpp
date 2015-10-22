@@ -15,8 +15,6 @@ LoginWindow::~LoginWindow()
     delete ui;
 }
 
-
-
 void LoginWindow::on_loginButton_clicked()
 {
     hide();
