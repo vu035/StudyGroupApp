@@ -1,12 +1,15 @@
+
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
 
-  # GET /users
-  # GET /users.json
-  def index
-    @users = User.all
-
-    render json: @users
+  #POST /login
+  #POST /bool
+  def login
+    if User.find_by(email: user_params[:email]).try(:authenticate, user_params[:password])
+      render json: "true"
+    else
+      render json: "false"
+    end
   end
 
   # GET /users/1
