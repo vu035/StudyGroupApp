@@ -19,8 +19,6 @@
 //pass QjsonArray from get requests
 void groupstoString(QJsonArray jsonResponse){
 
-
-
     foreach (const QJsonValue &value, jsonResponse) {
         QJsonObject json_obj = value.toObject();
         qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt();
