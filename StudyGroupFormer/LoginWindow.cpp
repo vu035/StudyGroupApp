@@ -1,4 +1,4 @@
-#include "HttpInterface.h"
+#include "HTTPInterface.h"
 #include "LoginWindow.h"
 #include "ui_LoginWindow.h"
 #include "AppWindow.h"

@@ -1,4 +1,4 @@
-#include "HttpInterface.h"
+#include "HTTPInterface.h"
 #include "LoginWindow.h"
 #include <QApplication>
 #include <QCoreApplication>
