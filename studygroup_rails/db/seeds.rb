@@ -8,3 +8,5 @@
 Studygroup.create(department: "CS", class_number: 111)
   Studygroup.create(department: "ENG" ,class_number: 211)
   Studygroup.create(department: "MATH" , class_number: 101)
+
+User.create(email: 'root@admin', password: 'root')
