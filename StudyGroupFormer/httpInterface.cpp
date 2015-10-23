@@ -41,7 +41,7 @@ QJsonArray getRequest(){
     QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
 
     // the HTTP request
-    QNetworkRequest req( QUrl( QString("http://localhost:3000/studygroups") ) );
+    QNetworkRequest req( QUrl( QString("https://studygroupformer.herokuapp.com/studygroups") ) );
     QNetworkReply *reply = mgr.get(req);
     eventLoop.exec(); // blocks stack until "finished()" has been called
 
@@ -77,7 +77,7 @@ QJsonArray getRequest(){
 //post a new study group to DB
 void postRequest(QString department, QString class_number){
 
-    QUrl myURL(QString("http://localhost:3000/studygroups"));
+    QUrl myURL(QString("https://studygroupformer.herokuapp.com/studygroups"));
     QNetworkRequest request(myURL);
     QNetworkAccessManager mgr;
 
@@ -116,7 +116,7 @@ void postRequest(QString department, QString class_number){
 //post a new user to the db
 void postCreateUser(QString email, QString password){
 
-    QUrl myURL(QString("http://localhost:3000/users"));
+    QUrl myURL(QString("https://studygroupformer.herokuapp.com/users"));
     QNetworkRequest request(myURL);
     request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
     QNetworkAccessManager mgr;
@@ -154,7 +154,7 @@ void postCreateUser(QString email, QString password){
 
 bool postLogin(QString email, QString password){
 
-    QUrl myURL(QString("http://localhost:3000/login"));
+    QUrl myURL(QString("https://studygroupformer.herokuapp.com/login"));
     QNetworkRequest request(myURL);
     QNetworkAccessManager mgr;
 

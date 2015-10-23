@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     LoginWindow login;
 
     login.show();
-  //QJsonArray response = getRequest();
+  QJsonArray response = getRequest();
 
 
     return a.exec();

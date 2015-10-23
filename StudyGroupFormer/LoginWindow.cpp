@@ -22,6 +22,7 @@ LoginWindow::~LoginWindow()
 
 void LoginWindow::on_loginButton_clicked()
 {
+    getRequest();
     QString uname = ui->username->text();
     qDebug() << uname;
     QString pass = ui->password->text();
