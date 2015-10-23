@@ -22,7 +22,6 @@ LoginWindow::~LoginWindow()
 
 void LoginWindow::on_loginButton_clicked()
 {
-    getRequest();
     QString uname = ui->username->text();
     qDebug() << uname;
     QString pass = ui->password->text();
@@ -32,7 +31,11 @@ void LoginWindow::on_loginButton_clicked()
 
     //if pass matches encrypted pass, show main window
     if(postLogin(uname, pass)){
+
+        //debug output
        getRequest();
+
+      //hide window
        hide();
        main_app_window->setGeometry(geometry());
        main_app_window->show();
