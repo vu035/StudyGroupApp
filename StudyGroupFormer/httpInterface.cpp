@@ -75,7 +75,7 @@ QJsonArray getRequest(){
 
 
 //post a new study group to DB
-void postRequest(QString department, QString class_number){
+void postCreateGroup(QString department, QString class_number){
 
     QUrl myURL(QString("https://studygroupformer.herokuapp.com/studygroups"));
     QNetworkRequest request(myURL);
