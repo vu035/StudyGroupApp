@@ -9,6 +9,7 @@ Study Group Former
 The use case document describes the specification along with some requires of a console application Study Group Former (SGF). In addition, this document will describe how the program works and what requirements are necessary in the use case specification.
 
 1.2 Background
+
 Often times, students find it hard to meet new people in their classes, or find it difficult be able to connect with people of the same classes who are suffering from the same difficulty of the same topic of a course. This desktop application will provide a way for these individuals to get together, across different sections of a class and review the subject.
 
 1.3 Definition, Acronyms, and Abbreviations
