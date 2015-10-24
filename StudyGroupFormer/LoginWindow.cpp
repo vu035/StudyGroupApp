@@ -18,8 +18,6 @@ LoginWindow::~LoginWindow()
     delete ui;
 }
 
-
-
 void LoginWindow::on_loginButton_clicked()
 {
     QString uname = ui->username->text();
