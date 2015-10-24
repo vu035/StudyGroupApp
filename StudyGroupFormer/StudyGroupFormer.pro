@@ -15,7 +15,9 @@ TEMPLATE = app
 SOURCES += main.cpp\
         AppWindow.cpp \
     LoginWindow.cpp \
-<<<<<<< HEAD
+    AllGroups.cpp \
+    CreateUser.cpp \
+    httpInterface.cpp
     CreateUser.cpp \
     httpInterface.cpp
 
@@ -26,8 +28,7 @@ HEADERS  += AppWindow.h \
 
 FORMS    += AppWindow.ui \
     LoginWindow.ui \
-    CreateUser.ui
-=======
+    CreateUser.ui\
     AllGroups.cpp
 
 HEADERS  += AppWindow.h \
@@ -37,4 +38,3 @@ HEADERS  += AppWindow.h \
 FORMS    += AppWindow.ui \
     LoginWindow.ui \
     AllGroups.ui
->>>>>>> AndrewVuDev
