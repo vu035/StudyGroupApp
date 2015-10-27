@@ -28,5 +28,6 @@ HEADERS  += AppWindow.h \
 
 FORMS    += AppWindow.ui \
     LoginWindow.ui \
-    CreateUser.ui
+    CreateUser.ui \
+    AllGroups.ui\
     AllGroups.cpp
