@@ -14,12 +14,21 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         AppWindow.cpp \
+<<<<<<< HEAD
         LoginWindow.cpp \
         AllGroups.cpp \
         httpInterface.cpp\
         CreateUser.cpp \
         httpInterface.cpp \
         CreateUser.cpp
+=======
+    LoginWindow.cpp \
+    AllGroups.cpp \
+    CreateUser.cpp \
+    httpInterface.cpp
+    CreateUser.cpp \
+    httpInterface.cpp
+>>>>>>> b3baa13f5388fb15843e6dab93d47904130713a3
 
 HEADERS  += AppWindow.h \
     LoginWindow.h \
@@ -28,7 +37,11 @@ HEADERS  += AppWindow.h \
 
 FORMS    += AppWindow.ui \
     LoginWindow.ui \
+<<<<<<< HEAD
     CreateUser.ui
+=======
+    CreateUser.ui\
+>>>>>>> b3baa13f5388fb15843e6dab93d47904130713a3
     AllGroups.cpp
 
 HEADERS  += AppWindow.h \
@@ -38,4 +51,7 @@ HEADERS  += AppWindow.h \
 FORMS    += AppWindow.ui \
     LoginWindow.ui \
     AllGroups.ui
+<<<<<<< HEAD
 
+=======
+>>>>>>> b3baa13f5388fb15843e6dab93d47904130713a3
