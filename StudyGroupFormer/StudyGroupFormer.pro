@@ -18,23 +18,15 @@ SOURCES += main.cpp\
     AllGroups.cpp \
     CreateUser.cpp \
     httpInterface.cpp
-    CreateUser.cpp \
-    httpInterface.cpp
+
 
 HEADERS  += AppWindow.h \
     LoginWindow.h \
     CreateUser.h \
-    HTTPInterface.h
+    HTTPInterface.h\
+    AllGroups.h
 
 FORMS    += AppWindow.ui \
     LoginWindow.ui \
     CreateUser.ui
     AllGroups.cpp
-
-HEADERS  += AppWindow.h \
-    LoginWindow.h \
-    AllGroups.h
-
-FORMS    += AppWindow.ui \
-    LoginWindow.ui \
-    AllGroups.ui
