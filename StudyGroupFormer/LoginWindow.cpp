@@ -1,6 +1,9 @@
+#include "HTTPInterface.h"
 #include "LoginWindow.h"
 #include "ui_LoginWindow.h"
 #include "AppWindow.h"
+#include "CreateUser.h"
+#include <QDebug>
 
 LoginWindow::LoginWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,8 +19,35 @@ LoginWindow::~LoginWindow()
 }
 
 
-void LoginWindow::on_pushButton_clicked()
+
+void LoginWindow::on_loginButton_clicked()
+{
+    QString uname = ui->username->text();
+    qDebug() << uname;
+    QString pass = ui->password->text();
+
+    //postCreateGroup("MATH", "360");
+    //postCreateUser("root@admin", "root");
+
+    //if pass matches encrypted pass, show main window
+    if(postLogin(uname, pass)){
+
+        //debug output
+       getRequest();
+
+      //hide window
+       hide();
+       main_app_window->setGeometry(geometry());
+       main_app_window->show();
+
+    }
+}
+
+
+void LoginWindow::on_createButton_clicked()
 {
     hide();
-    main_app_window->show();
+    create_user_window = new CreateUser(this);
+    create_user_window->setGeometry(geometry());
+    create_user_window->show();
 }
