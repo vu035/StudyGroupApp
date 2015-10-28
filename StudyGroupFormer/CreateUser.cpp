@@ -1,6 +1,8 @@
 #include "CreateUser.h"
 #include "ui_CreateUser.h"
 #include "LoginWindow.h"
+#include "HTTPInterface.h"
+#include <QDebug>
 
 CreateUser::CreateUser(QWidget *parent) :
     QDialog(parent),
@@ -12,4 +14,32 @@ CreateUser::CreateUser(QWidget *parent) :
 CreateUser::~CreateUser()
 {
     delete ui;
+}
+
+void CreateUser::on_CreateAccountButton_clicked()
+{
+    //put text into variables
+    QString uname = ui->CreateUsername->text();
+    qDebug() << uname;
+    QString pass = ui->CreatePassword->text();
+    QString passCopy = ui->CreatePasswordCopy->text();
+    QString email = ui->CreateEmail->text();
+
+    //need to reverify the new passwords
+    //user inputs two passwords that
+    //must match
+    if(pass != passCopy)
+    {
+        qDebug() << "**Passwords did NOT match! Cannot create user.";
+        return;
+    }
+
+    //if the passwords match, create user
+    if(pass == passCopy)
+    {
+        qDebug() << "Passwords Matched, creating user...";
+        postCreateUser(email, pass);
+    }
+
+
 }
