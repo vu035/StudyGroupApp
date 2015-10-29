@@ -18,6 +18,7 @@ class AppWindow : public QMainWindow
 
 public:
     explicit AppWindow(LoginWindow *login_window);
+    void addItemsToComboBox();
     ~AppWindow();
 
 private slots:
