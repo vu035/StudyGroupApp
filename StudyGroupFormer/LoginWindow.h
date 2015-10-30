@@ -23,6 +23,10 @@ private slots:
 
     void on_createButton_clicked();
 
+    void on_password_returnPressed();
+
+    void login();
+
 private:
     Ui::LoginWindow *ui;
     AppWindow *main_app_window;
