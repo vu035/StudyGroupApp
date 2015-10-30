@@ -117,7 +117,7 @@ void postCreateGroup(QString department, QString class_number, QString date, QSt
 
 
 //post a new user to the db
-void postCreateUser(QString email, QString password, QString Firstname, QString Lastname, QString Username){
+void postCreateUser(QString email, QString password){
 
     QUrl myURL(QString("https://studygroupformer.herokuapp.com/users"));
     QNetworkRequest request(myURL);
@@ -128,9 +128,8 @@ void postCreateUser(QString email, QString password, QString Firstname, QString 
     QUrlQuery qu;
     qu.addQueryItem("user[email]",email);
     qu.addQueryItem("user[password]",password);
-    qu.addQueryItem("user[Firstname]",Firstname);
-    qu.addQueryItem("user[Lastname]",Lastname);
-    qu.addQueryItem("user[Username]",Username);
+
+
     postData.append(qu.toString());
     QNetworkReply *reply = mgr.post(request, postData);
 
