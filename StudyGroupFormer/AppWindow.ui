@@ -14,55 +14,38 @@
    <string>Study Group Former</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QComboBox" name="comboBox">
+   <widget class="QComboBox" name="courseNameComboBox">
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>50</y>
-      <width>104</width>
-      <height>26</height>
+      <y>45</y>
+      <width>111</width>
+      <height>31</height>
      </rect>
     </property>
-    <item>
-     <property name="text">
-      <string>CS</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>ENGL</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>MATH</string>
-     </property>
-    </item>
    </widget>
-   <widget class="QComboBox" name="comboBox_2">
+   <widget class="QComboBox" name="courseNumberComboBox">
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>90</y>
-      <width>104</width>
-      <height>26</height>
+      <y>85</y>
+      <width>111</width>
+      <height>31</height>
      </rect>
     </property>
-    <item>
-     <property name="text">
-      <string>101</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>111</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>211</string>
-     </property>
-    </item>
+   </widget>
+   <widget class="QPushButton" name="createGroup">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>130</y>
+      <width>112</width>
+      <height>34</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Create Group</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
