@@ -4,7 +4,8 @@
 #include <QMainWindow>
 #include"AllGroups.h"
 #include<iostream>
-using namespace std;
+#include <QString>
+#include <QDate>
 
 namespace Ui {
 class AppWindow;
@@ -21,13 +22,25 @@ public:
     void addItemsToComboBox();
     ~AppWindow();
 
+    void setSelectedCourseName();
+
+    void setSelectedCourseNumber();
+
+    void getDateAndTime();
+
+    void setDateAndTime();
+
 private slots:
     void on_createGroup_clicked();
 
-private:
+protected:
     Ui::AppWindow *ui;
     LoginWindow *main_login_window;
     AllGroups *main_all_groups_window;
+    QString selectedCourseName;
+    QString selectedCourseNumber;
+    QString dateGroupCreated;
+    QString timeGroupCreated;
 
 };
 
