@@ -56,7 +56,8 @@ QJsonArray getRequest(){
         json_array = jsonResponse.array();
         foreach (const QJsonValue &value, json_array) {
             QJsonObject json_obj = value.toObject();
-            qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt();
+            qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
+
 
         }
         delete reply;
@@ -75,7 +76,7 @@ QJsonArray getRequest(){
 
 
 //post a new study group to DB
-void postCreateGroup(QString department, QString class_number){
+void postCreateGroup(QString department, QString class_number, QString date, QString time){
 
     QUrl myURL(QString("https://studygroupformer.herokuapp.com/studygroups"));
     QNetworkRequest request(myURL);
@@ -86,6 +87,8 @@ void postCreateGroup(QString department, QString class_number){
     QUrlQuery qu;
     qu.addQueryItem("studygroup[department]",department);
     qu.addQueryItem("studygroup[class_number]",class_number);
+    qu.addQueryItem("studygroup[date]",date);
+    qu.addQueryItem("studygroup[time]",time);
     postData.append(qu.toString());
     QNetworkReply *reply = mgr.post(request, postData);
 
@@ -125,6 +128,8 @@ void postCreateUser(QString email, QString password){
     QUrlQuery qu;
     qu.addQueryItem("user[email]",email);
     qu.addQueryItem("user[password]",password);
+
+
     postData.append(qu.toString());
     QNetworkReply *reply = mgr.post(request, postData);
 
