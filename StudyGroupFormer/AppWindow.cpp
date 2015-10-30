@@ -1,7 +1,10 @@
 #include "AppWindow.h"
 #include "ui_AppWindow.h"
 #include "LoginWindow.h"
+#include "HTTPInterface.h"
 #include <QDebug>
+#include <QDate>
+#include <QString>
 
 AppWindow::AppWindow(LoginWindow *login_window) :
     QMainWindow(login_window),
@@ -30,11 +33,30 @@ AppWindow::~AppWindow()
     delete ui;
 }
 
+void AppWindow::setSelectedCourseName()
+{
+    selectedCourseName = ui->courseNameComboBox->currentText();
+}
+
+void AppWindow::setSelectedCourseNumber()
+{
+    selectedCourseNumber = ui->courseNumberComboBox->currentText();
+}
+
+void AppWindow::setDateAndTime()
+{
+    dateGroupCreated = (QDate::currentDate().toString());
+    timeGroupCreated = (QTime::currentTime().toString());
+}
+
 void AppWindow::on_createGroup_clicked()
 {
-
-    qDebug() << ui->courseNameComboBox->currentText();
-    qDebug() << ui->courseNumberComboBox->currentText();
+//    qDebug() << dateGroupCreated;
+//    qDebug() << timeGroupCreated;
+    setDateAndTime();
+    setSelectedCourseName();
+    setSelectedCourseNumber();
+    postCreateGroup(selectedCourseName, selectedCourseNumber, dateGroupCreated, timeGroupCreated);
 
     this->hide();
     main_all_groups_window ->setGeometry(geometry());
