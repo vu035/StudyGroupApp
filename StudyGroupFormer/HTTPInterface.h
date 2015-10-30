@@ -4,9 +4,10 @@
 #include <QJsonArray>
 
 
-QJsonArray getRequest();
+
+QJsonArray getAllGroups();
 void postCreateGroup(QString department, QString class_num, QString date, QString time);
-void postCreateUser(QString email, QString password);
+void postCreateUser(QString email, QString password, QString firstname, QString lastname, QString username);
 bool postLogin(QString email, QString password);
 
 
