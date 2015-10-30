@@ -31,7 +31,7 @@ void LoginWindow::on_loginButton_clicked()
     if(postLogin(uname, pass)){
 
         //debug output
-       getRequest();
+       getAllGroups();
 
       //hide window
        hide();

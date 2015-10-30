@@ -38,7 +38,7 @@ void CreateUser::on_CreateAccountButton_clicked()
     if(pass == passCopy)
     {
         qDebug() << "Passwords Matched, creating user...";
-        postCreateUser(email, pass);
+        postCreateUser(email, pass, "first", "last", uname);
     }
 
 

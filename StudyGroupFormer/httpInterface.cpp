@@ -23,15 +23,15 @@ void groupstoString(QJsonArray jsonResponse){
 
     foreach (const QJsonValue &value, jsonResponse) {
         QJsonObject json_obj = value.toObject();
-        qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt();
+        qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
     }
 }
 
 
 
 
-//get index of studygroups
-QJsonArray getRequest(){
+//get all studygroups
+QJsonArray getAllGroups(){
     QJsonArray json_array;
     // create custom temporary event loop on stack
     QEventLoop eventLoop;
@@ -98,16 +98,13 @@ void postCreateGroup(QString department, QString class_number, QString date, QSt
     eventLoop.exec();
 
     if (reply->error() == QNetworkReply::NoError) {
-        //success
-
+        //Success
         QString strReply = (QString)reply->readAll();
         qDebug() << "Success" << strReply;
-
-
         delete reply;
     }
     else {
-        //failure
+        //Failure
         qDebug() << "Failure" <<reply->errorString();
         delete reply;
     }
@@ -117,7 +114,7 @@ void postCreateGroup(QString department, QString class_number, QString date, QSt
 
 
 //post a new user to the db
-void postCreateUser(QString email, QString password){
+void postCreateUser(QString email, QString password, QString firstname, QString lastname, QString username){
 
     QUrl myURL(QString("https://studygroupformer.herokuapp.com/users"));
     QNetworkRequest request(myURL);
@@ -128,6 +125,9 @@ void postCreateUser(QString email, QString password){
     QUrlQuery qu;
     qu.addQueryItem("user[email]",email);
     qu.addQueryItem("user[password]",password);
+    qu.addQueryItem("user[Firstname]",firstname);
+    qu.addQueryItem("user[Lastname]",lastname);
+    qu.addQueryItem("user[Username]",username);
 
 
     postData.append(qu.toString());
@@ -143,8 +143,6 @@ void postCreateUser(QString email, QString password){
 
         QString strReply = (QString)reply->readAll();
         qDebug() << "Success" << strReply;
-
-        getRequest();
         delete reply;
     }
     else {
@@ -153,6 +151,7 @@ void postCreateUser(QString email, QString password){
         delete reply;
     }
 }
+
 
 
 
