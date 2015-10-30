@@ -18,10 +18,12 @@ LoginWindow::~LoginWindow()
     delete ui;
 }
 
-
-
 void LoginWindow::on_loginButton_clicked()
 {
+   login();
+}
+
+void LoginWindow::login(){
     QString uname = ui->username->text();
     qDebug() << uname;
     QString pass = ui->password->text();
@@ -33,7 +35,7 @@ void LoginWindow::on_loginButton_clicked()
     if(postLogin(uname, pass)){
 
         //debug output
-       getRequest();
+       getAllGroups();
 
       //hide window
        hide();
@@ -43,11 +45,15 @@ void LoginWindow::on_loginButton_clicked()
     }
 }
 
-
 void LoginWindow::on_createButton_clicked()
 {
     hide();
     create_user_window = new CreateUser(this);
     create_user_window->setGeometry(geometry());
     create_user_window->show();
+}
+
+void LoginWindow::on_password_returnPressed()
+{
+    login();
 }
