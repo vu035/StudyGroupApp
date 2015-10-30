@@ -17,34 +17,106 @@
    <widget class="QComboBox" name="courseNameComboBox">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>45</y>
-      <width>111</width>
-      <height>31</height>
+      <x>20</x>
+      <y>70</y>
+      <width>131</width>
+      <height>51</height>
      </rect>
     </property>
    </widget>
    <widget class="QComboBox" name="courseNumberComboBox">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>85</y>
-      <width>111</width>
-      <height>31</height>
+      <x>20</x>
+      <y>160</y>
+      <width>131</width>
+      <height>51</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="createGroup">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>130</y>
-      <width>112</width>
-      <height>34</height>
+      <x>20</x>
+      <y>400</y>
+      <width>131</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
      <string>Create Group</string>
+    </property>
+   </widget>
+   <widget class="QTimeEdit" name="startTimeWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>240</y>
+      <width>131</width>
+      <height>51</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="courseNameLabel">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>50</y>
+      <width>61</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Course:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="courseNumberLabel">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>140</y>
+      <width>121</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Course Number:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="startTimeLabel">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>220</y>
+      <width>91</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Start Time:</string>
+    </property>
+   </widget>
+   <widget class="QDateEdit" name="dateOfStudyWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>330</y>
+      <width>131</width>
+      <height>51</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>310</y>
+      <width>131</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Study Group Date:</string>
     </property>
    </widget>
   </widget>
