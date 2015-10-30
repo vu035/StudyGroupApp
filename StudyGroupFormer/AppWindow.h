@@ -13,7 +13,7 @@ class AppWindow;
 
 class LoginWindow;
 
-class AppWindow : public QMainWindow, public QDate
+class AppWindow : public QMainWindow
 {
     Q_OBJECT
 
