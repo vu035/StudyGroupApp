@@ -12,6 +12,9 @@ LoginWindow::LoginWindow(QWidget *parent) :
 {
     main_app_window = new AppWindow(this);
     ui->setupUi(this);
+
+    QPixmap pix(":/image/StudyGroupPic/StudyGroup.jpg");
+    ui->label_pic->setPixmap(pix);
 }
 
 LoginWindow::~LoginWindow()
