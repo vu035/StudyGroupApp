@@ -16,9 +16,9 @@ public:
     QJsonArray m_studygroups;
 
     User();
-    User(QJsonValueRef first, QJsonValueRef last, QJsonValueRef username);
+    User(QJsonValueRef first, QJsonValueRef last, QJsonValueRef username, QJsonArray groups);
     void updateUser(QJsonValueRef first, QJsonValueRef last, QJsonValueRef username, QJsonValueRef email);
-
+    void updateGroups(QJsonArray studygroups);
 
 signals:
 

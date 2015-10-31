@@ -36,9 +36,14 @@ void LoginWindow::login(){
     if(postLogin(uname, pass)){
 
 
-        //debug output
+        //set user groups with User object
         getUserGroups(getAppUser());
-       getAllGroups();
+
+        //debug output
+        getAllGroups();
+
+
+
 
 
       //hide window

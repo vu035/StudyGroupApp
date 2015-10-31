@@ -61,8 +61,8 @@ QJsonArray getAllGroups(){
 }
 
 //get all groups for a particular user
-QJsonObject getUserGroups(User current_user){
-    QJsonObject json_obj;
+void getUserGroups(User current_user){
+   QJsonArray json_array;
     // create custom temporary event loop on stack
     QEventLoop eventLoop;
 
@@ -78,7 +78,7 @@ QJsonObject getUserGroups(User current_user){
     QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
 
     // the HTTP request
-    QNetworkRequest req( QUrl( QString("https://studygroupformer.herokuapp.com/mygroups") ) );
+    QNetworkRequest req( QUrl( QString("http://localhost:3000/mygroups") ) );
     req.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
     QNetworkReply *reply = mgr.post(req, headerData);
     eventLoop.exec(); // blocks stack until "finished()" has been called
@@ -88,18 +88,23 @@ QJsonObject getUserGroups(User current_user){
         QString strReply = (QString)reply->readAll();
 
         //parse json
-        qDebug() << "Response:" << strReply;
+
         QJsonDocument jsonResponse = QJsonDocument::fromJson(strReply.toUtf8());
-         json_obj = jsonResponse.object();
-       /* json_array = jsonResponse.array();
-        foreach (const QJsonValue &value, json_array) {
+         json_array = jsonResponse.array();
+
+
+
+
+        AppUser.updateGroups(json_array);
+
+        foreach (const QJsonValue &value, current_user.m_studygroups) {
             QJsonObject json_obj = value.toObject();
-            qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
+            qDebug() << "ALHFDLs"<<json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
 
+        }
 
-        }*/
         delete reply;
-        return json_obj;
+
 
     }
     else{
@@ -107,7 +112,7 @@ QJsonObject getUserGroups(User current_user){
         qDebug() << "Failure" <<reply->errorString();
         delete reply;
     }
-    return json_obj;
+
 }
 
 
@@ -221,12 +226,13 @@ bool postLogin(QString email, QString password){
             qDebug() << "Login Success";
             QJsonDocument jsonResponse = QJsonDocument::fromJson(strReply.toUtf8());
             QJsonObject json_obj = jsonResponse.object();
-             qDebug() << json_obj;
+            // qDebug() << json_obj;
 
 
              //define current user object here
              AppUser.updateUser(json_obj["Firstname"], json_obj["Lastname"], json_obj["Username"], json_obj["email"]);
-            qDebug() << AppUser.m_firstname;
+             //AppUser.updateGroups(getUserGroups(AppUser));
+
 
              delete reply;
              return true;
