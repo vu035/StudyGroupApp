@@ -60,6 +60,53 @@ QJsonArray getAllGroups(){
     return json_array;
 }
 
+//get all groups for a particular user
+void getUserGroups(User current_user){
+   QJsonArray json_array;
+    // create custom temporary event loop on stack
+    QEventLoop eventLoop;
+
+    // "quit()" the event-loop, when the network request "finished()"
+    QNetworkAccessManager mgr;
+    QByteArray headerData;
+    QUrlQuery qu;
+    qu.addQueryItem("user[email]",current_user.m_email); //pass in the user email
+    headerData.append(qu.toString());
+
+
+
+    QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+
+    // the HTTP request
+    QNetworkRequest req( QUrl( QString("https://studygroupformer.herokuapp.com/mygroups") ) );
+    req.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
+    QNetworkReply *reply = mgr.post(req, headerData);
+    eventLoop.exec(); // blocks stack until "finished()" has been called
+
+    if (reply->error() == QNetworkReply::NoError) {
+        //success
+        QString strReply = (QString)reply->readAll();
+
+        //parse json
+
+        QJsonDocument jsonResponse = QJsonDocument::fromJson(strReply.toUtf8());
+         json_array = jsonResponse.array();
+
+
+
+
+        AppUser.updateGroups(json_array);
+        delete reply;
+
+
+    }
+    else{
+        //failure
+        qDebug() << "Failure" <<reply->errorString();
+        delete reply;
+    }
+
+}
 
 
 
@@ -172,12 +219,13 @@ bool postLogin(QString email, QString password){
             qDebug() << "Login Success";
             QJsonDocument jsonResponse = QJsonDocument::fromJson(strReply.toUtf8());
             QJsonObject json_obj = jsonResponse.object();
-             qDebug() << json_obj;
+            // qDebug() << json_obj;
 
 
              //define current user object here
-             AppUser.updateUser(json_obj["Firstname"], json_obj["Lastname"], json_obj["Username"]);
-            qDebug() << AppUser.m_firstname;
+             AppUser.updateUser(json_obj["Firstname"], json_obj["Lastname"], json_obj["Username"], json_obj["email"], json_obj["id"]);
+             //AppUser.updateGroups(getUserGroups(AppUser));
+
 
              delete reply;
              return true;

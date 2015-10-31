@@ -12,12 +12,14 @@ public:
     QString m_firstname;
     QString m_lastname;
     QString m_username;
+    QString m_email;
+    int m_id;
     QJsonArray m_studygroups;
 
     User();
-    User(QJsonValueRef first, QJsonValueRef last, QJsonValueRef username);
-    void updateUser(QJsonValueRef first, QJsonValueRef last, QJsonValueRef username);
-
+    User(QJsonValueRef first, QJsonValueRef last, QJsonValueRef username, QJsonArray groups);
+    void updateUser(QJsonValueRef first, QJsonValueRef last, QJsonValueRef username, QJsonValueRef email, QJsonValueRef id);
+    void updateGroups(QJsonArray studygroups);
 
 signals:
 
