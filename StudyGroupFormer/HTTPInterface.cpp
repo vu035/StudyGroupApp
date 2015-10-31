@@ -125,6 +125,7 @@ void postCreateGroup(QString department, QString class_number, QString date, QSt
     qu.addQueryItem("studygroup[date]",date);
     qu.addQueryItem("studygroup[time]",time);
     postData.append(qu.toString());
+
     QNetworkReply *reply = mgr.post(request, postData);
 
 
@@ -145,6 +146,39 @@ void postCreateGroup(QString department, QString class_number, QString date, QSt
     }
 }
 
+void postJoinGroup(QString group_id, int user_id){
+    qDebug() << "OYEA" ;
+    QUrl myURL(QString("https://studygroupformer.herokuapp.com/studygroups_users"));
+    QNetworkRequest request(myURL);
+    QNetworkAccessManager mgr;
+
+    QByteArray postData;
+    request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
+    QUrlQuery qu;
+    qu.addQueryItem("studygroups_user[studygroup_id]",group_id);
+    qu.addQueryItem("studygroups_user[user_id]",QString::number(user_id));
+
+    postData.append(qu.toString());
+
+    QNetworkReply *reply = mgr.post(request, postData);
+
+
+    QEventLoop eventLoop;
+    QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+    eventLoop.exec();
+
+    if (reply->error() == QNetworkReply::NoError) {
+        //Success
+        QString strReply = (QString)reply->readAll();
+        qDebug() << "Success" << strReply;
+        delete reply;
+    }
+    else {
+        //Failure
+        qDebug() << "Failure" <<reply->errorString();
+        delete reply;
+    }
+}
 
 
 
@@ -219,13 +253,13 @@ bool postLogin(QString email, QString password){
             qDebug() << "Login Success";
             QJsonDocument jsonResponse = QJsonDocument::fromJson(strReply.toUtf8());
             QJsonObject json_obj = jsonResponse.object();
-            // qDebug() << json_obj;
-
+             qDebug() << json_obj;
+            int userID = json_obj["id"].toInt();
 
              //define current user object here
-             AppUser.updateUser(json_obj["Firstname"], json_obj["Lastname"], json_obj["Username"], json_obj["email"], json_obj["id"]);
-             //AppUser.updateGroups(getUserGroups(AppUser));
+             AppUser.updateUser(json_obj["Firstname"], json_obj["Lastname"], json_obj["Username"], json_obj["email"], userID);
 
+             //qDebug() << AppUser.m_email <<  AppUser.m_id;
 
              delete reply;
              return true;
