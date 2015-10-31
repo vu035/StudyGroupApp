@@ -146,7 +146,7 @@ void postCreateUser(QString email, QString password, QString firstname, QString 
 
 bool postLogin(QString email, QString password){
 
-    QUrl myURL(QString("http://localhost:3000/login"));
+    QUrl myURL(QString("https://studygroupformer.herokuapp.com/login"));
     QNetworkRequest request(myURL);
     QNetworkAccessManager mgr;
 
