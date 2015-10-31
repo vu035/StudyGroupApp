@@ -37,7 +37,9 @@ void LoginWindow::login(){
 
 
         //debug output
+        getUserGroups(getAppUser());
        getAllGroups();
+
 
       //hide window
        hide();
