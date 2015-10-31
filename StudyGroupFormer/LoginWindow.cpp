@@ -5,6 +5,7 @@
 #include "CreateUser.h"
 #include <QDebug>
 
+
 LoginWindow::LoginWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::LoginWindow)
@@ -34,12 +35,21 @@ void LoginWindow::login(){
     //if pass matches encrypted pass, show main window
     if(postLogin(uname, pass)){
 
+
+        //set user groups with User object
+        getUserGroups(getAppUser());
+
         //debug output
-       getAllGroups();
+        getAllGroups();
+
+
+
+
 
       //hide window
        hide();
        main_app_window->setGeometry(geometry());
+       main_app_window->on_successful_login();
        main_app_window->show();
 
     }
