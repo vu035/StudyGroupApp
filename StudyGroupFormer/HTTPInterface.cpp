@@ -1,22 +1,10 @@
-
+#include "HTTPInterface.h"
 #include "LoginWindow.h"
-#include <QApplication>
-#include <QCoreApplication>
-#include <QDebug>
-#include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QUrl>
-#include <QUrlQuery>
-#include <QVariant>
-#include <QJsonValue>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QVariantMap>
-#include <QJsonArray>
+#include "AppWindow.h"
 
 
 
+User AppUser;
 
 //pass QjsonArray from get requests
 void groupstoString(QJsonArray jsonResponse){
@@ -158,7 +146,7 @@ void postCreateUser(QString email, QString password, QString firstname, QString 
 
 bool postLogin(QString email, QString password){
 
-    QUrl myURL(QString("https://studygroupformer.herokuapp.com/login"));
+    QUrl myURL(QString("http://localhost:3000/login"));
     QNetworkRequest request(myURL);
     QNetworkAccessManager mgr;
 
@@ -178,11 +166,21 @@ bool postLogin(QString email, QString password){
     if (reply->error() == QNetworkReply::NoError) {
 
         QString strReply = (QString)reply->readAll();
+
         //Login success
-        if(strReply == "true"){
+        if(strReply != "false"){
             qDebug() << "Login Success";
-            delete reply;
-            return true;
+            QJsonDocument jsonResponse = QJsonDocument::fromJson(strReply.toUtf8());
+            QJsonObject json_obj = jsonResponse.object();
+             qDebug() << json_obj;
+
+
+             //define current user object here
+             AppUser.updateUser(json_obj["Firstname"], json_obj["Lastname"], json_obj["Username"]);
+            qDebug() << AppUser.m_firstname;
+
+             delete reply;
+             return true;
         }
         else {
             //Login Failed
@@ -197,4 +195,9 @@ bool postLogin(QString email, QString password){
         delete reply;
         return false;
     }
+}
+
+
+User getAppUser(){
+    return AppUser;
 }

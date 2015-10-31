@@ -6,6 +6,9 @@
 #include <QDate>
 #include <QString>
 
+
+
+
 AppWindow::AppWindow(LoginWindow *login_window) :
     QMainWindow(login_window),
     ui(new Ui::AppWindow)
@@ -16,6 +19,7 @@ AppWindow::AppWindow(LoginWindow *login_window) :
 
     addItemsToComboBox();
 }
+
 
 void AppWindow::addItemsToComboBox()
 {
@@ -37,6 +41,7 @@ void AppWindow::setSelectedCourseName()
 {
     selectedCourseName = ui->courseNameComboBox->currentText();
 }
+
 
 void AppWindow::setSelectedCourseNumber()
 {
@@ -62,3 +67,7 @@ void AppWindow::on_createGroup_clicked()
     main_all_groups_window ->setGeometry(geometry());
     main_all_groups_window->show();
 }
+
+void AppWindow::on_successful_login(){
+    ui->usernameLabel->setText(getAppUser().m_username);
+};
