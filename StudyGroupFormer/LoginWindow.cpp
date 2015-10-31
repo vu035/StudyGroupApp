@@ -42,7 +42,7 @@ void LoginWindow::login(){
       //hide window
        hide();
        main_app_window->setGeometry(geometry());
-       //main_app_window->on_successful_login();
+       main_app_window->on_successful_login();
        main_app_window->show();
 
     }
