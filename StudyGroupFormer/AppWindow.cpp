@@ -69,5 +69,5 @@ void AppWindow::on_createGroup_clicked()
 }
 
 void AppWindow::on_successful_login(){
-    ui->usernameLabel->setText(getAppUser().m_username);
+   // ui->usernameLabel->setText(getAppUser().m_username);
 };
