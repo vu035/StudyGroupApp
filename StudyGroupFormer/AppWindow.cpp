@@ -15,6 +15,7 @@ AppWindow::AppWindow(LoginWindow *login_window) :
 {
     main_login_window = login_window;
     main_all_groups_window = new AllGroups();
+
     ui->setupUi(this);
 
     addItemsToComboBox();
@@ -48,20 +49,24 @@ void AppWindow::setSelectedCourseNumber()
     selectedCourseNumber = ui->courseNumberComboBox->currentText();
 }
 
-void AppWindow::setDateAndTime()
+void AppWindow::setDateOfStudyGroup()
 {
-    dateGroupCreated = (QDate::currentDate().toString());
-    timeGroupCreated = (QTime::currentTime().toString());
+   dateOfStudyGroup = ui->dateOfStudyWidget->date().toString();
+}
+
+void AppWindow::setTimeOfStudyGroup()
+{
+   timeOfStudyGroup = ui->startTimeWidget->time().toString();
 }
 
 void AppWindow::on_createGroup_clicked()
 {
-//    qDebug() << dateGroupCreated;
-//    qDebug() << timeGroupCreated;
-    setDateAndTime();
+    setDateOfStudyGroup();
+    setTimeOfStudyGroup();
     setSelectedCourseName();
     setSelectedCourseNumber();
-    postCreateGroup(selectedCourseName, selectedCourseNumber, dateGroupCreated, timeGroupCreated);
+    postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
+
 
     this->hide();
     main_all_groups_window ->setGeometry(geometry());

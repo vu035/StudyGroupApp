@@ -15,7 +15,7 @@ class AppWindow;
 class LoginWindow;
 class User;
 
-class AppWindow : public QMainWindow
+class AppWindow : public QMainWindow, public QDate
 {
     Q_OBJECT
 
@@ -25,14 +25,10 @@ public:
     explicit AppWindow(LoginWindow *login_window);
     void addItemsToComboBox();
     ~AppWindow();
-
     void setSelectedCourseName();
-
     void setSelectedCourseNumber();
-
-    void getDateAndTime();
-
-    void setDateAndTime();
+    void setDateOfStudyGroup();
+    void setTimeOfStudyGroup();
 
     void on_successful_login();
 
@@ -47,8 +43,8 @@ protected:
     AllGroups *main_all_groups_window;
     QString selectedCourseName;
     QString selectedCourseNumber;
-    QString dateGroupCreated;
-    QString timeGroupCreated;
+    QString dateOfStudyGroup;
+    QString timeOfStudyGroup;
 
 };
 
