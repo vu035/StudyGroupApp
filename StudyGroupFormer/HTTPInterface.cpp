@@ -70,7 +70,7 @@ void getUserGroups(User current_user){
     QNetworkAccessManager mgr;
     QByteArray headerData;
     QUrlQuery qu;
-    qu.addQueryItem("user[email]",current_user.m_email);
+    qu.addQueryItem("user[email]",current_user.m_email); //pass in the user email
     headerData.append(qu.toString());
 
 
@@ -78,7 +78,7 @@ void getUserGroups(User current_user){
     QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
 
     // the HTTP request
-    QNetworkRequest req( QUrl( QString("http://localhost:3000/mygroups") ) );
+    QNetworkRequest req( QUrl( QString("https://studygroupformer.herokuapp.com/mygroups") ) );
     req.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
     QNetworkReply *reply = mgr.post(req, headerData);
     eventLoop.exec(); // blocks stack until "finished()" has been called
@@ -96,13 +96,6 @@ void getUserGroups(User current_user){
 
 
         AppUser.updateGroups(json_array);
-
-        foreach (const QJsonValue &value, current_user.m_studygroups) {
-            QJsonObject json_obj = value.toObject();
-            qDebug() << "ALHFDLs"<<json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
-
-        }
-
         delete reply;
 
 
@@ -230,7 +223,7 @@ bool postLogin(QString email, QString password){
 
 
              //define current user object here
-             AppUser.updateUser(json_obj["Firstname"], json_obj["Lastname"], json_obj["Username"], json_obj["email"]);
+             AppUser.updateUser(json_obj["Firstname"], json_obj["Lastname"], json_obj["Username"], json_obj["email"], json_obj["id"]);
              //AppUser.updateGroups(getUserGroups(AppUser));
 
 

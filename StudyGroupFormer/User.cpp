@@ -15,11 +15,12 @@ User::User(QJsonValueRef first, QJsonValueRef last, QJsonValueRef username, QJso
 
 }
 
-void User::updateUser(QJsonValueRef first, QJsonValueRef last, QJsonValueRef username, QJsonValueRef email){
+void User::updateUser(QJsonValueRef first, QJsonValueRef last, QJsonValueRef username, QJsonValueRef email, QJsonValueRef id){
     this->m_firstname = first.toString();
     this->m_lastname = last.toString();
     this->m_username = username.toString();
     this->m_email = email.toString();
+    this->m_id = id.toInt();
 
 }
 
