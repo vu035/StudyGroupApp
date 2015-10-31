@@ -6,18 +6,22 @@
 #include<iostream>
 #include <QString>
 #include <QDate>
+#include "User.h"
 
 namespace Ui {
 class AppWindow;
 }
 
 class LoginWindow;
+class User;
 
 class AppWindow : public QMainWindow, public QDate
 {
     Q_OBJECT
 
 public:
+
+
     explicit AppWindow(LoginWindow *login_window);
     void addItemsToComboBox();
     ~AppWindow();
@@ -26,8 +30,12 @@ public:
     void setDateOfStudyGroup();
     void setTimeOfStudyGroup();
 
+    void on_successful_login();
+
 private slots:
     void on_createGroup_clicked();
+
+
 
 protected:
     Ui::AppWindow *ui;
