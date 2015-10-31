@@ -29,8 +29,8 @@ void LoginWindow::login(){
     qDebug() << uname;
     QString pass = ui->password->text();
 
-    //postCreateGroup("CS", "311", "12-20-15", "1:00PM");
-    //postCreateUser("1@3", "root", "James", "Hannahan", "JH024");
+    //postCreateGroup("MATH", "360", "12-22-15", "3:00PM");
+    //postCreateUser("root@admin", "root");
 
     //if pass matches encrypted pass, show main window
     if(postLogin(uname, pass)){
