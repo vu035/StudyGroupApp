@@ -15,6 +15,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
 
     QPixmap pix(":/image/StudyGroupPic/StudyGroup.jpg");
     ui->label_pic->setPixmap(pix);
+    ui->label_pic->setAttribute(Qt::WA_TranslucentBackground);
 }
 
 LoginWindow::~LoginWindow()
