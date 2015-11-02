@@ -10,6 +10,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::LoginWindow)
 {
+
     main_app_window = new AppWindow(this);
     ui->setupUi(this);
 

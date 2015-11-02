@@ -12,3 +12,4 @@ AllGroups::~AllGroups()
 {
     delete ui;
 }
+

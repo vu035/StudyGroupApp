@@ -29,23 +29,24 @@ public:
     void setSelectedCourseNumber();
     void setDateOfStudyGroup();
     void setTimeOfStudyGroup();
-
+    void setColumnsOfTable();
+    void setGroupVisibleInTable();
     void on_successful_login();
+
 
 private slots:
     void on_createGroup_clicked();
 
 
-
 protected:
     Ui::AppWindow *ui;
     LoginWindow *main_login_window;
-    AllGroups *main_all_groups_window;
     QString selectedCourseName;
     QString selectedCourseNumber;
     QString dateOfStudyGroup;
     QString timeOfStudyGroup;
-
+    int m_rowCount;
+    int m_columnCount;
 };
 
 #endif // APPWINDOW_H

@@ -5,22 +5,25 @@
 #include <QDebug>
 #include <QDate>
 #include <QString>
+#include <QSizePolicy>
 
 
-
+const int totalNumberOfColumns=3;
 
 AppWindow::AppWindow(LoginWindow *login_window) :
     QMainWindow(login_window),
     ui(new Ui::AppWindow)
 {
     main_login_window = login_window;
-    main_all_groups_window = new AllGroups();
+    this->setFixedSize(800, 700);
+    this->resizeEvent(false);
 
     ui->setupUi(this);
-
+    m_rowCount=0;
     addItemsToComboBox();
-}
+    setColumnsOfTable();
 
+}
 
 void AppWindow::addItemsToComboBox()
 {
@@ -56,7 +59,31 @@ void AppWindow::setDateOfStudyGroup()
 
 void AppWindow::setTimeOfStudyGroup()
 {
-   timeOfStudyGroup = ui->startTimeWidget->time().toString();
+    timeOfStudyGroup = ui->startTimeWidget->time().toString();
+}
+
+void AppWindow::setColumnsOfTable()
+{
+    QStringList setColumnNames;
+    setColumnNames<<"Class Name"<<"Date"<<"Time";
+
+    ui->listOfAllGroups->setColumnCount(totalNumberOfColumns);
+    ui->listOfAllGroups->setRowCount(1000);
+    ui->listOfAllGroups->setHorizontalHeaderLabels(setColumnNames);
+}
+
+void AppWindow::setGroupVisibleInTable()
+{
+    QString course = selectedCourseName + " " + selectedCourseNumber;
+
+    ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(course));
+    m_columnCount++;
+    ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(dateOfStudyGroup));
+    m_columnCount++;
+    ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(timeOfStudyGroup));
+    m_columnCount=0;
+    m_rowCount++;
+
 }
 
 void AppWindow::on_createGroup_clicked()
@@ -65,12 +92,13 @@ void AppWindow::on_createGroup_clicked()
     setTimeOfStudyGroup();
     setSelectedCourseName();
     setSelectedCourseNumber();
-    postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
+    setGroupVisibleInTable();
+    //postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
 
+//    qDebug()<<"Number of Row Counter:"<< numberOfRowCounter;
+//    qDebug()<<"Row Count:"<< m_rowCount;
+//    qDebug()<<"Column Count:"<< m_columnCount;
 
-    this->hide();
-    main_all_groups_window ->setGeometry(geometry());
-    main_all_groups_window->show();
 }
 
 void AppWindow::on_successful_login(){
@@ -79,5 +107,5 @@ void AppWindow::on_successful_login(){
     foreach (const QJsonValue &value, getAppUser().m_studygroups) {
         QJsonObject json_obj = value.toObject();
         qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
-        }
-};
+    }
+}
