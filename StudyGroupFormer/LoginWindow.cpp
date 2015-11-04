@@ -10,6 +10,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::LoginWindow)
 {
+
     main_app_window = new AppWindow(this);
     ui->setupUi(this);
 
@@ -55,6 +56,7 @@ void LoginWindow::login(){
        hide();
        main_app_window->setGeometry(geometry());
        main_app_window->on_successful_login();
+       main_app_window->setGroupsVisibleInTable();
        main_app_window->show();
 
     }
