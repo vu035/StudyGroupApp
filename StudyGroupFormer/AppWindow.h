@@ -15,7 +15,7 @@ class AppWindow;
 class LoginWindow;
 class User;
 
-class AppWindow : public QMainWindow, public QDate
+class AppWindow : public QMainWindow
 {
     Q_OBJECT
 
@@ -29,23 +29,24 @@ public:
     void setSelectedCourseNumber();
     void setDateOfStudyGroup();
     void setTimeOfStudyGroup();
-
+    void setColumnsOfTable();
+    void setGroupsVisibleInTable();
     void on_successful_login();
+
 
 private slots:
     void on_createGroup_clicked();
 
 
-
 protected:
     Ui::AppWindow *ui;
     LoginWindow *main_login_window;
-    AllGroups *main_all_groups_window;
     QString selectedCourseName;
     QString selectedCourseNumber;
     QString dateOfStudyGroup;
     QString timeOfStudyGroup;
-
+    int m_rowCount;
+    int m_columnCount;
 };
 
 #endif // APPWINDOW_H

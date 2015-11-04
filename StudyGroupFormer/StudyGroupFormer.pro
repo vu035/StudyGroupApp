@@ -32,3 +32,6 @@ FORMS    += AppWindow.ui \
     LoginWindow.ui \
     CreateUser.ui \
     AllGroups.ui
+
+RESOURCES += \
+    studygrouppic.qrc

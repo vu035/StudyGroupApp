@@ -10,8 +10,13 @@ LoginWindow::LoginWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::LoginWindow)
 {
+
     main_app_window = new AppWindow(this);
     ui->setupUi(this);
+
+    QPixmap pix(":/image/StudyGroupPic/StudyGroup.jpg");
+    ui->label_pic->setPixmap(pix);
+    ui->label_pic->setAttribute(Qt::WA_TranslucentBackground);
 }
 
 LoginWindow::~LoginWindow()
@@ -51,6 +56,7 @@ void LoginWindow::login(){
        hide();
        main_app_window->setGeometry(geometry());
        main_app_window->on_successful_login();
+       main_app_window->setGroupsVisibleInTable();
        main_app_window->show();
 
     }
