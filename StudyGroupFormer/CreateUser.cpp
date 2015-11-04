@@ -2,6 +2,7 @@
 #include "ui_CreateUser.h"
 #include "LoginWindow.h"
 #include "HTTPInterface.h"
+#include "AppWindow.h"
 #include <QDebug>
 
 CreateUser::CreateUser(QWidget *parent) :
@@ -24,6 +25,8 @@ void CreateUser::on_CreateAccountButton_clicked()
     QString pass = ui->CreatePassword->text();
     QString passCopy = ui->CreatePasswordCopy->text();
     QString email = ui->CreateEmail->text();
+    QString FirstName = ui->CreateFirstName->text();
+    QString LastName = ui->CreateLastName->text();
 
     //need to reverify the new passwords
     //user inputs two passwords that
@@ -38,7 +41,10 @@ void CreateUser::on_CreateAccountButton_clicked()
     if(pass == passCopy)
     {
         qDebug() << "Passwords Matched, creating user...";
-        postCreateUser(email, pass, "first", "last", uname);
+        postCreateUser(email, pass, FirstName, LastName, uname);
+
+        //hide window
+        hide();
     }
 
 
