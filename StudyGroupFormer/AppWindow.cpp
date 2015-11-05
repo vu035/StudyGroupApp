@@ -1,6 +1,7 @@
 #include "AppWindow.h"
 #include "ui_AppWindow.h"
 #include "LoginWindow.h"
+#include "GroupInfo.h"
 #include "HTTPInterface.h"
 #include <QDebug>
 #include <QDate>
@@ -14,6 +15,10 @@ AppWindow::AppWindow(LoginWindow *login_window) :
     QMainWindow(login_window),
     ui(new Ui::AppWindow)
 {
+    group_info_window = new GroupInfo(this);
+    group_info_window->setGeometry(geometry());
+
+
     main_login_window = login_window;
     this->setFixedSize(900, 900);
     this->resizeEvent(false);
@@ -118,4 +123,10 @@ void AppWindow::on_successful_login(){
         QJsonObject json_obj = value.toObject();
         qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
     }
+}
+
+void AppWindow::on_pushButton_clicked()
+{
+    group_info_window->show();
+    //here we will opne the new window group info
 }
