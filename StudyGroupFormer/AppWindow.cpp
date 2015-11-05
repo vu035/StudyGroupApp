@@ -15,7 +15,7 @@ AppWindow::AppWindow(LoginWindow *login_window) :
     ui(new Ui::AppWindow)
 {
     main_login_window = login_window;
-    this->setFixedSize(800, 700);
+    this->setFixedSize(900, 900);
     this->resizeEvent(false);
 
     ui->setupUi(this);
@@ -67,6 +67,9 @@ void AppWindow::setColumnsOfTable()
     QStringList setColumnNames;
     setColumnNames<<"ID"<<"Class Name"<<"Date"<<"Time";
 
+    ui->listOfAllGroups->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->listOfAllGroups->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->listOfAllGroups->verticalHeader()->setVisible(false);
     ui->listOfAllGroups->setColumnCount(totalNumberOfColumns);
     ui->listOfAllGroups->setRowCount(1000);
     ui->listOfAllGroups->setHorizontalHeaderLabels(setColumnNames);
@@ -76,7 +79,8 @@ void AppWindow::setGroupsVisibleInTable()
 {
     QJsonArray groupData = getAllGroups();
 
-    foreach (const QJsonValue &value, groupData) {
+    foreach (const QJsonValue &value, groupData)
+    {
         QJsonObject json_obj = value.toObject();
         QString course = json_obj["department"].toString() + " " + QString::number(json_obj["class_number"].toInt());
         //qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
