@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     CreateUser.cpp \
     AllGroups.cpp \
     User.cpp \
-    HTTPInterface.cpp
+    HTTPInterface.cpp \
+    GroupInfo.cpp
 
 
 HEADERS  += AppWindow.h \
@@ -26,12 +27,14 @@ HEADERS  += AppWindow.h \
     CreateUser.h \
     HTTPInterface.h\
     AllGroups.h \
-    User.h
+    User.h \
+    GroupInfo.h
 
 FORMS    += AppWindow.ui \
     LoginWindow.ui \
     CreateUser.ui \
-    AllGroups.ui
+    AllGroups.ui \
+    GroupInfo.ui
 
 RESOURCES += \
     studygrouppic.qrc
