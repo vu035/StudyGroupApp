@@ -8,7 +8,7 @@
 #include <QSizePolicy>
 
 
-const int totalNumberOfColumns=3;
+const int totalNumberOfColumns=4;
 
 AppWindow::AppWindow(LoginWindow *login_window) :
     QMainWindow(login_window),
