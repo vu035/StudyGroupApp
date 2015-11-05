@@ -8,7 +8,7 @@
 #include <QSizePolicy>
 
 
-const int totalNumberOfColumns=3;
+const int totalNumberOfColumns=4;
 
 AppWindow::AppWindow(LoginWindow *login_window) :
     QMainWindow(login_window),
@@ -65,25 +65,32 @@ void AppWindow::setTimeOfStudyGroup()
 void AppWindow::setColumnsOfTable()
 {
     QStringList setColumnNames;
-    setColumnNames<<"Class Name"<<"Date"<<"Time";
+    setColumnNames<<"ID"<<"Class Name"<<"Date"<<"Time";
 
     ui->listOfAllGroups->setColumnCount(totalNumberOfColumns);
     ui->listOfAllGroups->setRowCount(1000);
     ui->listOfAllGroups->setHorizontalHeaderLabels(setColumnNames);
 }
 
-void AppWindow::setGroupVisibleInTable()
+void AppWindow::setGroupsVisibleInTable()
 {
-    QString course = selectedCourseName + " " + selectedCourseNumber;
+    QJsonArray groupData = getAllGroups();
 
-    ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(course));
-    m_columnCount++;
-    ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(dateOfStudyGroup));
-    m_columnCount++;
-    ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(timeOfStudyGroup));
-    m_columnCount=0;
-    m_rowCount++;
-
+    foreach (const QJsonValue &value, groupData) {
+        QJsonObject json_obj = value.toObject();
+        QString course = json_obj["department"].toString() + " " + QString::number(json_obj["class_number"].toInt());
+        //qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
+        qDebug()<< json_obj["id"].toInt() << course;
+        ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(QString::number(json_obj["id"].toInt())));
+        m_columnCount++;
+        ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(course));
+        m_columnCount++;
+        ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(json_obj["date"].toString()));
+        m_columnCount++;
+        ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(json_obj["time"].toString()));
+        m_columnCount=0;
+        m_rowCount++;
+    }
 }
 
 void AppWindow::on_createGroup_clicked()
@@ -92,8 +99,7 @@ void AppWindow::on_createGroup_clicked()
     setTimeOfStudyGroup();
     setSelectedCourseName();
     setSelectedCourseNumber();
-    setGroupVisibleInTable();
-    //postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
+    postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
 
 //    qDebug()<<"Number of Row Counter:"<< numberOfRowCounter;
 //    qDebug()<<"Row Count:"<< m_rowCount;
