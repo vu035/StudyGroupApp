@@ -31,6 +31,7 @@ public:
     void setTimeOfStudyGroup();
     void setColumnsOfTable();
     void setGroupsVisibleInTable();
+    int getSelectedRow();
     void on_successful_login();
 
 

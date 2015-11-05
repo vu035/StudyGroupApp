@@ -8,7 +8,8 @@
 #include <QSizePolicy>
 
 
-const int totalNumberOfColumns=4;
+const int MAX_NUM_OF_COLUMNS = 4;
+const int MAX_NUM_OF_ROWS = 20;
 
 AppWindow::AppWindow(LoginWindow *login_window) :
     QMainWindow(login_window),
@@ -22,7 +23,6 @@ AppWindow::AppWindow(LoginWindow *login_window) :
     m_rowCount=0;
     addItemsToComboBox();
     setColumnsOfTable();
-
 }
 
 void AppWindow::addItemsToComboBox()
@@ -46,7 +46,6 @@ void AppWindow::setSelectedCourseName()
     selectedCourseName = ui->courseNameComboBox->currentText();
 }
 
-
 void AppWindow::setSelectedCourseNumber()
 {
     selectedCourseNumber = ui->courseNumberComboBox->currentText();
@@ -68,10 +67,11 @@ void AppWindow::setColumnsOfTable()
     setColumnNames<<"ID"<<"Class Name"<<"Date"<<"Time";
 
     ui->listOfAllGroups->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->listOfAllGroups->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->listOfAllGroups->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->listOfAllGroups->verticalHeader()->setVisible(false);
-    ui->listOfAllGroups->setColumnCount(totalNumberOfColumns);
-    ui->listOfAllGroups->setRowCount(1000);
+    ui->listOfAllGroups->setColumnCount(MAX_NUM_OF_COLUMNS);
+    ui->listOfAllGroups->setRowCount(MAX_NUM_OF_ROWS);
     ui->listOfAllGroups->setHorizontalHeaderLabels(setColumnNames);
 }
 
@@ -97,18 +97,25 @@ void AppWindow::setGroupsVisibleInTable()
     }
 }
 
+int AppWindow::getSelectedRow()
+{
+    //QModelIndexList selection = ui->listOfAllGroups->selectionModel()->selectedRows();
+    int selected;
+    for(int i=0; i< m_rowCount; i++)
+    {
+        if(ui->listOfAllGroups->item(i,0)->isSelected()) selected = i+1;
+    }
+    return selected;
+}
+
 void AppWindow::on_createGroup_clicked()
 {
     setDateOfStudyGroup();
     setTimeOfStudyGroup();
     setSelectedCourseName();
     setSelectedCourseNumber();
-    postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
-
-//    qDebug()<<"Number of Row Counter:"<< numberOfRowCounter;
-//    qDebug()<<"Row Count:"<< m_rowCount;
-//    qDebug()<<"Column Count:"<< m_columnCount;
-
+    qDebug()<<"Selected Row: "<< getSelectedRow();
+    //postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
 }
 
 void AppWindow::on_successful_login(){
