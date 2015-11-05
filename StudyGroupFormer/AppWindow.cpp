@@ -15,7 +15,7 @@ AppWindow::AppWindow(LoginWindow *login_window) :
     ui(new Ui::AppWindow)
 {
     main_login_window = login_window;
-    this->setFixedSize(800, 700);
+    this->setFixedSize(900, 900);
     this->resizeEvent(false);
 
     ui->setupUi(this);
@@ -66,6 +66,9 @@ void AppWindow::setColumnsOfTable()
     QStringList setColumnNames;
     setColumnNames<<"ID"<<"Class Name"<<"Date"<<"Time";
 
+    ui->listOfAllGroups->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->listOfAllGroups->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->listOfAllGroups->verticalHeader()->setVisible(false);
     ui->listOfAllGroups->setColumnCount(totalNumberOfColumns);
     ui->listOfAllGroups->setRowCount(1000);
     ui->listOfAllGroups->setHorizontalHeaderLabels(setColumnNames);
