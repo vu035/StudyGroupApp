@@ -279,6 +279,50 @@ bool postLogin(QString email, QString password){
     }
 }
 
+//get group info
+QJsonObject getStudyGroup(QString group_id){
+    QJsonObject json_obj ;
+    QString url = "https://studygroupformer.herokuapp.com/studygroups/" + group_id;
+    QUrl myURL(url);
+    QNetworkRequest request(myURL);
+    QNetworkAccessManager mgr;
+
+
+    request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
+
+    QNetworkReply *reply = mgr.get(request);
+
+
+    QEventLoop eventLoop;
+    QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+    eventLoop.exec();
+
+    if (reply->error() == QNetworkReply::NoError) {
+
+        QString strReply = (QString)reply->readAll();
+
+        //success
+            qDebug() << " Success";
+            QJsonDocument jsonResponse = QJsonDocument::fromJson(strReply.toUtf8());
+            json_obj = jsonResponse.object();
+             qDebug() << json_obj;
+
+
+
+
+             delete reply;
+             return json_obj;
+
+    }
+    else {
+        //failure
+        qDebug() << "Failure" <<reply->errorString();
+        delete reply;
+        return json_obj;
+
+    }
+}
+
 
 User getAppUser(){
     return AppUser;

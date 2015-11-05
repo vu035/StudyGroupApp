@@ -30,7 +30,7 @@ public:
     void setDateOfStudyGroup();
     void setTimeOfStudyGroup();
     void setColumnsOfTable();
-    void setGroupVisibleInTable();
+    void setGroupsVisibleInTable();
     void on_successful_login();
 
 

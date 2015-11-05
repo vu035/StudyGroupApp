@@ -34,19 +34,19 @@ void LoginWindow::login(){
     qDebug() << uname;
     QString pass = ui->password->text();
 
-    //postCreateGroup("MATH", "360", "12-22-15", "3:00PM");
-    //postCreateUser("root@admin", "root");
+    //postCreateGroup("CS", "311", "12-20-15", "1:00PM");
+    //postCreateUser("1@3", "root", "James", "Hannahan", "JH024");
 
     //if pass matches encrypted pass, show main window
     if(postLogin(uname, pass)){
 
-        //postJoinGroup("4", getAppUser().m_id);
+        //postJoinGroup("5", getAppUser().m_id);
 
         //get AppUser's groups from db and set AppUser groups
-        getUserGroups(getAppUser());
-
+        //getUserGroups(getAppUser());
+        getStudyGroup("1");
         //debug output
-        getAllGroups();
+        //getAllGroups();
 
 
 
@@ -56,6 +56,7 @@ void LoginWindow::login(){
        hide();
        main_app_window->setGeometry(geometry());
        main_app_window->on_successful_login();
+       main_app_window->setGroupsVisibleInTable();
        main_app_window->show();
 
     }
