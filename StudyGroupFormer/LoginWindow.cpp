@@ -43,10 +43,10 @@ void LoginWindow::login(){
         //postJoinGroup("5", getAppUser().m_id);
 
         //get AppUser's groups from db and set AppUser groups
-        getUserGroups(getAppUser());
-
+        //getUserGroups(getAppUser());
+        getStudyGroup("1");
         //debug output
-        getAllGroups();
+        //getAllGroups();
 
 
 
