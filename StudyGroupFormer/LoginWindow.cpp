@@ -64,7 +64,7 @@ void LoginWindow::login(){
 
 void LoginWindow::on_createButton_clicked()
 {
-    hide();
+    //hide();
     create_user_window = new CreateUser(this);
     create_user_window->setGeometry(geometry());
     create_user_window->show();

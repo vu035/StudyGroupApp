@@ -32,7 +32,7 @@ public:
     void setTimeOfStudyGroup();
     void setColumnsOfTable();
     void setGroupsVisibleInTable();
-    int getSelectedRow();
+    QString getSelectedRow();
     void on_successful_login();
 
 

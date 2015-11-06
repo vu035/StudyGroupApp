@@ -4,6 +4,7 @@
 #include "HTTPInterface.h"
 #include "AppWindow.h"
 #include <QDebug>
+#include <QMessageBox>
 
 CreateUser::CreateUser(QWidget *parent) :
     QDialog(parent),
@@ -34,6 +35,7 @@ void CreateUser::on_CreateAccountButton_clicked()
     if(pass != passCopy)
     {
         qDebug() << "**Passwords did NOT match! Cannot create user.";
+        QMessageBox::information(this,tr("Cannot Create User"),tr("Passwords do not match!"));
         return;
     }
 
