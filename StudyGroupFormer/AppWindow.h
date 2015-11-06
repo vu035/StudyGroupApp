@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include"AllGroups.h"
+#include "GroupInfo.h"
 #include<iostream>
 #include <QString>
 #include <QDate>
@@ -31,16 +32,19 @@ public:
     void setTimeOfStudyGroup();
     void setColumnsOfTable();
     void setGroupsVisibleInTable();
+    void clearListOfAllGroups();
+    QString getSelectedRow();
     void on_successful_login();
-
 
 private slots:
     void on_createGroup_clicked();
-
+    void on_getGroupInfo_clicked();
+    void on_refreshButton_clicked();
 
 protected:
     Ui::AppWindow *ui;
     LoginWindow *main_login_window;
+    GroupInfo *group_info_window;
     QString selectedCourseName;
     QString selectedCourseNumber;
     QString dateOfStudyGroup;
