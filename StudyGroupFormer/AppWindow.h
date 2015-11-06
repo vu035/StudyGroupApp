@@ -32,15 +32,14 @@ public:
     void setTimeOfStudyGroup();
     void setColumnsOfTable();
     void setGroupsVisibleInTable();
+    void clearListOfAllGroups();
     QString getSelectedRow();
     void on_successful_login();
 
-
 private slots:
     void on_createGroup_clicked();
-
-
-    void on_pushButton_clicked();
+    void on_getGroupInfo_clicked();
+    void on_refreshButton_clicked();
 
 protected:
     Ui::AppWindow *ui;

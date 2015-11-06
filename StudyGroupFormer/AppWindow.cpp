@@ -10,7 +10,7 @@
 
 
 const int MAX_NUM_OF_COLUMNS = 4;
-const int MAX_NUM_OF_ROWS = 20;
+const int MAX_NUM_OF_ROWS = 40;
 
 AppWindow::AppWindow(LoginWindow *login_window) :
     QMainWindow(login_window),
@@ -22,7 +22,6 @@ AppWindow::AppWindow(LoginWindow *login_window) :
 
     main_login_window = login_window;
     this->setFixedSize(900, 900);
-    this->resizeEvent(false);
 
     ui->setupUi(this);
     m_rowCount=0;
@@ -102,6 +101,11 @@ void AppWindow::setGroupsVisibleInTable()
     }
 }
 
+void AppWindow::clearListOfAllGroups()
+{
+   ui->listOfAllGroups->clear();
+}
+
 QString AppWindow::getSelectedRow()
 {
     int selected;
@@ -118,7 +122,6 @@ void AppWindow::on_createGroup_clicked()
     setTimeOfStudyGroup();
     setSelectedCourseName();
     setSelectedCourseNumber();
-    qDebug()<<"Selected Row: "<< getSelectedRow();
     postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
 }
 
@@ -131,8 +134,15 @@ void AppWindow::on_successful_login(){
     }
 }
 
-void AppWindow::on_pushButton_clicked()
+void AppWindow::on_getGroupInfo_clicked()
 {
     group_info_window->show();
-    //here we will opne the new window group info
+}
+
+void AppWindow::on_refreshButton_clicked()
+{
+    m_rowCount=0;
+    clearListOfAllGroups();
+    setColumnsOfTable();
+    setGroupsVisibleInTable();
 }
