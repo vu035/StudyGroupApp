@@ -1,26 +1,34 @@
 #include "AppWindow.h"
 #include "ui_AppWindow.h"
 #include "LoginWindow.h"
+#include "GroupInfo.h"
 #include "HTTPInterface.h"
 #include <QDebug>
 #include <QDate>
 #include <QString>
+#include <QSizePolicy>
 
 
-
+const int MAX_NUM_OF_COLUMNS = 4;
+const int MAX_NUM_OF_ROWS = 20;
 
 AppWindow::AppWindow(LoginWindow *login_window) :
     QMainWindow(login_window),
     ui(new Ui::AppWindow)
 {
+    group_info_window = new GroupInfo(this);
+    group_info_window->setGeometry(geometry());
+
+
     main_login_window = login_window;
-    main_all_groups_window = new AllGroups();
+    this->setFixedSize(900, 900);
+    this->resizeEvent(false);
 
     ui->setupUi(this);
-
+    m_rowCount=0;
     addItemsToComboBox();
+    setColumnsOfTable();
 }
-
 
 void AppWindow::addItemsToComboBox()
 {
@@ -43,7 +51,6 @@ void AppWindow::setSelectedCourseName()
     selectedCourseName = ui->courseNameComboBox->currentText();
 }
 
-
 void AppWindow::setSelectedCourseNumber()
 {
     selectedCourseNumber = ui->courseNumberComboBox->currentText();
@@ -56,7 +63,54 @@ void AppWindow::setDateOfStudyGroup()
 
 void AppWindow::setTimeOfStudyGroup()
 {
-   timeOfStudyGroup = ui->startTimeWidget->time().toString();
+    timeOfStudyGroup = ui->startTimeWidget->time().toString();
+}
+
+void AppWindow::setColumnsOfTable()
+{
+    QStringList setColumnNames;
+    setColumnNames<<"ID"<<"Class Name"<<"Date"<<"Time";
+
+    ui->listOfAllGroups->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->listOfAllGroups->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->listOfAllGroups->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->listOfAllGroups->verticalHeader()->setVisible(false);
+    ui->listOfAllGroups->setColumnCount(MAX_NUM_OF_COLUMNS);
+    ui->listOfAllGroups->setRowCount(MAX_NUM_OF_ROWS);
+    ui->listOfAllGroups->setHorizontalHeaderLabels(setColumnNames);
+}
+
+void AppWindow::setGroupsVisibleInTable()
+{
+    QJsonArray groupData = getAllGroups();
+
+    foreach (const QJsonValue &value, groupData)
+    {
+        QJsonObject json_obj = value.toObject();
+        QString course = json_obj["department"].toString() + " " + QString::number(json_obj["class_number"].toInt());
+        //qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
+        qDebug()<< json_obj["id"].toInt() << course;
+        ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(QString::number(json_obj["id"].toInt())));
+        m_columnCount++;
+        ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(course));
+        m_columnCount++;
+        ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(json_obj["date"].toString()));
+        m_columnCount++;
+        ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(json_obj["time"].toString()));
+        m_columnCount=0;
+        m_rowCount++;
+    }
+}
+
+int AppWindow::getSelectedRow()
+{
+    //QModelIndexList selection = ui->listOfAllGroups->selectionModel()->selectedRows();
+    int selected;
+    for(int i=0; i< m_rowCount; i++)
+    {
+        if(ui->listOfAllGroups->item(i,0)->isSelected()) selected = i+1;
+    }
+    return selected;
 }
 
 void AppWindow::on_createGroup_clicked()
@@ -65,12 +119,8 @@ void AppWindow::on_createGroup_clicked()
     setTimeOfStudyGroup();
     setSelectedCourseName();
     setSelectedCourseNumber();
-    postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
-
-
-    this->hide();
-    main_all_groups_window ->setGeometry(geometry());
-    main_all_groups_window->show();
+    qDebug()<<"Selected Row: "<< getSelectedRow();
+    //postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
 }
 
 void AppWindow::on_successful_login(){
@@ -79,5 +129,11 @@ void AppWindow::on_successful_login(){
     foreach (const QJsonValue &value, getAppUser().m_studygroups) {
         QJsonObject json_obj = value.toObject();
         qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
-        }
-};
+    }
+}
+
+void AppWindow::on_pushButton_clicked()
+{
+    group_info_window->show();
+    //here we will opne the new window group info
+}

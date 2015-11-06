@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "CreateUser.h"
 #include  "User.h"
+#include "AllGroups.h"
 
 namespace Ui {
 class LoginWindow;
@@ -21,11 +22,8 @@ public:
 
 private slots:
     void on_loginButton_clicked();
-
     void on_createButton_clicked();
-
     void on_password_returnPressed();
-
     void login();
 
 private:
