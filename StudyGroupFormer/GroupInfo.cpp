@@ -34,8 +34,6 @@ void GroupInfo::displayGroupInfo()
      ui->lblGUpdated->setText(groupUpdated);
      ui->lblGDate->setText(groupDate);
      ui->lblGTime->setText(groupTime);
-
-
 }
 
 GroupInfo::~GroupInfo()

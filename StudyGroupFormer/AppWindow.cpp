@@ -102,15 +102,14 @@ void AppWindow::setGroupsVisibleInTable()
     }
 }
 
-int AppWindow::getSelectedRow()
+QString AppWindow::getSelectedRow()
 {
-    //QModelIndexList selection = ui->listOfAllGroups->selectionModel()->selectedRows();
     int selected;
     for(int i=0; i< m_rowCount; i++)
     {
         if(ui->listOfAllGroups->item(i,0)->isSelected()) selected = i+1;
     }
-    return selected;
+    return (QString)selected;
 }
 
 void AppWindow::on_createGroup_clicked()
@@ -120,7 +119,7 @@ void AppWindow::on_createGroup_clicked()
     setSelectedCourseName();
     setSelectedCourseNumber();
     qDebug()<<"Selected Row: "<< getSelectedRow();
-    //postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
+    postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
 }
 
 void AppWindow::on_successful_login(){
