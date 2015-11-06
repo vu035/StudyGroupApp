@@ -13,14 +13,56 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QListView" name="listView">
+  <widget class="QLabel" name="firstnamelabel">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>100</y>
-     <width>256</width>
-     <height>192</height>
+     <x>160</x>
+     <y>20</y>
+     <width>91</width>
+     <height>31</height>
     </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="emaillabel">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>160</y>
+     <width>91</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="usernamelabel">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>110</y>
+     <width>91</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lastnamelabel">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>60</y>
+     <width>91</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
    </property>
   </widget>
  </widget>

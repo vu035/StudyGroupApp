@@ -67,7 +67,7 @@ void AppWindow::on_createGroup_clicked()
     setSelectedCourseNumber();
     postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
 
-
+    main_all_groups_window->User_Profile();
     this->hide();
     main_all_groups_window ->setGeometry(geometry());
     main_all_groups_window->show();

@@ -1,11 +1,19 @@
 #ifndef ALLGROUPS_H
 #define ALLGROUPS_H
 
-#include <QWidget>
+#include <QMainWindow>
+#include"AllGroups.h"
+#include<iostream>
+#include <QString>
+#include <QDate>
+#include "User.h"
 
 namespace Ui {
 class AllGroups;
 }
+
+class LoginWindow;
+class User;
 
 class AllGroups : public QWidget
 {
@@ -14,6 +22,9 @@ class AllGroups : public QWidget
 public:
     explicit AllGroups(QWidget *parent = 0);
     ~AllGroups();
+    void User_Profile();
+
+private slots:
 
 private:
     Ui::AllGroups *ui;
