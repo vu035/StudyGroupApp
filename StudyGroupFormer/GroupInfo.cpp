@@ -11,7 +11,6 @@ GroupInfo::GroupInfo(QWidget *parent) :
     ui->setupUi(this);
     this->setFixedSize(600, 600);
     displayGroupInfo();
-
 }
 
 void GroupInfo::displayGroupInfo()
