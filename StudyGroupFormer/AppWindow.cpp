@@ -17,9 +17,11 @@ AppWindow::AppWindow(LoginWindow *login_window) :
     QMainWindow(login_window),
     ui(new Ui::AppWindow)
 {
+    main_all_groups_window = new AllGroups();
+
     group_info_window = new GroupInfo(this);
     group_info_window->setGeometry(geometry());
-    main_all_groups_window = new AllGroups();
+
 
     main_login_window = login_window;
     this->setFixedSize(900, 900);
@@ -115,15 +117,15 @@ QString AppWindow::getSelectedRow()
 
 void AppWindow::on_createGroup_clicked()
 {
-    setDateOfStudyGroup();
+    /*setDateOfStudyGroup();
     setTimeOfStudyGroup();
     setSelectedCourseName();
     setSelectedCourseNumber();
     qDebug()<<"Selected Row: "<< getSelectedRow();
     postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
-
+*/
     main_all_groups_window->User_Profile();
-    this->hide();
+    //this->hide();
     main_all_groups_window ->setGeometry(geometry());
     main_all_groups_window->show();
 }
