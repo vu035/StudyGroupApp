@@ -22,7 +22,7 @@ class AppWindow : public QMainWindow
 
 public:
 
-
+    AllGroups *main_all_groups_window;
     explicit AppWindow(LoginWindow *login_window);
     void addItemsToComboBox();
     ~AppWindow();
