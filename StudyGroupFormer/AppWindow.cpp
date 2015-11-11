@@ -23,6 +23,7 @@ AppWindow::AppWindow(LoginWindow *login_window) :
     main_login_window = login_window;
     this->setFixedSize(900, 900);
 
+    connect(this, SIGNAL(sendGroupID(QString)), group_info_window, SLOT(setLabelText(QString)));
     ui->setupUi(this);
     m_rowCount=0;
     addItemsToComboBox();
@@ -149,4 +150,9 @@ void AppWindow::on_refreshButton_clicked()
     clearListOfAllGroups();
     setColumnsOfTable();
     setGroupsVisibleInTable();
+}
+
+void AppWindow::on_listOfAllGroups_cellClicked(int row, int column)
+{
+    emit sendGroupID(QString::number(row+1));
 }
