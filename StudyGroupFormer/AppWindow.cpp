@@ -87,7 +87,7 @@ void AppWindow::setGroupsVisibleInTable()
     {
         QJsonObject json_obj = value.toObject();
         QString course = json_obj["department"].toString() + " " + QString::number(json_obj["class_number"].toInt());
-        //qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
+        qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
         qDebug()<< json_obj["id"].toInt() << course;
         ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(QString::number(json_obj["id"].toInt())));
         m_columnCount++;
@@ -108,12 +108,15 @@ void AppWindow::clearListOfAllGroups()
 
 QString AppWindow::getSelectedRow()
 {
-    int selected;
-    for(int i=0; i< m_rowCount; i++)
+    QString index;
+    QModelIndexList selection = ui->listOfAllGroups->selectionModel()->selectedRows();
+
+    for(int i=0; i< selection.count(); i++)
     {
-        if(ui->listOfAllGroups->item(i,0)->isSelected()) selected = i+1;
+        index = selection.at(i).data().toString();
+        qDebug() << index;
     }
-    return (QString)selected;
+    return index;
 }
 
 void AppWindow::on_createGroup_clicked()
@@ -122,7 +125,8 @@ void AppWindow::on_createGroup_clicked()
     setTimeOfStudyGroup();
     setSelectedCourseName();
     setSelectedCourseNumber();
-    postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
+    getSelectedRow();
+//    postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
 }
 
 void AppWindow::on_successful_login(){
