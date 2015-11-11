@@ -23,7 +23,8 @@ public:
     explicit AllGroups(QWidget *parent = 0);
     ~AllGroups();
     void User_Profile();
-    void Study_Group_Info();
+    void Study_Group_Info();    
+    void setColumnsOfTable();
 
 private slots:
 

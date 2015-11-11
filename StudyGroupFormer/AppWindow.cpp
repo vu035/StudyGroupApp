@@ -48,26 +48,6 @@ AppWindow::~AppWindow()
     delete ui;
 }
 
-void AppWindow::setSelectedCourseName()
-{
-    selectedCourseName = ui->courseNameComboBox->currentText();
-}
-
-void AppWindow::setSelectedCourseNumber()
-{
-    selectedCourseNumber = ui->courseNumberComboBox->currentText();
-}
-
-void AppWindow::setDateOfStudyGroup()
-{
-   dateOfStudyGroup = ui->dateOfStudyWidget->date().toString();
-}
-
-void AppWindow::setTimeOfStudyGroup()
-{
-    timeOfStudyGroup = ui->startTimeWidget->time().toString();
-}
-
 void AppWindow::setColumnsOfTable()
 {
     QStringList setColumnNames;
@@ -119,14 +99,8 @@ QString AppWindow::getSelectedRow()
     return (QString)selected;
 }
 
-void AppWindow::on_createGroup_clicked()
+void AppWindow::on_UserProfile_clicked()
 {
-    /*setDateOfStudyGroup();
-    setTimeOfStudyGroup();
-    setSelectedCourseName();
-    setSelectedCourseNumber();
-    postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
-*/
     main_all_groups_window->User_Profile();
     //this->hide();
     main_all_groups_window ->setGeometry(geometry());
@@ -139,6 +113,7 @@ void AppWindow::on_successful_login(){
     foreach (const QJsonValue &value, getAppUser().m_studygroups) {
         QJsonObject json_obj = value.toObject();
         qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
+        qDebug() <<"end!!!!";
     }
 }
 
@@ -153,4 +128,14 @@ void AppWindow::on_refreshButton_clicked()
     clearListOfAllGroups();
     setColumnsOfTable();
     setGroupsVisibleInTable();
+}
+
+void AppWindow::on_CreateGroup_clicked()
+{
+    selectedCourseName = ui->courseNameComboBox->currentText();
+    selectedCourseNumber = ui->courseNumberComboBox->currentText();
+    dateOfStudyGroup = ui->dateOfStudyWidget->date().toString();
+    timeOfStudyGroup = ui->startTimeWidget->time().toString();
+    postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
+    on_refreshButton_clicked();
 }
