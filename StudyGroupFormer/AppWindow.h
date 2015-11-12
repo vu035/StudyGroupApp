@@ -2,12 +2,18 @@
 #define APPWINDOW_H
 
 #include <QMainWindow>
-#include"AllGroups.h"
+//#include"AllGroups.h"
 #include "GroupInfo.h"
-#include<iostream>
-#include <QString>
-#include <QDate>
-#include "User.h"
+//#include <QString>
+//#include <QDate>
+//#include "User.h"
+//#include "LoginWindow.h"
+//#include "GroupInfo.h"
+//#include "HTTPInterface.h"
+//#include <QDebug>
+
+
+
 
 namespace Ui {
 class AppWindow;
@@ -33,7 +39,6 @@ public:
     void setColumnsOfTable();
     void setGroupsVisibleInTable();
     void clearListOfAllGroups();
-    QString getSelectedRow();
     void on_successful_login();
 
 private slots:

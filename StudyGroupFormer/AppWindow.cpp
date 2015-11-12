@@ -3,11 +3,6 @@
 #include "LoginWindow.h"
 #include "GroupInfo.h"
 #include "HTTPInterface.h"
-#include <QDebug>
-#include <QDate>
-#include <QString>
-#include <QSizePolicy>
-
 
 const int MAX_NUM_OF_COLUMNS = 4;
 const int MAX_NUM_OF_ROWS = 40;
@@ -107,27 +102,13 @@ void AppWindow::clearListOfAllGroups()
    ui->listOfAllGroups->clear();
 }
 
-QString AppWindow::getSelectedRow()
-{
-    QString index;
-    QModelIndexList selection = ui->listOfAllGroups->selectionModel()->selectedRows();
-
-    for(int i=0; i< selection.count(); i++)
-    {
-        index = selection.at(i).data().toString();
-        qDebug() << index;
-    }
-    return index;
-}
-
 void AppWindow::on_createGroup_clicked()
 {
     setDateOfStudyGroup();
     setTimeOfStudyGroup();
     setSelectedCourseName();
     setSelectedCourseNumber();
-    getSelectedRow();
-//    postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
+    postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
 }
 
 void AppWindow::on_successful_login(){
