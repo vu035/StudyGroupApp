@@ -9,7 +9,8 @@ GroupInfo::GroupInfo(QWidget *parent) :
     ui(new Ui::GroupInfo)
 {
     ui->setupUi(this);
-    this->setFixedSize(600, 600);
+    this->setFixedSize(800, 600);
+    this->adjustSize();
     //displayGroupInfo();
 }
 

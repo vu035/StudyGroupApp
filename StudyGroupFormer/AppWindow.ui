@@ -159,10 +159,10 @@
    <widget class="QPushButton" name="getGroupInfo">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>20</x>
       <y>460</y>
       <width>131</width>
-      <height>32</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
@@ -189,7 +189,7 @@
      <x>0</x>
      <y>0</y>
      <width>904</width>
-     <height>22</height>
+     <height>31</height>
     </rect>
    </property>
   </widget>

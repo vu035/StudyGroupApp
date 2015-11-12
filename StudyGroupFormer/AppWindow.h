@@ -2,12 +2,9 @@
 #define APPWINDOW_H
 
 #include <QMainWindow>
-#include"AllGroups.h"
 #include "GroupInfo.h"
-#include<iostream>
-#include <QString>
-#include <QDate>
-#include "User.h"
+
+
 
 namespace Ui {
 class AppWindow;
@@ -33,15 +30,13 @@ public:
     void setColumnsOfTable();
     void setGroupsVisibleInTable();
     void clearListOfAllGroups();
-    QString getSelectedRow();
     void on_successful_login();
 
 private slots:
     void on_createGroup_clicked();
     void on_getGroupInfo_clicked();
     void on_refreshButton_clicked();
-
-    void on_listOfAllGroups_cellClicked(int row, int column);
+    void on_listOfAllGroups_cellClicked(int row);
 
 protected:
     Ui::AppWindow *ui;
