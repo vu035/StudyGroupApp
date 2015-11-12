@@ -41,6 +41,8 @@ private slots:
     void on_getGroupInfo_clicked();
     void on_refreshButton_clicked();
 
+    void on_listOfAllGroups_cellClicked(int row, int column);
+
 protected:
     Ui::AppWindow *ui;
     LoginWindow *main_login_window;
@@ -51,6 +53,9 @@ protected:
     QString timeOfStudyGroup;
     int m_rowCount;
     int m_columnCount;
+
+signals:
+    void sendGroupID(QString newID);
 };
 
 #endif // APPWINDOW_H

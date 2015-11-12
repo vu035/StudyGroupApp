@@ -10,7 +10,7 @@ GroupInfo::GroupInfo(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setFixedSize(600, 600);
-    displayGroupInfo();
+    //displayGroupInfo();
 }
 
 void GroupInfo::displayGroupInfo()
@@ -33,6 +33,27 @@ void GroupInfo::displayGroupInfo()
      ui->lblGUpdated->setText(groupUpdated);
      ui->lblGDate->setText(groupDate);
      ui->lblGTime->setText(groupTime);
+}
+
+void GroupInfo::setLabelText(QString gID)
+{
+    QJsonObject groupInfo = getStudyGroup(gID);
+
+    //parse the info
+    QString groupId = QString::number(groupInfo["id"].toInt());
+    QString groupDep = groupInfo["department"].toString();
+    QString groupNum = QString::number(groupInfo["class_number"].toInt());
+    QString groupCreated = groupInfo["created_at"].toString();
+    QString groupUpdated = groupInfo["updated_at"].toString();
+    QString groupDate = groupInfo["date"].toString();
+    QString groupTime = groupInfo["time"].toString();
+
+    ui->lblGID->setText(groupId);
+    ui->lblGCName->setText(groupDep + " " + groupNum);
+    ui->lblGCreated->setText(groupCreated);
+    ui->lblGUpdated->setText(groupUpdated);
+    ui->lblGDate->setText(groupDate);
+    ui->lblGTime->setText(groupTime);
 }
 
 GroupInfo::~GroupInfo()
