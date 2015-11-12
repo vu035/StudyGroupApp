@@ -15,6 +15,9 @@ public:
     explicit GroupInfo(QWidget *parent = 0);
     void displayGroupInfo();
     ~GroupInfo();
+    
+public slots:
+    void setLabelText(QString gID);
 
 private:
     Ui::GroupInfo *ui;
