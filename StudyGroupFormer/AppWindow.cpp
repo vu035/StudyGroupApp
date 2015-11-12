@@ -133,7 +133,7 @@ void AppWindow::on_refreshButton_clicked()
     setGroupsVisibleInTable();
 }
 
-void AppWindow::on_listOfAllGroups_cellClicked(int row, int column)
+void AppWindow::on_listOfAllGroups_cellClicked(int row)
 {
     emit sendGroupID(QString::number(row+1));
 }

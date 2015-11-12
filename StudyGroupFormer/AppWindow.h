@@ -2,16 +2,7 @@
 #define APPWINDOW_H
 
 #include <QMainWindow>
-//#include"AllGroups.h"
 #include "GroupInfo.h"
-//#include <QString>
-//#include <QDate>
-//#include "User.h"
-//#include "LoginWindow.h"
-//#include "GroupInfo.h"
-//#include "HTTPInterface.h"
-//#include <QDebug>
-
 
 
 
@@ -45,8 +36,7 @@ private slots:
     void on_createGroup_clicked();
     void on_getGroupInfo_clicked();
     void on_refreshButton_clicked();
-
-    void on_listOfAllGroups_cellClicked(int row, int column);
+    void on_listOfAllGroups_cellClicked(int row);
 
 protected:
     Ui::AppWindow *ui;
