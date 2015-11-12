@@ -146,7 +146,7 @@
      <rect>
       <x>190</x>
       <y>70</y>
-      <width>661</width>
+      <width>631</width>
       <height>481</height>
      </rect>
     </property>
@@ -159,10 +159,10 @@
    <widget class="QPushButton" name="getGroupInfo">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>20</x>
       <y>460</y>
-      <width>113</width>
-      <height>32</height>
+      <width>131</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
@@ -172,7 +172,7 @@
    <widget class="QPushButton" name="refreshButton">
     <property name="geometry">
      <rect>
-      <x>740</x>
+      <x>710</x>
       <y>550</y>
       <width>111</width>
       <height>41</height>
