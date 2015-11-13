@@ -44,7 +44,7 @@ void LoginWindow::login(){
 
         //get AppUser's groups from db and set AppUser groups
         getUserGroups(getAppUser());
-        getStudyGroup("1");
+        //getStudyGroup("1");
         //debug output
         //getAllGroups();
 
