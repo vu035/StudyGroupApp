@@ -4,11 +4,6 @@
 #include "GroupInfo.h"
 #include "AllGroups.h"
 #include "HTTPInterface.h"
-#include <QDebug>
-#include <QDate>
-#include <QString>
-#include <QSizePolicy>
-
 
 const int MAX_NUM_OF_COLUMNS = 4;
 const int MAX_NUM_OF_ROWS = 40;
@@ -26,6 +21,7 @@ AppWindow::AppWindow(LoginWindow *login_window) :
     main_login_window = login_window;
     this->setFixedSize(900, 900);
 
+    connect(this, SIGNAL(sendGroupID(QString)), group_info_window, SLOT(setLabelText(QString)));
     ui->setupUi(this);
     m_rowCount=0;
     addItemsToComboBox();
@@ -90,7 +86,7 @@ void AppWindow::setGroupsVisibleInTable()
     {
         QJsonObject json_obj = value.toObject();
         QString course = json_obj["department"].toString() + " " + QString::number(json_obj["class_number"].toInt());
-        //qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
+        qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
         qDebug()<< json_obj["id"].toInt() << course;
         ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(QString::number(json_obj["id"].toInt())));
         m_columnCount++;
@@ -107,16 +103,6 @@ void AppWindow::setGroupsVisibleInTable()
 void AppWindow::clearListOfAllGroups()
 {
    ui->listOfAllGroups->clear();
-}
-
-QString AppWindow::getSelectedRow()
-{
-    int selected;
-    for(int i=0; i< m_rowCount; i++)
-    {
-        if(ui->listOfAllGroups->item(i,0)->isSelected()) selected = i+1;
-    }
-    return (QString)selected;
 }
 
 void AppWindow::on_createGroup_clicked()
@@ -153,4 +139,9 @@ void AppWindow::on_refreshButton_clicked()
     clearListOfAllGroups();
     setColumnsOfTable();
     setGroupsVisibleInTable();
+}
+
+void AppWindow::on_listOfAllGroups_cellClicked(int row)
+{
+    emit sendGroupID(QString::number(row+1));
 }
