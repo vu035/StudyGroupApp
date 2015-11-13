@@ -2,8 +2,14 @@
 #define APPWINDOW_H
 
 #include <QMainWindow>
+#include <QMessageBox>
 #include "GroupInfo.h"
 #include "AllGroups.h"
+#include "HTTPInterface.h"
+#include "LoginWindow.h"
+#include "GroupInfo.h"
+#include "AllGroups.h"
+#include "HTTPInterface.h"
 
 
 namespace Ui {
@@ -33,7 +39,6 @@ private slots:
     void on_getGroupInfo_clicked();
     void on_refreshButton_clicked();
     void on_listOfAllGroups_cellClicked(int row);
-
     void on_CreateGroup_clicked();
 
 protected:
@@ -44,6 +49,7 @@ protected:
     QString selectedCourseNumber;
     QString dateOfStudyGroup;
     QString timeOfStudyGroup;
+    QString courseDescription;
     int m_rowCount;
     int m_columnCount;
 

@@ -21,7 +21,7 @@
 
 QJsonArray getAllGroups();
 void getUserGroups(User current_user);
-void postCreateGroup(QString department, QString class_num, QString date, QString time);
+void postCreateGroup(QString department, QString class_num, QString date, QString time, QString description);
 void postCreateUser(QString email, QString password, QString firstname, QString lastname, QString username);
 void postJoinGroup(QString group_id, int user_id);
 bool postLogin(QString email, QString password);

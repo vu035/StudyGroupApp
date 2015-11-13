@@ -185,6 +185,16 @@
     <string>Time</string>
    </property>
   </widget>
+  <widget class="QTextEdit" name="courseDescription">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>260</y>
+     <width>391</width>
+     <height>107</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections>

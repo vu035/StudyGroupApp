@@ -18,6 +18,7 @@ void GroupInfo::displayGroupInfo()
 {
     //grab the group info
      QJsonObject groupInfo = getStudyGroup("1");
+     ui->courseDescription->setEnabled(false);
 
      //parse the info
      QString groupId = QString::number(groupInfo["id"].toInt());
@@ -27,6 +28,10 @@ void GroupInfo::displayGroupInfo()
      QString groupUpdated = groupInfo["updated_at"].toString();
      QString groupDate = groupInfo["date"].toString();
      QString groupTime = groupInfo["time"].toString();
+     QString groupDescription = groupInfo["description"].toString();
+
+//     qDebug()<<"*********************GROUP DESCRIPTION ****************************";
+//     qDebug() << groupDescription;
 
      ui->lblGID->setText(groupId);
      ui->lblGCName->setText(groupDep + " " + groupNum);
@@ -34,10 +39,12 @@ void GroupInfo::displayGroupInfo()
      ui->lblGUpdated->setText(groupUpdated);
      ui->lblGDate->setText(groupDate);
      ui->lblGTime->setText(groupTime);
+     ui->courseDescription->setText(groupDescription);
 }
 
 void GroupInfo::setLabelText(QString gID)
 {
+    ui->courseDescription->setEnabled(false);
     QJsonObject groupInfo = getStudyGroup(gID);
 
     //parse the info
@@ -48,6 +55,10 @@ void GroupInfo::setLabelText(QString gID)
     QString groupUpdated = groupInfo["updated_at"].toString();
     QString groupDate = groupInfo["date"].toString();
     QString groupTime = groupInfo["time"].toString();
+    QString groupDescription = groupInfo["description"].toString();
+
+//    qDebug()<<"*********************GROUP DESCRIPTION ****************************";
+//    qDebug() << groupDescription;
 
     ui->lblGID->setText(groupId);
     ui->lblGCName->setText(groupDep + " " + groupNum);
@@ -55,6 +66,7 @@ void GroupInfo::setLabelText(QString gID)
     ui->lblGUpdated->setText(groupUpdated);
     ui->lblGDate->setText(groupDate);
     ui->lblGTime->setText(groupTime);
+    ui->courseDescription->setText(groupDescription);
 }
 
 GroupInfo::~GroupInfo()
