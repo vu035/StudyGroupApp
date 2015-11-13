@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include "GroupInfo.h"
-
+#include "AllGroups.h"
 
 
 namespace Ui {

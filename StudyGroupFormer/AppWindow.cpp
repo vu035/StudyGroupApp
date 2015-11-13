@@ -85,21 +85,7 @@ void AppWindow::clearListOfAllGroups()
    ui->listOfAllGroups->clear();
 }
 
-<<<<<<< HEAD
-QString AppWindow::getSelectedRow()
-{
-    int selected;
-    for(int i=0; i< m_rowCount; i++)
-    {
-        if(ui->listOfAllGroups->item(i,0)->isSelected()) selected = i+1;
-    }
-    return (QString)selected;
-}
-
 void AppWindow::on_UserProfile_clicked()
-=======
-void AppWindow::on_createGroup_clicked()
->>>>>>> b749eaf5b82d0af467db8a6bdbe6f96de60e0587
 {
     main_all_groups_window->User_Profile();
     //this->hide();
@@ -130,7 +116,6 @@ void AppWindow::on_refreshButton_clicked()
     setGroupsVisibleInTable();
 }
 
-<<<<<<< HEAD
 void AppWindow::on_CreateGroup_clicked()
 {
     selectedCourseName = ui->courseNameComboBox->currentText();
@@ -139,9 +124,9 @@ void AppWindow::on_CreateGroup_clicked()
     timeOfStudyGroup = ui->startTimeWidget->time().toString();
     postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
     on_refreshButton_clicked();
-=======
+}
+
 void AppWindow::on_listOfAllGroups_cellClicked(int row)
 {
     emit sendGroupID(QString::number(row+1));
->>>>>>> b749eaf5b82d0af467db8a6bdbe6f96de60e0587
 }
