@@ -2,12 +2,8 @@
 #include "ui_AppWindow.h"
 #include "LoginWindow.h"
 #include "GroupInfo.h"
+#include "AllGroups.h"
 #include "HTTPInterface.h"
-#include <QDebug>
-#include <QDate>
-#include <QString>
-#include <QSizePolicy>
-
 
 const int MAX_NUM_OF_COLUMNS = 4;
 const int MAX_NUM_OF_ROWS = 40;
@@ -16,6 +12,8 @@ AppWindow::AppWindow(LoginWindow *login_window) :
     QMainWindow(login_window),
     ui(new Ui::AppWindow)
 {
+    main_all_groups_window = new AllGroups();
+
     group_info_window = new GroupInfo(this);
     group_info_window->setGeometry(geometry());
 
@@ -46,26 +44,6 @@ AppWindow::~AppWindow()
     delete ui;
 }
 
-void AppWindow::setSelectedCourseName()
-{
-    selectedCourseName = ui->courseNameComboBox->currentText();
-}
-
-void AppWindow::setSelectedCourseNumber()
-{
-    selectedCourseNumber = ui->courseNumberComboBox->currentText();
-}
-
-void AppWindow::setDateOfStudyGroup()
-{
-   dateOfStudyGroup = ui->dateOfStudyWidget->date().toString();
-}
-
-void AppWindow::setTimeOfStudyGroup()
-{
-    timeOfStudyGroup = ui->startTimeWidget->time().toString();
-}
-
 void AppWindow::setColumnsOfTable()
 {
     QStringList setColumnNames;
@@ -88,8 +66,8 @@ void AppWindow::setGroupsVisibleInTable()
     {
         QJsonObject json_obj = value.toObject();
         QString course = json_obj["department"].toString() + " " + QString::number(json_obj["class_number"].toInt());
-        qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
-        qDebug()<< json_obj["id"].toInt() << course;
+        //qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
+        //qDebug()<< json_obj["id"].toInt() << course;
         ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(QString::number(json_obj["id"].toInt())));
         m_columnCount++;
         ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(course));
@@ -107,27 +85,12 @@ void AppWindow::clearListOfAllGroups()
    ui->listOfAllGroups->clear();
 }
 
-QString AppWindow::getSelectedRow()
+void AppWindow::on_UserProfile_clicked()
 {
-    QString index;
-    QModelIndexList selection = ui->listOfAllGroups->selectionModel()->selectedRows();
-
-    for(int i=0; i< selection.count(); i++)
-    {
-        index = selection.at(i).data().toString();
-        qDebug() << index;
-    }
-    return index;
-}
-
-void AppWindow::on_createGroup_clicked()
-{
-    setDateOfStudyGroup();
-    setTimeOfStudyGroup();
-    setSelectedCourseName();
-    setSelectedCourseNumber();
-    getSelectedRow();
-//    postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
+    main_all_groups_window->User_Profile();
+    //this->hide();
+    main_all_groups_window ->setGeometry(geometry());
+    main_all_groups_window->show();
 }
 
 void AppWindow::on_successful_login()
@@ -138,6 +101,7 @@ void AppWindow::on_successful_login()
     {
         QJsonObject json_obj = value.toObject();
         qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
+        qDebug() <<"end!!!!";
     }
 }
 
@@ -154,7 +118,17 @@ void AppWindow::on_refreshButton_clicked()
     setGroupsVisibleInTable();
 }
 
-void AppWindow::on_listOfAllGroups_cellClicked(int row, int column)
+void AppWindow::on_CreateGroup_clicked()
+{
+    selectedCourseName = ui->courseNameComboBox->currentText();
+    selectedCourseNumber = ui->courseNumberComboBox->currentText();
+    dateOfStudyGroup = ui->dateOfStudyWidget->date().toString();
+    timeOfStudyGroup = ui->startTimeWidget->time().toString();
+    postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
+    on_refreshButton_clicked();
+}
+
+void AppWindow::on_listOfAllGroups_cellClicked(int row)
 {
     emit sendGroupID(QString::number(row+1));
 }
