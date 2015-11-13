@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>904</width>
-    <height>682</height>
+    <width>807</width>
+    <height>1043</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,10 +37,10 @@
    <widget class="QPushButton" name="UserProfile">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>10</y>
+      <x>620</x>
+      <y>600</y>
       <width>131</width>
-      <height>51</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
@@ -144,10 +144,10 @@
    <widget class="QTableWidget" name="listOfAllGroups">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>70</y>
-      <width>631</width>
-      <height>481</height>
+      <x>20</x>
+      <y>520</y>
+      <width>601</width>
+      <height>441</height>
      </rect>
     </property>
     <row>
@@ -172,8 +172,8 @@
    <widget class="QPushButton" name="refreshButton">
     <property name="geometry">
      <rect>
-      <x>710</x>
-      <y>550</y>
+      <x>620</x>
+      <y>520</y>
       <width>111</width>
       <height>41</height>
      </rect>
@@ -185,14 +185,24 @@
    <widget class="QPushButton" name="CreateGroup">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>20</x>
       <y>400</y>
-      <width>111</width>
-      <height>31</height>
+      <width>131</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
      <string>Create Group</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="courseDescriptionTextBox">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>170</y>
+      <width>451</width>
+      <height>341</height>
+     </rect>
     </property>
    </widget>
   </widget>
@@ -201,8 +211,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>904</width>
-     <height>21</height>
+     <width>807</width>
+     <height>31</height>
     </rect>
    </property>
   </widget>

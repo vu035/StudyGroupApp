@@ -1,17 +1,14 @@
 #include "AppWindow.h"
 #include "ui_AppWindow.h"
-#include "LoginWindow.h"
-#include "GroupInfo.h"
-#include "AllGroups.h"
-#include "HTTPInterface.h"
+
 
 const int MAX_NUM_OF_COLUMNS = 4;
 const int MAX_NUM_OF_ROWS = 40;
 
-AppWindow::AppWindow(LoginWindow *login_window) :
-    QMainWindow(login_window),
+AppWindow::AppWindow(LoginWindow *login_window) : QMainWindow(login_window),
     ui(new Ui::AppWindow)
 {
+
     main_all_groups_window = new AllGroups();
 
     group_info_window = new GroupInfo(this);
@@ -66,8 +63,6 @@ void AppWindow::setGroupsVisibleInTable()
     {
         QJsonObject json_obj = value.toObject();
         QString course = json_obj["department"].toString() + " " + QString::number(json_obj["class_number"].toInt());
-        //qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
-        //qDebug()<< json_obj["id"].toInt() << course;
         ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(QString::number(json_obj["id"].toInt())));
         m_columnCount++;
         ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(course));
@@ -88,7 +83,6 @@ void AppWindow::clearListOfAllGroups()
 void AppWindow::on_UserProfile_clicked()
 {
     main_all_groups_window->User_Profile();
-    //this->hide();
     main_all_groups_window ->setGeometry(geometry());
     main_all_groups_window->show();
 }
@@ -121,12 +115,28 @@ void AppWindow::on_refreshButton_clicked()
 
 void AppWindow::on_CreateGroup_clicked()
 {
+
     selectedCourseName = ui->courseNameComboBox->currentText();
     selectedCourseNumber = ui->courseNumberComboBox->currentText();
     dateOfStudyGroup = ui->dateOfStudyWidget->date().toString();
     timeOfStudyGroup = ui->startTimeWidget->time().toString();
-    postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
-    on_refreshButton_clicked();
+    courseDescription = ui->courseDescriptionTextBox->toPlainText();
+
+    if(courseDescription == ""|| courseDescription == NULL)
+    {
+        QMessageBox *messageBox = new QMessageBox;
+        messageBox->setText("Please enter in a description for your study group.");
+        qApp->setQuitOnLastWindowClosed(false);
+        messageBox->show();
+    }
+
+    else
+    {
+        qDebug()<< courseDescription;
+        postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup ,timeOfStudyGroup,courseDescription);
+        on_refreshButton_clicked();
+        ui->courseDescriptionTextBox->clear();
+    }
 }
 
 void AppWindow::on_listOfAllGroups_cellClicked(int row)

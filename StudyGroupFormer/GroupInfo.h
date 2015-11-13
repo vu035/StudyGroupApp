@@ -19,6 +19,9 @@ public:
 public slots:
     void setLabelText(QString gID);
 
+private slots:
+    void on_joinButton_clicked();
+
 private:
     Ui::GroupInfo *ui;
 };

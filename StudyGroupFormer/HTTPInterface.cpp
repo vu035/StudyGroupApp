@@ -3,7 +3,6 @@
 #include "AppWindow.h"
 
 
-
 User AppUser;
 
 //pass QjsonArray from get requests
@@ -180,7 +179,6 @@ void postJoinGroup(QString group_id, int user_id){
         delete reply;
     }
 }
-
 
 
 //post a new user to the db
