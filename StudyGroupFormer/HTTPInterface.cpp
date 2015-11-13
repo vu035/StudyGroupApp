@@ -147,7 +147,7 @@ void postCreateGroup(QString department, QString class_number, QString date, QSt
 }
 
 void postJoinGroup(QString group_id, int user_id){
-    qDebug() << "OYEA" ;
+
     QUrl myURL(QString("https://studygroupformer.herokuapp.com/studygroups_users"));
     QNetworkRequest request(myURL);
     QNetworkAccessManager mgr;
@@ -253,7 +253,7 @@ bool postLogin(QString email, QString password){
             qDebug() << "Login Success";
             QJsonDocument jsonResponse = QJsonDocument::fromJson(strReply.toUtf8());
             QJsonObject json_obj = jsonResponse.object();
-             qDebug() << json_obj;
+             //qDebug() << json_obj;
             int userID = json_obj["id"].toInt();
 
              //define current user object here
