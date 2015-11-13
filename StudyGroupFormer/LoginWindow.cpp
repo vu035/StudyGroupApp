@@ -31,7 +31,7 @@ void LoginWindow::on_loginButton_clicked()
 
 void LoginWindow::login(){
     QString uname = ui->username->text();
-    qDebug() << uname;
+    //qDebug() << uname;
     QString pass = ui->password->text();
 
     //postCreateGroup("CS", "311", "12-20-15", "1:00PM");
@@ -44,7 +44,11 @@ void LoginWindow::login(){
 
         //get AppUser's groups from db and set AppUser groups
         getUserGroups(getAppUser());
+<<<<<<< HEAD
         getStudyGroup("1");
+=======
+        //getStudyGroup("1");
+>>>>>>> b749eaf5b82d0af467db8a6bdbe6f96de60e0587
         //debug output
         //getAllGroups();
 
