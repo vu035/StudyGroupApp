@@ -101,8 +101,9 @@ void AppWindow::on_successful_login()
     {
         QJsonObject json_obj = value.toObject();
         qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
-        qDebug() <<"end!!!!";
+
     }
+    qDebug() << "end";
 }
 
 void AppWindow::on_getGroupInfo_clicked()
