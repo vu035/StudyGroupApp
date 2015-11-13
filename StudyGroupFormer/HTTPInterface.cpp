@@ -111,7 +111,7 @@ void getUserGroups(User current_user){
 
 
 //post a new study group to DB
-void postCreateGroup(QString department, QString class_number, QString date, QString time){
+void postCreateGroup(QString department, QString class_number, QString date, QString time, QString description){
 
     QUrl myURL(QString("https://studygroupformer.herokuapp.com/studygroups"));
     QNetworkRequest request(myURL);
@@ -124,6 +124,7 @@ void postCreateGroup(QString department, QString class_number, QString date, QSt
     qu.addQueryItem("studygroup[class_number]",class_number);
     qu.addQueryItem("studygroup[date]",date);
     qu.addQueryItem("studygroup[time]",time);
+    qu.addQueryItem("studygroup[description]",description);
     postData.append(qu.toString());
 
     QNetworkReply *reply = mgr.post(request, postData);
