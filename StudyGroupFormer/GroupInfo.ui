@@ -195,6 +195,19 @@
     </rect>
    </property>
   </widget>
+  <widget class="QPushButton" name="joinButton">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>380</y>
+     <width>113</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Join Group</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections>

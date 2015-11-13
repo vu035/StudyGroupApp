@@ -1,5 +1,5 @@
 #include "GroupInfo.h"
-#include "ui_groupinfo.h"
+#include "ui_GroupInfo.h"
 
 #include "HTTPInterface.h"
 #include "AppWindow.h"
@@ -72,4 +72,9 @@ void GroupInfo::setLabelText(QString gID)
 GroupInfo::~GroupInfo()
 {
     delete ui;
+}
+
+void GroupInfo::on_joinButton_clicked()
+{
+    postJoinGroup(ui->lblGID->text(),getAppUser().m_id);
 }
