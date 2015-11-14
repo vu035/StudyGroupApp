@@ -93,7 +93,7 @@ void getUserGroups(User current_user){
 
 
 
-
+        //update appUser
         AppUser.updateGroups(json_array);
         delete reply;
 
@@ -322,6 +322,50 @@ QJsonObject getStudyGroup(QString group_id){
     }
 }
 
+
+void postLeaveGroup(QString group_id, int user_id){
+    QJsonArray json_array;
+     // create custom temporary event loop on stack
+     QEventLoop eventLoop;
+
+     // "quit()" the event-loop, when the network request "finished()"
+     QNetworkAccessManager mgr;
+     QByteArray headerData;
+     QUrlQuery qu;
+     qu.addQueryItem("studygroups_user[studygroup_id]",group_id); //pass in the group id
+     qu.addQueryItem("studygroups_user[user_id]",QString::number(user_id)); //pass in the user id
+     headerData.append(qu.toString());
+
+
+
+     QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+
+     // the HTTP request
+     QNetworkRequest req( QUrl( QString("https://studygroupformer.herokuapp.com/seekdestroy") ) );
+     req.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
+     QNetworkReply *reply = mgr.post(req, headerData);
+     eventLoop.exec(); // blocks stack until "finished()" has been called
+
+     if (reply->error() == QNetworkReply::NoError) {
+         //success
+         QString strReply = (QString)reply->readAll();
+           qDebug() << strReply;
+
+
+
+
+
+         delete reply;
+
+
+     }
+     else{
+         //failure
+         qDebug() << "Failure" <<reply->errorString();
+         delete reply;
+     }
+
+}
 
 User getAppUser(){
     return AppUser;
