@@ -341,7 +341,7 @@ void postLeaveGroup(QString group_id, int user_id){
      QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
 
      // the HTTP request
-     QNetworkRequest req( QUrl( QString("http://localhost:3000/seekdestroy") ) );
+     QNetworkRequest req( QUrl( QString("https://studygroupformer.herokuapp.com/seekdestroy") ) );
      req.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
      QNetworkReply *reply = mgr.post(req, headerData);
      eventLoop.exec(); // blocks stack until "finished()" has been called
@@ -353,7 +353,7 @@ void postLeaveGroup(QString group_id, int user_id){
 
 
 
-         //update appUser
+
 
          delete reply;
 

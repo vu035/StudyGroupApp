@@ -30,7 +30,7 @@ private slots:
 
     void on_leaveButton_clicked();
 
-    void on_Usergroup_cellClicked(int row, int column);
+    void on_Usergroup_cellClicked(int row);
 
 private:
     Ui::AllGroups *ui;

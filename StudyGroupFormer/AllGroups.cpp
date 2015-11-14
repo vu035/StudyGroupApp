@@ -37,6 +37,7 @@ void AllGroups::User_Profile(){
 
 void AllGroups::Study_Group_Info(){
     getUserGroups(getAppUser());
+    ui->Usergroup->clearContents();
 
    int m_rowCount  = 0;
    int m_columnCount = 0;
@@ -79,12 +80,15 @@ void AllGroups::on_leaveButton_clicked()
 {
      if (affiliation_id != NULL)
      {
-          //postLeaveGroup(affiliation_id);
+          postLeaveGroup(affiliation_id, getAppUser().m_id);
+          Study_Group_Info();
+          qDebug() << getAppUser().m_studygroups;
      }
 }
 
-void AllGroups::on_Usergroup_cellClicked(int row, int column)
+void AllGroups::on_Usergroup_cellClicked(int row)
 {
-    affiliation_id = ui->Usergroup->item(row, column)->text();
+    affiliation_id = ui->Usergroup->item(row, 0)->text();
     qDebug() << affiliation_id;
+
 }
