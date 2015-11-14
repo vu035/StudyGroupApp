@@ -16,7 +16,7 @@ AppWindow::AppWindow(LoginWindow *login_window) : QMainWindow(login_window),
 
 
     main_login_window = login_window;
-    this->setFixedSize(900, 900);
+    this->setFixedSize(1000, 900);
 
     connect(this, SIGNAL(sendGroupID(QString)), group_info_window, SLOT(setLabelText(QString)));
     ui->setupUi(this);
