@@ -9,6 +9,8 @@
 const int MAX_NUM_OF_COLUMNS = 4;
 const int MAX_NUM_OF_ROWS = 40;
 
+QString affiliation_id;
+
 AllGroups::AllGroups(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AllGroups)
@@ -35,6 +37,7 @@ void AllGroups::User_Profile(){
 
 void AllGroups::Study_Group_Info(){
     getUserGroups(getAppUser());
+    ui->Usergroup->clearContents();
 
    int m_rowCount  = 0;
    int m_columnCount = 0;
@@ -71,4 +74,21 @@ void AllGroups::setColumnsOfTable()
     ui->Usergroup->setColumnCount(MAX_NUM_OF_COLUMNS);
     ui->Usergroup->setRowCount(MAX_NUM_OF_ROWS);
     ui->Usergroup->setHorizontalHeaderLabels(setColumnNames);
+}
+
+void AllGroups::on_leaveButton_clicked()
+{
+     if (affiliation_id != NULL)
+     {
+          postLeaveGroup(affiliation_id, getAppUser().m_id);
+          Study_Group_Info();
+          qDebug() << getAppUser().m_studygroups;
+     }
+}
+
+void AllGroups::on_Usergroup_cellClicked(int row)
+{
+    affiliation_id = ui->Usergroup->item(row, 0)->text();
+    qDebug() << affiliation_id;
+
 }
