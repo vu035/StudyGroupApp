@@ -87,10 +87,12 @@ void AppWindow::on_UserProfile_clicked()
     main_all_groups_window->show();
 }
 
-void AppWindow::on_successful_login(){
+void AppWindow::on_successful_login()
+{
     ui->usernameLabel->setText(getAppUser().m_username);
     qDebug() << "User has joined the following studygroups:";
-    foreach (const QJsonValue &value, getAppUser().m_studygroups) {
+    foreach (const QJsonValue &value, getAppUser().m_studygroups)
+    {
         QJsonObject json_obj = value.toObject();
         qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
 
