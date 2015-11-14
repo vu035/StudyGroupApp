@@ -28,6 +28,10 @@ public:
 
 private slots:
 
+    void on_leaveButton_clicked();
+
+    void on_Usergroup_cellClicked(int row, int column);
+
 private:
     Ui::AllGroups *ui;
 };

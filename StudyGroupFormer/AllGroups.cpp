@@ -9,6 +9,8 @@
 const int MAX_NUM_OF_COLUMNS = 4;
 const int MAX_NUM_OF_ROWS = 40;
 
+QString affiliation_id;
+
 AllGroups::AllGroups(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AllGroups)
@@ -71,4 +73,18 @@ void AllGroups::setColumnsOfTable()
     ui->Usergroup->setColumnCount(MAX_NUM_OF_COLUMNS);
     ui->Usergroup->setRowCount(MAX_NUM_OF_ROWS);
     ui->Usergroup->setHorizontalHeaderLabels(setColumnNames);
+}
+
+void AllGroups::on_leaveButton_clicked()
+{
+     if (affiliation_id != NULL)
+     {
+          //postLeaveGroup(affiliation_id);
+     }
+}
+
+void AllGroups::on_Usergroup_cellClicked(int row, int column)
+{
+    affiliation_id = ui->Usergroup->item(row, column)->text();
+    qDebug() << affiliation_id;
 }
