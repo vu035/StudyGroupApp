@@ -34,6 +34,7 @@ public:
     void clearListOfAllGroups();
     void on_successful_login();
 
+    int getIdOfSelectedRow();
 private slots:
     void on_UserProfile_clicked();
     void on_getGroupInfo_clicked();

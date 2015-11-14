@@ -32,6 +32,7 @@ void LoginWindow::on_loginButton_clicked()
 void LoginWindow::login(){
     ui->username->setEnabled(false);
     ui->password->setEnabled(false);
+
     QString uname = ui->username->text();
     //qDebug() << uname;
     QString pass = ui->password->text();
