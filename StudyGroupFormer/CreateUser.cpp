@@ -11,6 +11,15 @@ CreateUser::CreateUser(QWidget *parent) :
     ui(new Ui::CreateUser)
 {
     ui->setupUi(this);
+    ui->CreateUserProgressBar->setValue(0);
+    ui->CreateUserProgressBar->setRange(0,100);
+
+    QString FirstName = ui->CreateFirstName->text();
+    if(FirstName.isEmpty())
+    {
+        ui->CreateUserProgressBar->setValue(20);
+    }
+
 }
 
 CreateUser::~CreateUser()
@@ -28,7 +37,6 @@ void CreateUser::on_CreateAccountButton_clicked()
     QString email = ui->CreateEmail->text();
     QString FirstName = ui->CreateFirstName->text();
     QString LastName = ui->CreateLastName->text();
-
 
     //if the first name field is blank
     if(FirstName.isEmpty())
