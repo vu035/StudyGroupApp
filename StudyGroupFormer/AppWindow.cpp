@@ -139,5 +139,6 @@ void AppWindow::on_CreateGroup_clicked()
 
 void AppWindow::on_listOfAllGroups_cellClicked(int row)
 {
-    emit sendGroupID(QString::number(row+1));
+    emit sendGroupID(ui->listOfAllGroups->item(row, 0)->text());
+
 }
