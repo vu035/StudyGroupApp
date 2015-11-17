@@ -14,9 +14,6 @@ void groupstoString(QJsonArray jsonResponse){
     }
 }
 
-
-
-
 //get all studygroups
 QJsonArray getAllGroups(){
     QJsonArray json_array;
