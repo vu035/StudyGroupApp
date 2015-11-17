@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>807</width>
-    <height>1043</height>
+    <width>835</width>
+    <height>586</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,9 +17,9 @@
    <widget class="QComboBox" name="courseNameComboBox">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>70</y>
-      <width>131</width>
+      <x>150</x>
+      <y>380</y>
+      <width>81</width>
       <height>51</height>
      </rect>
     </property>
@@ -27,9 +27,9 @@
    <widget class="QComboBox" name="courseNumberComboBox">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>160</y>
-      <width>131</width>
+      <x>150</x>
+      <y>460</y>
+      <width>81</width>
       <height>51</height>
      </rect>
     </property>
@@ -37,10 +37,10 @@
    <widget class="QPushButton" name="UserProfile">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>600</y>
+      <x>10</x>
+      <y>60</y>
       <width>131</width>
-      <height>41</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
@@ -50,18 +50,18 @@
    <widget class="QTimeEdit" name="startTimeWidget">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>240</y>
+      <x>10</x>
+      <y>380</y>
       <width>131</width>
-      <height>51</height>
+      <height>41</height>
      </rect>
     </property>
    </widget>
    <widget class="QLabel" name="courseNameLabel">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>50</y>
+      <x>150</x>
+      <y>360</y>
       <width>61</width>
       <height>19</height>
      </rect>
@@ -73,8 +73,8 @@
    <widget class="QLabel" name="courseNumberLabel">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>140</y>
+      <x>150</x>
+      <y>440</y>
       <width>121</width>
       <height>19</height>
      </rect>
@@ -86,8 +86,8 @@
    <widget class="QLabel" name="startTimeLabel">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>220</y>
+      <x>10</x>
+      <y>350</y>
       <width>91</width>
       <height>19</height>
      </rect>
@@ -99,18 +99,18 @@
    <widget class="QDateEdit" name="dateOfStudyWidget">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>330</y>
+      <x>10</x>
+      <y>470</y>
       <width>131</width>
-      <height>51</height>
+      <height>41</height>
      </rect>
     </property>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>310</y>
+      <x>10</x>
+      <y>440</y>
       <width>131</width>
       <height>19</height>
      </rect>
@@ -144,10 +144,10 @@
    <widget class="QTableWidget" name="listOfAllGroups">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>520</y>
-      <width>601</width>
-      <height>441</height>
+      <x>270</x>
+      <y>20</y>
+      <width>531</width>
+      <height>341</height>
      </rect>
     </property>
     <row>
@@ -159,8 +159,8 @@
    <widget class="QPushButton" name="getGroupInfo">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>460</y>
+      <x>690</x>
+      <y>440</y>
       <width>131</width>
       <height>51</height>
      </rect>
@@ -172,10 +172,10 @@
    <widget class="QPushButton" name="refreshButton">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>520</y>
-      <width>111</width>
-      <height>41</height>
+      <x>10</x>
+      <y>130</y>
+      <width>131</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
@@ -185,8 +185,8 @@
    <widget class="QPushButton" name="CreateGroup">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>400</y>
+      <x>690</x>
+      <y>370</y>
       <width>131</width>
       <height>51</height>
      </rect>
@@ -198,10 +198,10 @@
    <widget class="QPlainTextEdit" name="courseDescriptionTextBox">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>170</y>
-      <width>451</width>
-      <height>341</height>
+      <x>270</x>
+      <y>380</y>
+      <width>411</width>
+      <height>111</height>
      </rect>
     </property>
    </widget>
@@ -211,8 +211,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>807</width>
-     <height>31</height>
+     <width>835</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>
