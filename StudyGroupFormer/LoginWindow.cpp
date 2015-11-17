@@ -6,12 +6,12 @@
 #include <QDebug>
 
 
-LoginWindow::LoginWindow(QWidget *parent) :
-    QMainWindow(parent),
+//LoginWindow::LoginWindow(QWidget *parent) : QMainWindow(parent),
+LoginWindow::LoginWindow(AppWindow *main_window) : QMainWindow(main_window),
     ui(new Ui::LoginWindow)
 {
 
-    main_app_window = new AppWindow(this);
+    main_app_window = main_window;
     ui->setupUi(this);
 
     QPixmap pix(":/image/StudyGroupPic/StudyGroup.jpg");
@@ -31,7 +31,7 @@ void LoginWindow::on_loginButton_clicked()
 
 void LoginWindow::login(){
     QString uname = ui->username->text();
-    qDebug() << uname;
+    //qDebug() << uname;
     QString pass = ui->password->text();
 
     //postCreateGroup("CS", "311", "12-20-15", "1:00PM");
@@ -43,8 +43,9 @@ void LoginWindow::login(){
         //postJoinGroup("5", getAppUser().m_id);
 
         //get AppUser's groups from db and set AppUser groups
-        //getUserGroups(getAppUser());
-        getStudyGroup("1");
+        getUserGroups(getAppUser());
+        //postLeaveGroup("1", getAppUser().m_id);
+        //getStudyGroup("1");
         //debug output
         //getAllGroups();
 
@@ -53,7 +54,8 @@ void LoginWindow::login(){
 
 
       //hide window
-       hide();
+        setVisible(false);
+       //hide();
        main_app_window->setGeometry(geometry());
        main_app_window->on_successful_login();
        main_app_window->setGroupsVisibleInTable();

@@ -1,32 +1,33 @@
 #include "AppWindow.h"
 #include "ui_AppWindow.h"
-#include "LoginWindow.h"
-#include "GroupInfo.h"
-#include "HTTPInterface.h"
-#include <QDebug>
-#include <QDate>
-#include <QString>
-#include <QSizePolicy>
 
 
 const int MAX_NUM_OF_COLUMNS = 4;
 const int MAX_NUM_OF_ROWS = 40;
 
-AppWindow::AppWindow(LoginWindow *login_window) :
-    QMainWindow(login_window),
+//AppWindow::AppWindow(LoginWindow *login_window) : QMainWindow(login_window),
+AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
     ui(new Ui::AppWindow)
 {
+
+    main_all_groups_window = new AllGroups();
+
     group_info_window = new GroupInfo(this);
     group_info_window->setGeometry(geometry());
 
 
-    main_login_window = login_window;
+    main_login_window = new LoginWindow(this);
+
+
     this->setFixedSize(900, 900);
 
+    connect(this, SIGNAL(sendGroupID(QString)), group_info_window, SLOT(setLabelText(QString)));
     ui->setupUi(this);
     m_rowCount=0;
     addItemsToComboBox();
     setColumnsOfTable();
+    main_login_window->show();
+
 }
 
 void AppWindow::addItemsToComboBox()
@@ -43,26 +44,6 @@ void AppWindow::addItemsToComboBox()
 AppWindow::~AppWindow()
 {
     delete ui;
-}
-
-void AppWindow::setSelectedCourseName()
-{
-    selectedCourseName = ui->courseNameComboBox->currentText();
-}
-
-void AppWindow::setSelectedCourseNumber()
-{
-    selectedCourseNumber = ui->courseNumberComboBox->currentText();
-}
-
-void AppWindow::setDateOfStudyGroup()
-{
-   dateOfStudyGroup = ui->dateOfStudyWidget->date().toString();
-}
-
-void AppWindow::setTimeOfStudyGroup()
-{
-    timeOfStudyGroup = ui->startTimeWidget->time().toString();
 }
 
 void AppWindow::setColumnsOfTable()
@@ -87,8 +68,6 @@ void AppWindow::setGroupsVisibleInTable()
     {
         QJsonObject json_obj = value.toObject();
         QString course = json_obj["department"].toString() + " " + QString::number(json_obj["class_number"].toInt());
-        //qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
-        qDebug()<< json_obj["id"].toInt() << course;
         ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(QString::number(json_obj["id"].toInt())));
         m_columnCount++;
         ui->listOfAllGroups->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(course));
@@ -106,23 +85,11 @@ void AppWindow::clearListOfAllGroups()
    ui->listOfAllGroups->clear();
 }
 
-QString AppWindow::getSelectedRow()
+void AppWindow::on_UserProfile_clicked()
 {
-    int selected;
-    for(int i=0; i< m_rowCount; i++)
-    {
-        if(ui->listOfAllGroups->item(i,0)->isSelected()) selected = i+1;
-    }
-    return (QString)selected;
-}
-
-void AppWindow::on_createGroup_clicked()
-{
-    setDateOfStudyGroup();
-    setTimeOfStudyGroup();
-    setSelectedCourseName();
-    setSelectedCourseNumber();
-    postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup, timeOfStudyGroup);
+    main_all_groups_window->User_Profile();
+    main_all_groups_window ->setGeometry(geometry());
+    main_all_groups_window->show();
 }
 
 void AppWindow::on_successful_login(){
@@ -131,7 +98,9 @@ void AppWindow::on_successful_login(){
     foreach (const QJsonValue &value, getAppUser().m_studygroups) {
         QJsonObject json_obj = value.toObject();
         qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
+
     }
+    qDebug() << "end";
 }
 
 void AppWindow::on_getGroupInfo_clicked()
@@ -145,4 +114,36 @@ void AppWindow::on_refreshButton_clicked()
     clearListOfAllGroups();
     setColumnsOfTable();
     setGroupsVisibleInTable();
+}
+
+void AppWindow::on_CreateGroup_clicked()
+{
+
+    selectedCourseName = ui->courseNameComboBox->currentText();
+    selectedCourseNumber = ui->courseNumberComboBox->currentText();
+    dateOfStudyGroup = ui->dateOfStudyWidget->date().toString();
+    timeOfStudyGroup = ui->startTimeWidget->time().toString();
+    courseDescription = ui->courseDescriptionTextBox->toPlainText();
+
+    if(courseDescription == ""|| courseDescription == NULL)
+    {
+        QMessageBox *messageBox = new QMessageBox;
+        messageBox->setText("Please enter in a description for your study group.");
+        qApp->setQuitOnLastWindowClosed(false);
+        messageBox->show();
+    }
+
+    else
+    {
+        qDebug()<< courseDescription;
+        postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup ,timeOfStudyGroup,courseDescription);
+        on_refreshButton_clicked();
+        ui->courseDescriptionTextBox->clear();
+    }
+}
+
+void AppWindow::on_listOfAllGroups_cellClicked(int row)
+{
+    emit sendGroupID(ui->listOfAllGroups->item(row, 0)->text());
+
 }

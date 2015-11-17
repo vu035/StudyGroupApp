@@ -3,7 +3,6 @@
 #include "AppWindow.h"
 
 
-
 User AppUser;
 
 //pass QjsonArray from get requests
@@ -14,9 +13,6 @@ void groupstoString(QJsonArray jsonResponse){
         qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
     }
 }
-
-
-
 
 //get all studygroups
 QJsonArray getAllGroups(){
@@ -94,7 +90,7 @@ void getUserGroups(User current_user){
 
 
 
-
+        //update appUser
         AppUser.updateGroups(json_array);
         delete reply;
 
@@ -111,7 +107,7 @@ void getUserGroups(User current_user){
 
 
 //post a new study group to DB
-void postCreateGroup(QString department, QString class_number, QString date, QString time){
+void postCreateGroup(QString department, QString class_number, QString date, QString time, QString description){
 
     QUrl myURL(QString("https://studygroupformer.herokuapp.com/studygroups"));
     QNetworkRequest request(myURL);
@@ -124,6 +120,7 @@ void postCreateGroup(QString department, QString class_number, QString date, QSt
     qu.addQueryItem("studygroup[class_number]",class_number);
     qu.addQueryItem("studygroup[date]",date);
     qu.addQueryItem("studygroup[time]",time);
+    qu.addQueryItem("studygroup[description]",description);
     postData.append(qu.toString());
 
     QNetworkReply *reply = mgr.post(request, postData);
@@ -147,7 +144,7 @@ void postCreateGroup(QString department, QString class_number, QString date, QSt
 }
 
 void postJoinGroup(QString group_id, int user_id){
-    qDebug() << "OYEA" ;
+
     QUrl myURL(QString("https://studygroupformer.herokuapp.com/studygroups_users"));
     QNetworkRequest request(myURL);
     QNetworkAccessManager mgr;
@@ -179,7 +176,6 @@ void postJoinGroup(QString group_id, int user_id){
         delete reply;
     }
 }
-
 
 
 //post a new user to the db
@@ -253,7 +249,7 @@ bool postLogin(QString email, QString password){
             qDebug() << "Login Success";
             QJsonDocument jsonResponse = QJsonDocument::fromJson(strReply.toUtf8());
             QJsonObject json_obj = jsonResponse.object();
-             qDebug() << json_obj;
+             //qDebug() << json_obj;
             int userID = json_obj["id"].toInt();
 
              //define current user object here
@@ -323,6 +319,50 @@ QJsonObject getStudyGroup(QString group_id){
     }
 }
 
+
+void postLeaveGroup(QString group_id, int user_id){
+    QJsonArray json_array;
+     // create custom temporary event loop on stack
+     QEventLoop eventLoop;
+
+     // "quit()" the event-loop, when the network request "finished()"
+     QNetworkAccessManager mgr;
+     QByteArray headerData;
+     QUrlQuery qu;
+     qu.addQueryItem("studygroups_user[studygroup_id]",group_id); //pass in the group id
+     qu.addQueryItem("studygroups_user[user_id]",QString::number(user_id)); //pass in the user id
+     headerData.append(qu.toString());
+
+
+
+     QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+
+     // the HTTP request
+     QNetworkRequest req( QUrl( QString("https://studygroupformer.herokuapp.com/seekdestroy") ) );
+     req.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
+     QNetworkReply *reply = mgr.post(req, headerData);
+     eventLoop.exec(); // blocks stack until "finished()" has been called
+
+     if (reply->error() == QNetworkReply::NoError) {
+         //success
+         QString strReply = (QString)reply->readAll();
+           qDebug() << strReply;
+
+
+
+
+
+         delete reply;
+
+
+     }
+     else{
+         //failure
+         qDebug() << "Failure" <<reply->errorString();
+         delete reply;
+     }
+
+}
 
 User getAppUser(){
     return AppUser;
