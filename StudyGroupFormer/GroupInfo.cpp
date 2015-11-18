@@ -3,6 +3,7 @@
 #include <QTime>
 #include "HTTPInterface.h"
 #include "AppWindow.h"
+#include <QScrollBar>
 
 GroupInfo::GroupInfo(QWidget *parent) :
     QDialog(parent),
@@ -16,7 +17,9 @@ GroupInfo::GroupInfo(QWidget *parent) :
     ui->lstGroupChat->setReadOnly(true);
     ui->leGroupMessage->setEnabled(true);
     ui->btnSendMessage->setEnabled(true);
-
+    QScrollBar *scrollbar = ui->lstGroupChat->verticalScrollBar();
+    scrollbar->setValue(scrollbar->maximum());
+    //disconnect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
 }
 
 void GroupInfo::displayGroupInfo()
@@ -89,6 +92,9 @@ void GroupInfo::updateChatWindow(QString group_id){
         QString message = json_obj["user"].toString() + ":  " + json_obj["comment"].toString() + "\n";
         ui->lstGroupChat->insertPlainText(message);
     }
+    QTextCursor c = ui->lstGroupChat->textCursor();
+    c.movePosition(QTextCursor::End);
+    ui->lstGroupChat->setTextCursor(c);
 }
 
 //poll the chat logs on a delay and update
@@ -139,5 +145,5 @@ void GroupInfo::on_chatRefreshButton_clicked()
 
 void GroupInfo::on_leGroupMessage_returnPressed()
 {
-    on_btnSendMessage_clicked();
+    emit on_btnSendMessage_clicked();
 }

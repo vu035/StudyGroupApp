@@ -27,7 +27,7 @@ private slots:
     void on_btnSendMessage_clicked();
 
     void on_chatRefreshButton_clicked();
-
+    void on_leGroupMessage_returnPressed();
 private:
     Ui::GroupInfo *ui;
 };
