@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>764</width>
-    <height>452</height>
+    <width>580</width>
+    <height>473</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <rect>
      <x>9</x>
      <y>9</y>
-     <width>54</width>
+     <width>61</width>
      <height>16</height>
     </rect>
    </property>
@@ -29,10 +29,10 @@
   <widget class="QLabel" name="firstnamelabel">
    <property name="geometry">
     <rect>
-     <x>69</x>
+     <x>79</x>
      <y>9</y>
-     <width>91</width>
-     <height>16</height>
+     <width>131</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="text">
@@ -43,8 +43,8 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>32</y>
-     <width>53</width>
+     <y>42</y>
+     <width>61</width>
      <height>16</height>
     </rect>
    </property>
@@ -55,10 +55,10 @@
   <widget class="QLabel" name="lastnamelabel">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>32</y>
-     <width>91</width>
-     <height>16</height>
+     <x>80</x>
+     <y>42</y>
+     <width>131</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="text">
@@ -69,8 +69,8 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>51</y>
-     <width>52</width>
+     <y>71</y>
+     <width>61</width>
      <height>16</height>
     </rect>
    </property>
@@ -81,10 +81,10 @@
   <widget class="QLabel" name="usernamelabel">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>51</y>
-     <width>91</width>
-     <height>16</height>
+     <x>80</x>
+     <y>71</y>
+     <width>131</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="text">
@@ -95,8 +95,8 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>70</y>
-     <width>28</width>
+     <y>100</y>
+     <width>41</width>
      <height>16</height>
     </rect>
    </property>
@@ -107,10 +107,10 @@
   <widget class="QLabel" name="emaillabel">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>70</y>
-     <width>81</width>
-     <height>16</height>
+     <x>80</x>
+     <y>100</y>
+     <width>121</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="text">
@@ -120,8 +120,8 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>590</x>
-     <y>420</y>
+     <x>380</x>
+     <y>440</y>
      <width>156</width>
      <height>23</height>
     </rect>
@@ -137,16 +137,16 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>100</y>
+     <y>140</y>
      <width>521</width>
-     <height>301</height>
+     <height>271</height>
     </rect>
    </property>
   </widget>
   <widget class="QPushButton" name="leaveButton">
    <property name="geometry">
     <rect>
-     <x>590</x>
+     <x>420</x>
      <y>100</y>
      <width>113</width>
      <height>32</height>
