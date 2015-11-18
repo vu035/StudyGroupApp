@@ -14,6 +14,8 @@ class GroupInfo : public QDialog
 public:
     explicit GroupInfo(QWidget *parent = 0);
     void displayGroupInfo();
+    void updateChatWindow(QString group_id);
+    void chatPoller();
     ~GroupInfo();
     
 public slots:
@@ -23,6 +25,8 @@ private slots:
     void on_joinButton_clicked();
 
     void on_btnSendMessage_clicked();
+
+    void on_chatRefreshButton_clicked();
 
 private:
     Ui::GroupInfo *ui;

@@ -19,6 +19,9 @@ AllGroups::AllGroups(QWidget *parent) :
     ui->setupUi(this);
     this->setFixedSize(600, 500);
     setColumnsOfTable();
+    //set qheaderview to stretch fit qtablewidget
+    QHeaderView* header = ui->Usergroup->horizontalHeader();
+    header->setSectionResizeMode(QHeaderView::Stretch);
 }
 
 AllGroups::~AllGroups()
@@ -88,7 +91,10 @@ void AllGroups::on_leaveButton_clicked()
 
 void AllGroups::on_Usergroup_cellClicked(int row)
 {
+    if(ui->Usergroup->item(row,0) != NULL)
+    {
     affiliation_id = ui->Usergroup->item(row, 0)->text();
     qDebug() << affiliation_id;
+    }
 
 }
