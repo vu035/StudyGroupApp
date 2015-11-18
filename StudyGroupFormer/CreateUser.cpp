@@ -11,6 +11,11 @@ CreateUser::CreateUser(QWidget *parent) :
     ui(new Ui::CreateUser)
 {
     ui->setupUi(this);
+    ui->CreateUserProgressBar->setValue(0);
+    ui->CreateUserProgressBar->setRange(0,100);
+
+    ui->CreateAccountButton->setEnabled(false);
+    ui->CreateUserSuccess->setHidden(true);
 }
 
 CreateUser::~CreateUser()
@@ -28,7 +33,6 @@ void CreateUser::on_CreateAccountButton_clicked()
     QString email = ui->CreateEmail->text();
     QString FirstName = ui->CreateFirstName->text();
     QString LastName = ui->CreateLastName->text();
-
 
     //if the first name field is blank
     if(FirstName.isEmpty())
@@ -88,9 +92,42 @@ void CreateUser::on_CreateAccountButton_clicked()
         qDebug() << "Passwords Matched, creating user...";
         postCreateUser(email, pass, FirstName, LastName, uname); //create user
 
-        //hide window
+        sleep(2);
         hide();
     }
 
 
+}
+
+void CreateUser::on_CreateFirstName_editingFinished()
+{
+    ui->CreateUserProgressBar->setValue(17);
+}
+
+
+void CreateUser::on_CreateLastName_editingFinished()
+{
+    ui->CreateUserProgressBar->setValue(34);
+}
+
+void CreateUser::on_CreateUsername_editingFinished()
+{
+    ui->CreateUserProgressBar->setValue(50);
+}
+
+void CreateUser::on_CreatePassword_editingFinished()
+{
+    ui->CreateUserProgressBar->setValue(67);
+}
+
+void CreateUser::on_CreatePasswordCopy_editingFinished()
+{
+    ui->CreateUserProgressBar->setValue(84);
+}
+
+void CreateUser::on_CreateEmail_textEdited(const QString &arg1)
+{
+    ui->CreateUserProgressBar->setValue(100);
+    ui->CreateAccountButton->setEnabled(true);
+    ui->CreateUserSuccess->setHidden(false);
 }
