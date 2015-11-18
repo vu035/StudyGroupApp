@@ -37,12 +37,14 @@ void LoginWindow::login(){
     //postCreateGroup("CS", "311", "12-20-15", "1:00PM");
     //postCreateUser("1@3", "root", "James", "Hannahan", "JH024");
 
+
     //if pass matches encrypted pass, show main window
     if(postLogin(uname, pass)){
-
+        //postCreateComment("2", uname, "hey all this is a fresh comment from the db");
         //postJoinGroup("5", getAppUser().m_id);
 
         //get AppUser's groups from db and set AppUser groups
+        getGroupComments("2");
         getUserGroups(getAppUser());
         //postLeaveGroup("1", getAppUser().m_id);
         //getStudyGroup("1");
