@@ -136,3 +136,8 @@ void GroupInfo::on_chatRefreshButton_clicked()
 
     updateChatWindow(ui->lblGID->text());
 }
+
+void GroupInfo::on_leGroupMessage_returnPressed()
+{
+    on_btnSendMessage_clicked();
+}
