@@ -26,7 +26,9 @@ class AppWindow : public QMainWindow
 public:
 
     AllGroups *main_all_groups_window;
-    explicit AppWindow(LoginWindow *login_window);
+    //explicit AppWindow(LoginWindow *login_window);
+    explicit AppWindow(QWidget *parent = 0);
+
     void addItemsToComboBox();
     ~AppWindow();
     void setColumnsOfTable();

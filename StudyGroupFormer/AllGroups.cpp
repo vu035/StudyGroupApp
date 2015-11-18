@@ -17,7 +17,7 @@ AllGroups::AllGroups(QWidget *parent) :
 {
     qApp->setQuitOnLastWindowClosed(false);
     ui->setupUi(this);
-    //this->setFixedSize(600, 600);
+    this->setFixedSize(600, 500);
     setColumnsOfTable();
 }
 
