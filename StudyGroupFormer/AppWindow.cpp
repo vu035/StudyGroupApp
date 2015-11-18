@@ -107,6 +107,7 @@ void AppWindow::on_getGroupInfo_clicked()
 {
     emit sendGroupID(m_group_info_id);
     group_info_window->show();
+
 }
 
 void AppWindow::on_refreshButton_clicked()
