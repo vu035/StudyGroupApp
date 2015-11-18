@@ -14,12 +14,8 @@ CreateUser::CreateUser(QWidget *parent) :
     ui->CreateUserProgressBar->setValue(0);
     ui->CreateUserProgressBar->setRange(0,100);
 
-    QString FirstName = ui->CreateFirstName->text();
-    if(FirstName.isEmpty())
-    {
-        ui->CreateUserProgressBar->setValue(20);
-    }
-
+    ui->CreateAccountButton->setEnabled(false);
+    ui->CreateUserSuccess->setHidden(true);
 }
 
 CreateUser::~CreateUser()
@@ -101,4 +97,37 @@ void CreateUser::on_CreateAccountButton_clicked()
     }
 
 
+}
+
+void CreateUser::on_CreateFirstName_editingFinished()
+{
+    ui->CreateUserProgressBar->setValue(17);
+}
+
+
+void CreateUser::on_CreateLastName_editingFinished()
+{
+    ui->CreateUserProgressBar->setValue(34);
+}
+
+void CreateUser::on_CreateUsername_editingFinished()
+{
+    ui->CreateUserProgressBar->setValue(50);
+}
+
+void CreateUser::on_CreatePassword_editingFinished()
+{
+    ui->CreateUserProgressBar->setValue(67);
+}
+
+void CreateUser::on_CreatePasswordCopy_editingFinished()
+{
+    ui->CreateUserProgressBar->setValue(84);
+}
+
+void CreateUser::on_CreateEmail_textEdited(const QString &arg1)
+{
+    ui->CreateUserProgressBar->setValue(100);
+    ui->CreateAccountButton->setEnabled(true);
+    ui->CreateUserSuccess->setHidden(false);
 }
