@@ -92,7 +92,7 @@ void CreateUser::on_CreateAccountButton_clicked()
         qDebug() << "Passwords Matched, creating user...";
         postCreateUser(email, pass, FirstName, LastName, uname); //create user
 
-        //hide window
+        sleep(2);
         hide();
     }
 
