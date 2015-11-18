@@ -64,6 +64,7 @@ void AppWindow::setGroupsVisibleInTable()
 {
     QJsonArray groupData = getAllGroups();
 
+        ui->listOfAllGroups->setShowGrid(false);
     foreach (const QJsonValue &value, groupData)
     {
         QJsonObject json_obj = value.toObject();
