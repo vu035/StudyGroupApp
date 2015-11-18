@@ -24,7 +24,6 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
     addItemsToCourseNameComboBox();
     setColumnsOfTable();
     main_login_window->show();
-
 }
 
 void AppWindow::addItemsToCourseNameComboBox()
@@ -48,6 +47,7 @@ void AppWindow::setColumnsOfTable()
     ui->listOfAllGroups->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->listOfAllGroups->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->listOfAllGroups->verticalHeader()->setVisible(false);
+    ui->listOfAllGroups->verticalHeader()->font().bold();
     ui->listOfAllGroups->setColumnCount(MAX_NUM_OF_COLUMNS);
     ui->listOfAllGroups->setRowCount(MAX_NUM_OF_ROWS);
     ui->listOfAllGroups->setHorizontalHeaderLabels(setColumnNames);
