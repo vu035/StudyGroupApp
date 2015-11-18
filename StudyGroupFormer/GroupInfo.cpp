@@ -78,3 +78,11 @@ void GroupInfo::on_joinButton_clicked()
 {
     postJoinGroup(ui->lblGID->text(),getAppUser().m_id);
 }
+
+
+void GroupInfo::on_commentButton_clicked()
+{
+
+        postCreateComment(ui->lblGID->text(),getAppUser().m_username,ui->commentEdit->toPlainText());
+
+}

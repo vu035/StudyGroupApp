@@ -383,7 +383,7 @@ void postCreateComment(QString group_id, QString username, QString comment_text)
     QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
 
     // the HTTP request
-    QNetworkRequest req( QUrl( QString("http://localhost:3000/group_comments") ) );
+    QNetworkRequest req( QUrl( QString("https://studygroupformer.herokuapp.com/group_comments") ) );
     req.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
     QNetworkReply *reply = mgr.post(req, headerData);
     eventLoop.exec(); // blocks stack until "finished()" has been called
@@ -422,7 +422,7 @@ QJsonArray getGroupComments(QString group_id){
      QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
 
      // the HTTP request
-     QNetworkRequest req( QUrl( QString("http://localhost:3000/groupchats") ) );
+     QNetworkRequest req( QUrl( QString("https://studygroupformer.herokuapp.com/groupchats") ) );
      req.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
      QNetworkReply *reply = mgr.post(req, headerData);
      eventLoop.exec(); // blocks stack until "finished()" has been called
