@@ -4,6 +4,7 @@
 #include "AppWindow.h"
 #include "CreateUser.h"
 #include <QDebug>
+#include <QThread>
 
 
 //LoginWindow::LoginWindow(QWidget *parent) : QMainWindow(parent),
