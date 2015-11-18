@@ -22,6 +22,8 @@ public slots:
 private slots:
     void on_joinButton_clicked();
 
+    void on_btnSendMessage_clicked();
+
 private:
     Ui::GroupInfo *ui;
 };
