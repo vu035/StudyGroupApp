@@ -16,7 +16,7 @@ GroupInfo::GroupInfo(QWidget *parent) :
     ui->lstGroupChat->setReadOnly(true);
     ui->leGroupMessage->setEnabled(true);
     ui->btnSendMessage->setEnabled(true);
-
+    disconnect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
 }
 
 void GroupInfo::displayGroupInfo()
