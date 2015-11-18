@@ -19,7 +19,7 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
     main_login_window = new LoginWindow(this);
 
 
-    this->setFixedSize(900, 900);
+    this->setFixedSize(900, 600);
 
     connect(this, SIGNAL(sendGroupID(QString)), group_info_window, SLOT(setLabelText(QString)));
     ui->setupUi(this);
@@ -64,6 +64,7 @@ void AppWindow::setGroupsVisibleInTable()
 {
     QJsonArray groupData = getAllGroups();
 
+        ui->listOfAllGroups->setShowGrid(false);
     foreach (const QJsonValue &value, groupData)
     {
         QJsonObject json_obj = value.toObject();
