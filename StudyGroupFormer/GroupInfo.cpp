@@ -12,6 +12,9 @@ GroupInfo::GroupInfo(QWidget *parent) :
     this->setFixedSize(800, 600);
     this->adjustSize();
     //displayGroupInfo();
+    ui->lstGroupChat->setEnabled(false);
+    ui->leGroupMessage->setEnabled(false);
+    ui->btnSendMessage->setEnabled(false);
 }
 
 void GroupInfo::displayGroupInfo()
@@ -76,5 +79,15 @@ GroupInfo::~GroupInfo()
 
 void GroupInfo::on_joinButton_clicked()
 {
+    ui->lstGroupChat->setEnabled(true);
+    ui->leGroupMessage->setEnabled(true);
+    ui->btnSendMessage->setEnabled(true);
     postJoinGroup(ui->lblGID->text(),getAppUser().m_id);
+}
+
+void GroupInfo::on_btnSendMessage_clicked()
+{
+    QString myMessage = ui->leGroupMessage->text();
+    ui->leGroupMessage->clear();
+    qDebug() << myMessage;
 }

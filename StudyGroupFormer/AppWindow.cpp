@@ -5,7 +5,8 @@
 const int MAX_NUM_OF_COLUMNS = 4;
 const int MAX_NUM_OF_ROWS = 40;
 
-AppWindow::AppWindow(LoginWindow *login_window) : QMainWindow(login_window),
+//AppWindow::AppWindow(LoginWindow *login_window) : QMainWindow(login_window),
+AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
     ui(new Ui::AppWindow)
 {
 
@@ -15,14 +16,18 @@ AppWindow::AppWindow(LoginWindow *login_window) : QMainWindow(login_window),
     group_info_window->setGeometry(geometry());
 
 
-    main_login_window = login_window;
-    this->setFixedSize(900, 900);
+    main_login_window = new LoginWindow(this);
+
+
+    this->setFixedSize(900, 600);
 
     connect(this, SIGNAL(sendGroupID(QString)), group_info_window, SLOT(setLabelText(QString)));
     ui->setupUi(this);
     m_rowCount=0;
     addItemsToComboBox();
     setColumnsOfTable();
+    main_login_window->show();
+
 }
 
 void AppWindow::addItemsToComboBox()
@@ -59,6 +64,7 @@ void AppWindow::setGroupsVisibleInTable()
 {
     QJsonArray groupData = getAllGroups();
 
+        ui->listOfAllGroups->setShowGrid(false);
     foreach (const QJsonValue &value, groupData)
     {
         QJsonObject json_obj = value.toObject();

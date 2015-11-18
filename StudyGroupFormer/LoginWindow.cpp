@@ -6,12 +6,12 @@
 #include <QDebug>
 
 
-LoginWindow::LoginWindow(QWidget *parent) :
-    QMainWindow(parent),
+//LoginWindow::LoginWindow(QWidget *parent) : QMainWindow(parent),
+LoginWindow::LoginWindow(AppWindow *main_window) : QMainWindow(main_window),
     ui(new Ui::LoginWindow)
 {
 
-    main_app_window = new AppWindow(this);
+    main_app_window = main_window;
     ui->setupUi(this);
 
     QPixmap pix(":/image/StudyGroupPic/StudyGroup.jpg");
