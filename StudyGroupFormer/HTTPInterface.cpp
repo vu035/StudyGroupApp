@@ -321,7 +321,7 @@ QJsonObject getStudyGroup(QString group_id){
 
 
 void postLeaveGroup(QString group_id, int user_id){
-    QJsonArray json_array;
+    //QJsonArray json_array;
      // create custom temporary event loop on stack
      QEventLoop eventLoop;
 
@@ -362,6 +362,93 @@ void postLeaveGroup(QString group_id, int user_id){
          delete reply;
      }
 
+}
+
+//post a comment to the db for a specific group
+void postCreateComment(QString group_id, QString username, QString comment_text){
+    // create custom temporary event loop on stack
+    QEventLoop eventLoop;
+
+    // "quit()" the event-loop, when the network request "finished()"
+    QNetworkAccessManager mgr;
+    QByteArray headerData;
+    QUrlQuery qu;
+    qu.addQueryItem("group_comment[studygroup_id]",group_id); //pass in the group id
+    qu.addQueryItem("group_comment[comment]",comment_text); //pass in the comment text
+    qu.addQueryItem("group_comment[user]",username); //pass in the user
+    headerData.append(qu.toString());
+
+
+
+    QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+
+    // the HTTP request
+    QNetworkRequest req( QUrl( QString("http://localhost:3000/group_comments") ) );
+    req.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
+    QNetworkReply *reply = mgr.post(req, headerData);
+    eventLoop.exec(); // blocks stack until "finished()" has been called
+
+    if (reply->error() == QNetworkReply::NoError) {
+        //success
+        QString strReply = (QString)reply->readAll();
+          qDebug() << strReply;
+
+
+        delete reply;
+
+
+    }
+    else{
+        //failure
+        qDebug() << "Failure" <<reply->errorString();
+        delete reply;
+    }
+}
+
+QJsonArray getGroupComments(QString group_id){
+    QJsonArray json_array;
+     // create custom temporary event loop on stack
+     QEventLoop eventLoop;
+
+     // "quit()" the event-loop, when the network request "finished()"
+     QNetworkAccessManager mgr;
+     QByteArray headerData;
+     QUrlQuery qu;
+     qu.addQueryItem("group_comment[studygroup_id]",group_id); //pass in the user email
+     headerData.append(qu.toString());
+
+
+
+     QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+
+     // the HTTP request
+     QNetworkRequest req( QUrl( QString("http://localhost:3000/groupchats") ) );
+     req.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
+     QNetworkReply *reply = mgr.post(req, headerData);
+     eventLoop.exec(); // blocks stack until "finished()" has been called
+
+     if (reply->error() == QNetworkReply::NoError) {
+         //success
+         QString strReply = (QString)reply->readAll();
+
+         //parse json
+
+         QJsonDocument jsonResponse = QJsonDocument::fromJson(strReply.toUtf8());
+          json_array = jsonResponse.array();
+           qDebug() << "hello" << json_array;
+
+
+
+         delete reply;
+        return json_array;
+
+     }
+     else{
+         //failure
+         qDebug() << "Failure" <<reply->errorString();
+         delete reply;
+     }
+    return json_array;
 }
 
 User getAppUser(){
