@@ -29,12 +29,13 @@ public:
     //explicit AppWindow(LoginWindow *login_window);
     explicit AppWindow(QWidget *parent = 0);
 
-    void addItemsToComboBox();
+    void addItemsToCourseNameComboBox();
     ~AppWindow();
     void setColumnsOfTable();
     void setGroupsVisibleInTable();
     void clearListOfAllGroups();
     void on_successful_login();
+    int getIdOfSelectedRow();
 
 private slots:
     void on_UserProfile_clicked();
@@ -42,6 +43,7 @@ private slots:
     void on_refreshButton_clicked();
     void on_listOfAllGroups_cellClicked(int row);
     void on_CreateGroup_clicked();
+    void on_courseNameComboBox_currentIndexChanged(const QString &itemSelected);
 
 protected:
     Ui::AppWindow *ui;
