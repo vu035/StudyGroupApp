@@ -2,7 +2,7 @@
 #include "ui_AppWindow.h"
 #include <QThread>
 
-
+QString m_group_info_id;
 const int MAX_NUM_OF_COLUMNS = 4;
 const int MAX_NUM_OF_ROWS = 40;
 
@@ -24,6 +24,9 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
     addItemsToCourseNameComboBox();
     setColumnsOfTable();
     main_login_window->show();
+    //set qheaderview to stretch fit qtablewidget
+    QHeaderView* header = ui->listOfAllGroups->horizontalHeader();
+    header->setSectionResizeMode(QHeaderView::Stretch);
 
 }
 
@@ -102,6 +105,7 @@ void AppWindow::on_successful_login()
 
 void AppWindow::on_getGroupInfo_clicked()
 {
+    emit sendGroupID(m_group_info_id);
     group_info_window->show();
 }
 
@@ -141,7 +145,11 @@ void AppWindow::on_CreateGroup_clicked()
 
 void AppWindow::on_listOfAllGroups_cellClicked(int row)
 {
-    emit sendGroupID(ui->listOfAllGroups->item(row, 0)->text());
+    if(ui->listOfAllGroups->item(row,0) != NULL)
+    {
+    m_group_info_id = ui->listOfAllGroups->item(row, 0)->text();
+    }
+    //emit sendGroupID(ui->listOfAllGroups->item(row, 0)->text());
 
 }
 
