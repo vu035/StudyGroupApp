@@ -5,6 +5,7 @@
 #include "AppWindow.h"
 #include <QDebug>
 #include <QMessageBox>
+#include <QThread>
 
 CreateUser::CreateUser(QWidget *parent) :
     QDialog(parent),
@@ -92,7 +93,7 @@ void CreateUser::on_CreateAccountButton_clicked()
         qDebug() << "Passwords Matched, creating user...";
         postCreateUser(email, pass, FirstName, LastName, uname); //create user
 
-        sleep(2);
+        QThread::sleep(2);
         hide();
     }
 

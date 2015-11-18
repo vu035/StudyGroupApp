@@ -1,5 +1,6 @@
 #include "AppWindow.h"
 #include "ui_AppWindow.h"
+#include <QThread>
 
 
 const int MAX_NUM_OF_COLUMNS = 4;
@@ -9,36 +10,28 @@ const int MAX_NUM_OF_ROWS = 40;
 AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
     ui(new Ui::AppWindow)
 {
-
     main_all_groups_window = new AllGroups();
 
     group_info_window = new GroupInfo(this);
     group_info_window->setGeometry(geometry());
 
-
     main_login_window = new LoginWindow(this);
-
-
     this->setFixedSize(900, 600);
 
     connect(this, SIGNAL(sendGroupID(QString)), group_info_window, SLOT(setLabelText(QString)));
     ui->setupUi(this);
     m_rowCount=0;
-    addItemsToComboBox();
+    addItemsToCourseNameComboBox();
     setColumnsOfTable();
     main_login_window->show();
 
 }
 
-void AppWindow::addItemsToComboBox()
+void AppWindow::addItemsToCourseNameComboBox()
 {
     QStringList courseNameComboBoxList;
     courseNameComboBoxList << "ENGL" << "MATH"<< "CS";
     ui->courseNameComboBox->addItems(courseNameComboBoxList);
-
-    QStringList courseNumberComboBoxList;
-    courseNumberComboBoxList << "101" << "111"<< "211";
-    ui->courseNumberComboBox->addItems(courseNumberComboBoxList);
 }
 
 AppWindow::~AppWindow()
@@ -62,6 +55,7 @@ void AppWindow::setColumnsOfTable()
 
 void AppWindow::setGroupsVisibleInTable()
 {
+    QThread::usleep(100);
     QJsonArray groupData = getAllGroups();
 
         ui->listOfAllGroups->setShowGrid(false);
@@ -93,10 +87,12 @@ void AppWindow::on_UserProfile_clicked()
     main_all_groups_window->show();
 }
 
-void AppWindow::on_successful_login(){
+void AppWindow::on_successful_login()
+{
     ui->usernameLabel->setText(getAppUser().m_username);
     qDebug() << "User has joined the following studygroups:";
-    foreach (const QJsonValue &value, getAppUser().m_studygroups) {
+    foreach (const QJsonValue &value, getAppUser().m_studygroups)
+    {
         QJsonObject json_obj = value.toObject();
         qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
 
@@ -124,7 +120,7 @@ void AppWindow::on_CreateGroup_clicked()
     selectedCourseNumber = ui->courseNumberComboBox->currentText();
     dateOfStudyGroup = ui->dateOfStudyWidget->date().toString();
     timeOfStudyGroup = ui->startTimeWidget->time().toString();
-    courseDescription = ui->courseDescriptionTextBox->toPlainText();
+    courseDescription = ui->courseDescriptionTextBox->toPlainText().trimmed();
 
     if(courseDescription == ""|| courseDescription == NULL)
     {
@@ -146,5 +142,46 @@ void AppWindow::on_CreateGroup_clicked()
 void AppWindow::on_listOfAllGroups_cellClicked(int row)
 {
     emit sendGroupID(ui->listOfAllGroups->item(row, 0)->text());
+
+}
+
+void AppWindow::on_courseNameComboBox_currentIndexChanged(const QString &itemSelected)
+{
+    ui->courseNumberComboBox->clear();
+    qDebug()<<"ITEM CURRENTLY SELECTED";
+    qDebug()<<itemSelected;
+
+    if (QString::compare(itemSelected,"ENGL",Qt::CaseSensitive)==0)
+    {
+        QStringList englishCourses;
+        englishCourses<<"100"<<"105"<<"107"<<"115"<<"203"<<"206"
+                        <<"211"<<"300A"<<"300B"<<"308A"<<"308B"
+                          <<"309A"<<"309B"<<"325"<<"330"<<"331"<<"332"
+                          <<"333"<<"310"<<"320"<<"315";
+        ui->courseNumberComboBox->addItems(englishCourses);
+    }
+
+    else if(QString::compare(itemSelected,"CS",Qt::CaseSensitive)==0)
+    {
+        QStringList computerScienceCourses;
+        computerScienceCourses<<"111"<<"211"<<"231"<<"311"<<"331"<<"421"<<"433"<<"436"<<"441";
+        ui->courseNumberComboBox->addItems(computerScienceCourses);
+    }
+
+    else if(QString::compare(itemSelected,"MATH",Qt::CaseSensitive)==0)
+    {
+        QStringList mathCourses;
+        mathCourses<<"10"<<"20"<<"22"<<"30"<<"30C"<<"100"<<"110"<<"115"<<"125"
+                     <<"132"<<"160"<<"162"<<"200"<<"210"<<"212"<<"242"<<"260"<<"262"
+                       <<"264"<<"270"<<"303"<<"304"<<"308"<<"311"<<"311B"<<"314"<<"315"
+                         <<"330"<<"340"<<"346"<<"350"<<"362"<<"374"<<"378"<<"390"<<"410"
+                           <<"422"<<"430"<<"440"<<"441"<<"442"<<"448"<<"464"<<"470"<<"472"
+                             <<"474"<<"480"<<"490"<<"491"<<"495"<<"498A"<<"498B"<<"498C"<<"499A"
+                               <<"499B"<<"499C"<<"505"<<"510"<<"520"<<"521"<<"522"<<"523"<<"528"
+                                 <<"530"<<"532"<<"534"<<"535"<<"536"<<"537"<<"538"<<"540"<<"541"
+                                   <<"542"<<"544"<<"550"<<"552"<<"555"<<"561"<<"563"<<"564"<<"570"
+                                     <<"571"<<"620"<<"621"<<"697"<<"699";
+        ui->courseNumberComboBox->addItems(mathCourses);
+    }
 
 }
