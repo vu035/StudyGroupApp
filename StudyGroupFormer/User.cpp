@@ -25,7 +25,7 @@ void User::updateUser(QJsonValueRef first, QJsonValueRef last, QJsonValueRef use
 
 }
 
-void User::setAdmin(bool isadmin){
+void User::setAdmin(bool admin){
     isAdmin = admin;
 }
 
