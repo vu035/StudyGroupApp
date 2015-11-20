@@ -5,12 +5,16 @@
 #include "CreateUser.h"
 #include  "User.h"
 #include "AllGroups.h"
+#include "HTTPInterface.h"
 
 namespace Ui {
 class LoginWindow;
+
 }
 
+class HTTPInterface;
 class AppWindow;
+class CreateUser;
 
 class LoginWindow : public QMainWindow
 {
@@ -31,6 +35,7 @@ private:
     Ui::LoginWindow *ui;
     AppWindow *main_app_window;
     CreateUser *create_user_window;
+    HTTPInterface *web_interface;
 };
 
 #endif // LOGINWINDOW_H

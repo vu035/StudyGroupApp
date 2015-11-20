@@ -4,12 +4,11 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include "GroupInfo.h"
-#include "AllGroups.h"
 #include "HTTPInterface.h"
 #include "LoginWindow.h"
 #include "GroupInfo.h"
 #include "AllGroups.h"
-#include "HTTPInterface.h"
+
 
 
 namespace Ui {
@@ -18,6 +17,10 @@ class AppWindow;
 
 class LoginWindow;
 class User;
+class HTTPInterface;
+class AllGroups;
+class GroupInfo;
+
 
 class AppWindow : public QMainWindow
 {
@@ -57,6 +60,7 @@ protected:
     QString courseDescription;
     int m_rowCount;
     int m_columnCount;
+    HTTPInterface *web_interface;
 
 signals:
     void sendGroupID(QString newID);

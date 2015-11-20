@@ -2,11 +2,26 @@
 #include "LoginWindow.h"
 #include "AppWindow.h"
 
+bool HTTPInterface::instanceFlag = false;
+HTTPInterface* HTTPInterface::singleinstance = NULL;
 
-User AppUser;
+HTTPInterface* HTTPInterface::getInstance()
+{
+    if(! instanceFlag)
+    {
+        singleinstance = new HTTPInterface();
+        instanceFlag = true;
+        return singleinstance;
+    }
+    else
+    {
+        return singleinstance;
+    }
+}
+
 
 //pass QjsonArray from get requests
-void groupstoString(QJsonArray jsonResponse){
+void HTTPInterface::groupstoString(QJsonArray jsonResponse){
 
     foreach (const QJsonValue &value, jsonResponse) {
         QJsonObject json_obj = value.toObject();
@@ -15,7 +30,7 @@ void groupstoString(QJsonArray jsonResponse){
 }
 
 //get all studygroups
-QJsonArray getAllGroups(){
+QJsonArray HTTPInterface::getAllGroups(){
     QJsonArray json_array;
     // create custom temporary event loop on stack
     QEventLoop eventLoop;
@@ -57,7 +72,7 @@ QJsonArray getAllGroups(){
 }
 
 //get all groups for a particular user
-void getUserGroups(User current_user){
+void HTTPInterface::getUserGroups(User current_user){
    QJsonArray json_array;
     // create custom temporary event loop on stack
     QEventLoop eventLoop;
@@ -107,7 +122,7 @@ void getUserGroups(User current_user){
 
 
 //post a new study group to DB
-void postCreateGroup(QString department, QString class_number, QString date, QString time, QString description){
+void HTTPInterface::postCreateGroup(QString department, QString class_number, QString date, QString time, QString description){
 
     QUrl myURL(QString("https://studygroupformer.herokuapp.com/studygroups"));
     QNetworkRequest request(myURL);
@@ -143,7 +158,7 @@ void postCreateGroup(QString department, QString class_number, QString date, QSt
     }
 }
 
-void postJoinGroup(QString group_id, int user_id){
+void HTTPInterface::postJoinGroup(QString group_id, int user_id){
 
     QUrl myURL(QString("https://studygroupformer.herokuapp.com/studygroups_users"));
     QNetworkRequest request(myURL);
@@ -179,7 +194,7 @@ void postJoinGroup(QString group_id, int user_id){
 
 
 //post a new user to the db
-void postCreateUser(QString email, QString password, QString firstname, QString lastname, QString username){
+void HTTPInterface::postCreateUser(QString email, QString password, QString firstname, QString lastname, QString username){
 
     QUrl myURL(QString("https://studygroupformer.herokuapp.com/users"));
     QNetworkRequest request(myURL);
@@ -221,7 +236,7 @@ void postCreateUser(QString email, QString password, QString firstname, QString 
 
 
 
-bool postLogin(QString email, QString password){
+bool HTTPInterface::postLogin(QString email, QString password){
 
     QUrl myURL(QString("https://studygroupformer.herokuapp.com/login"));
     QNetworkRequest request(myURL);
@@ -276,7 +291,7 @@ bool postLogin(QString email, QString password){
 }
 
 //get group info
-QJsonObject getStudyGroup(QString group_id){
+QJsonObject HTTPInterface::getStudyGroup(QString group_id){
     QJsonObject json_obj ;
     QString url = "https://studygroupformer.herokuapp.com/studygroups/" + group_id;
     QUrl myURL(url);
@@ -320,7 +335,7 @@ QJsonObject getStudyGroup(QString group_id){
 }
 
 
-void postLeaveGroup(QString group_id, int user_id){
+void HTTPInterface::postLeaveGroup(QString group_id, int user_id){
     //QJsonArray json_array;
      // create custom temporary event loop on stack
      QEventLoop eventLoop;
@@ -365,7 +380,7 @@ void postLeaveGroup(QString group_id, int user_id){
 }
 
 //post a comment to the db for a specific group
-void postCreateComment(QString group_id, QString username, QString comment_text){
+void HTTPInterface::postCreateComment(QString group_id, QString username, QString comment_text){
     // create custom temporary event loop on stack
     QEventLoop eventLoop;
 
@@ -405,7 +420,7 @@ void postCreateComment(QString group_id, QString username, QString comment_text)
     }
 }
 
-QJsonArray getGroupComments(QString group_id){
+QJsonArray HTTPInterface::getGroupComments(QString group_id){
     QJsonArray json_array;
      // create custom temporary event loop on stack
      QEventLoop eventLoop;
@@ -451,6 +466,6 @@ QJsonArray getGroupComments(QString group_id){
     return json_array;
 }
 
-User getAppUser(){
+User HTTPInterface::getAppUser(){
     return AppUser;
 }

@@ -18,6 +18,7 @@ LoginWindow::LoginWindow(AppWindow *main_window) : QMainWindow(main_window),
     QPixmap pix(":/image/StudyGroupPic/StudyGroup.jpg");
     ui->label_pic->setPixmap(pix);
     ui->label_pic->setAttribute(Qt::WA_TranslucentBackground);
+    web_interface = HTTPInterface::getInstance();
 }
 
 LoginWindow::~LoginWindow()
@@ -41,12 +42,12 @@ void LoginWindow::login(){
     //postCreateUser("1@3", "root", "James", "Hannahan", "JH024");
 
     //if pass matches encrypted pass, show main window
-    if(postLogin(uname, pass)){
+    if(web_interface->postLogin(uname, pass)){
         //postCreateComment("2", uname, "hey all this is a fresh comment from the db");
         //postJoinGroup("5", getAppUser().m_id);
         //get AppUser's groups from db and set AppUser groups
-        getGroupComments("2");
-        getUserGroups(getAppUser());
+        web_interface->getGroupComments("2");
+        web_interface->getUserGroups(web_interface->getAppUser());
         //postLeaveGroup("1", getAppUser().m_id);
         //getStudyGroup("1");
         //debug output

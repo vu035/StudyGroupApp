@@ -1,11 +1,5 @@
 #include "CreateUser.h"
 #include "ui_CreateUser.h"
-#include "LoginWindow.h"
-#include "HTTPInterface.h"
-#include "AppWindow.h"
-#include <QDebug>
-#include <QMessageBox>
-#include <QThread>
 
 CreateUser::CreateUser(QWidget *parent) :
     QDialog(parent),
@@ -17,6 +11,7 @@ CreateUser::CreateUser(QWidget *parent) :
 
     ui->CreateAccountButton->setEnabled(false);
     ui->CreateUserSuccess->setHidden(true);
+    web_interface = HTTPInterface::getInstance();
 }
 
 CreateUser::~CreateUser()
@@ -91,7 +86,7 @@ void CreateUser::on_CreateAccountButton_clicked()
     if(pass == passCopy)
     {
         qDebug() << "Passwords Matched, creating user...";
-        postCreateUser(email, pass, FirstName, LastName, uname); //create user
+        web_interface->postCreateUser(email, pass, FirstName, LastName, uname); //create user
 
         QThread::sleep(2);
         hide();

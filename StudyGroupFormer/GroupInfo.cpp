@@ -1,9 +1,6 @@
 #include "GroupInfo.h"
 #include "ui_GroupInfo.h"
-#include <QTime>
-#include "HTTPInterface.h"
-#include "AppWindow.h"
-#include <QScrollBar>
+
 
 GroupInfo::GroupInfo(QWidget *parent) :
     QDialog(parent),
@@ -20,14 +17,14 @@ GroupInfo::GroupInfo(QWidget *parent) :
     QScrollBar *scrollbar = ui->lstGroupChat->verticalScrollBar();
     scrollbar->setValue(scrollbar->maximum());
     //disconnect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-
+    web_interface = HTTPInterface::getInstance();
 
 }
 
 void GroupInfo::displayGroupInfo()
 {
     //grab the group info
-     QJsonObject groupInfo = getStudyGroup("1");
+     QJsonObject groupInfo = web_interface->getStudyGroup("1");
      ui->courseDescription->setEnabled(false);
 
      //parse the info
@@ -55,7 +52,7 @@ void GroupInfo::displayGroupInfo()
 void GroupInfo::setLabelText(QString gID)
 {
     ui->courseDescription->setEnabled(false);
-    QJsonObject groupInfo = getStudyGroup(gID);
+    QJsonObject groupInfo = web_interface->getStudyGroup(gID);
 
     //parse the info
     QString groupId = QString::number(groupInfo["id"].toInt());
@@ -85,7 +82,7 @@ void GroupInfo::setLabelText(QString gID)
 //get updated chat comments from the DB and append them to the chat window
 //
 void GroupInfo::updateChatWindow(QString group_id){
-    QJsonArray temp = getGroupComments(group_id);
+    QJsonArray temp = web_interface->getGroupComments(group_id);
      ui->lstGroupChat->clear();
      //iterate throught the json arrayq
     foreach (const QJsonValue &value, temp)
@@ -123,14 +120,14 @@ void GroupInfo::on_joinButton_clicked()
     ui->lstGroupChat->setEnabled(true);
     ui->leGroupMessage->setEnabled(true);
     ui->btnSendMessage->setEnabled(true);
-    postJoinGroup(ui->lblGID->text(),getAppUser().m_id);
+    web_interface->postJoinGroup(ui->lblGID->text(),web_interface->getAppUser().m_id);
 }
 
 void GroupInfo::on_btnSendMessage_clicked()
 {
     QString myMessage = ui->leGroupMessage->text();
     //post the comment
-    postCreateComment(ui->lblGID->text(), getAppUser().m_username, myMessage);
+    web_interface->postCreateComment(ui->lblGID->text(), web_interface->getAppUser().m_username, myMessage);
     ui->leGroupMessage->clear();
     //set the chat box to display the new message
     updateChatWindow(ui->lblGID->text());
