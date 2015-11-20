@@ -108,6 +108,10 @@ void AppWindow::on_getGroupInfo_clicked()
 {
     emit sendGroupID(m_group_info_id);
     group_info_window->show();
+    while(group_info_window->isVisible()){
+
+        group_info_window->chatPoller();
+    }
 
 }
 
