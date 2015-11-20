@@ -44,6 +44,7 @@ public:
     void postLeaveGroup(QString group_id, int user_id);
     bool postLogin(QString email, QString password);
     void postCreateComment(QString group_id, QString username, QString comment_text);
+    void deleteGroup(QString group_id);
     QJsonArray getGroupComments(QString group_id);
     QJsonObject getStudyGroup(QString group_id);
     User getAppUser();
