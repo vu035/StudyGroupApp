@@ -27,7 +27,6 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
     //set qheaderview to stretch fit qtablewidget
     QHeaderView* header = ui->listOfAllGroups->horizontalHeader();
     header->setSectionResizeMode(QHeaderView::Stretch);
-
 }
 
 void AppWindow::addItemsToCourseNameComboBox()
@@ -51,6 +50,7 @@ void AppWindow::setColumnsOfTable()
     ui->listOfAllGroups->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->listOfAllGroups->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->listOfAllGroups->verticalHeader()->setVisible(false);
+    ui->listOfAllGroups->verticalHeader()->font().bold();
     ui->listOfAllGroups->setColumnCount(MAX_NUM_OF_COLUMNS);
     ui->listOfAllGroups->setRowCount(MAX_NUM_OF_ROWS);
     ui->listOfAllGroups->setHorizontalHeaderLabels(setColumnNames);
@@ -102,6 +102,11 @@ void AppWindow::on_successful_login()
 
     }
     qDebug() << "end";
+}
+
+void AppWindow::resetRowCount()
+{
+    m_rowCount=0;
 }
 
 void AppWindow::on_getGroupInfo_clicked()

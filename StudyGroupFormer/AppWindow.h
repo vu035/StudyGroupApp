@@ -36,6 +36,7 @@ public:
     void clearListOfAllGroups();
     void on_successful_login();
     int getIdOfSelectedRow();
+    void resetRowCount();
 
 private slots:
     void on_UserProfile_clicked();
