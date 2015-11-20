@@ -48,6 +48,7 @@ private slots:
     void on_listOfAllGroups_cellClicked(int row);
     void on_CreateGroup_clicked();
     void on_courseNameComboBox_currentIndexChanged(const QString &itemSelected);
+    void closeEvent (QCloseEvent *event);
 
     void on_deleteButton_clicked();
 

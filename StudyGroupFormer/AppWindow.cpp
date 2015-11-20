@@ -14,11 +14,10 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
 
     group_info_window = new GroupInfo(this);
     group_info_window->setGeometry(geometry());
-
     main_login_window = new LoginWindow(this);
     this->setFixedSize(900, 600);
-
     connect(this, SIGNAL(sendGroupID(QString)), group_info_window, SLOT(setLabelText(QString)));
+    //connect(qApp, SIGNAL(aboutToQuit()),this,SLOT(closeEvent(QCloseEvent*)));
     ui->setupUi(this);
     m_rowCount=0;
     addItemsToCourseNameComboBox();
@@ -31,6 +30,20 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
 
 }
 
+void AppWindow::closeEvent (QCloseEvent *event)
+{
+    QMessageBox::StandardButton resBtn = QMessageBox::question( this, "Study Group APP",
+                                                                tr("Are you sure?\n"),
+                                                                QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+                                                                QMessageBox::Yes);
+    if (resBtn != QMessageBox::Yes) {
+        event->ignore();
+    } else {
+        event->accept();
+        QApplication::quit();
+    }
+}
+
 void AppWindow::addItemsToCourseNameComboBox()
 {
     QStringList courseNameComboBoxList;
@@ -41,6 +54,10 @@ void AppWindow::addItemsToCourseNameComboBox()
 AppWindow::~AppWindow()
 {
     delete ui;
+    delete main_all_groups_window;
+    delete group_info_window;
+    delete main_login_window;
+    qDebug() << "closed main window";
 }
 
 void AppWindow::setColumnsOfTable()
