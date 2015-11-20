@@ -20,6 +20,8 @@ GroupInfo::GroupInfo(QWidget *parent) :
     QScrollBar *scrollbar = ui->lstGroupChat->verticalScrollBar();
     scrollbar->setValue(scrollbar->maximum());
     //disconnect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+
+
 }
 
 void GroupInfo::displayGroupInfo()
@@ -106,7 +108,7 @@ void GroupInfo::chatPoller(){
         while (QTime::currentTime() < dieTime){
             QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
         }
-
+        qDebug() << "updating";
         updateChatWindow(ui->lblGID->text());
 
 }
@@ -146,4 +148,5 @@ void GroupInfo::on_chatRefreshButton_clicked()
 void GroupInfo::on_leGroupMessage_returnPressed()
 {
     emit on_btnSendMessage_clicked();
+
 }
