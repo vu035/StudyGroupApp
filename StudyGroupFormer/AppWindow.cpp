@@ -104,6 +104,11 @@ void AppWindow::on_successful_login()
     qDebug() << "end";
 }
 
+void AppWindow::resetRowCount()
+{
+    m_rowCount=0;
+}
+
 void AppWindow::on_getGroupInfo_clicked()
 {
     emit sendGroupID(m_group_info_id);
