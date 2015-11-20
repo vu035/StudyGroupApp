@@ -22,6 +22,10 @@ AllGroups::AllGroups(QWidget *parent) :
     //set qheaderview to stretch fit qtablewidget
     QHeaderView* header = ui->Usergroup->horizontalHeader();
     header->setSectionResizeMode(QHeaderView::Stretch);
+
+    profile_group_info_window = new GroupInfo(this);
+    profile_group_info_window->setGeometry(geometry());
+    connect(this, SIGNAL(sendProfileGroupID(QString)), profile_group_info_window, SLOT(setLabelText(QString)));
 }
 
 AllGroups::~AllGroups()
@@ -77,6 +81,7 @@ void AllGroups::setColumnsOfTable()
     ui->Usergroup->setColumnCount(MAX_NUM_OF_COLUMNS);
     ui->Usergroup->setRowCount(MAX_NUM_OF_ROWS);
     ui->Usergroup->setHorizontalHeaderLabels(setColumnNames);
+
 }
 
 void AllGroups::on_leaveButton_clicked()
@@ -96,5 +101,12 @@ void AllGroups::on_Usergroup_cellClicked(int row)
     affiliation_id = ui->Usergroup->item(row, 0)->text();
     qDebug() << affiliation_id;
     }
+
+}
+
+void AllGroups::on_showGroupButton_clicked()
+{
+    emit sendProfileGroupID(affiliation_id);
+    profile_group_info_window->show();
 
 }
