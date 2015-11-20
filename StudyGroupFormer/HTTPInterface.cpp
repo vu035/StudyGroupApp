@@ -36,7 +36,7 @@ QJsonArray HTTPInterface::getAllGroups(){
     QEventLoop eventLoop;
 
     // "quit()" the event-loop, when the network request "finished()"
-    QNetworkAccessManager mgr;
+
     QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
 
     // the HTTP request
@@ -78,7 +78,7 @@ void HTTPInterface::getUserGroups(User current_user){
     QEventLoop eventLoop;
 
     // "quit()" the event-loop, when the network request "finished()"
-    QNetworkAccessManager mgr;
+
     QByteArray headerData;
     QUrlQuery qu;
     qu.addQueryItem("user[email]",current_user.m_email); //pass in the user email
@@ -126,7 +126,7 @@ void HTTPInterface::postCreateGroup(QString department, QString class_number, QS
 
     QUrl myURL(QString("https://studygroupformer.herokuapp.com/studygroups"));
     QNetworkRequest request(myURL);
-    QNetworkAccessManager mgr;
+
 
     QByteArray postData;
     request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
@@ -162,7 +162,7 @@ void HTTPInterface::postJoinGroup(QString group_id, int user_id){
 
     QUrl myURL(QString("https://studygroupformer.herokuapp.com/studygroups_users"));
     QNetworkRequest request(myURL);
-    QNetworkAccessManager mgr;
+
 
     QByteArray postData;
     request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
@@ -199,7 +199,7 @@ void HTTPInterface::postCreateUser(QString email, QString password, QString firs
     QUrl myURL(QString("https://studygroupformer.herokuapp.com/users"));
     QNetworkRequest request(myURL);
     request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
-    QNetworkAccessManager mgr;
+
 
     QByteArray postData;
     QUrlQuery qu;
@@ -240,7 +240,7 @@ bool HTTPInterface::postLogin(QString email, QString password){
 
     QUrl myURL(QString("https://studygroupformer.herokuapp.com/login"));
     QNetworkRequest request(myURL);
-    QNetworkAccessManager mgr;
+
 
     QByteArray postData;
     request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
@@ -296,7 +296,8 @@ QJsonObject HTTPInterface::getStudyGroup(QString group_id){
     QString url = "https://studygroupformer.herokuapp.com/studygroups/" + group_id;
     QUrl myURL(url);
     QNetworkRequest request(myURL);
-    QNetworkAccessManager mgr;
+
+
 
 
     request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
@@ -341,7 +342,7 @@ void HTTPInterface::postLeaveGroup(QString group_id, int user_id){
      QEventLoop eventLoop;
 
      // "quit()" the event-loop, when the network request "finished()"
-     QNetworkAccessManager mgr;
+
      QByteArray headerData;
      QUrlQuery qu;
      qu.addQueryItem("studygroups_user[studygroup_id]",group_id); //pass in the group id
@@ -385,7 +386,7 @@ void HTTPInterface::postCreateComment(QString group_id, QString username, QStrin
     QEventLoop eventLoop;
 
     // "quit()" the event-loop, when the network request "finished()"
-    QNetworkAccessManager mgr;
+
     QByteArray headerData;
     QUrlQuery qu;
     qu.addQueryItem("group_comment[studygroup_id]",group_id); //pass in the group id
@@ -426,7 +427,7 @@ QJsonArray HTTPInterface::getGroupComments(QString group_id){
      QEventLoop eventLoop;
 
      // "quit()" the event-loop, when the network request "finished()"
-     QNetworkAccessManager mgr;
+
      QByteArray headerData;
      QUrlQuery qu;
      qu.addQueryItem("group_comment[studygroup_id]",group_id); //pass in the user email
@@ -465,6 +466,44 @@ QJsonArray HTTPInterface::getGroupComments(QString group_id){
      }
     return json_array;
 }
+
+
+void HTTPInterface::deleteGroup(QString group_id){
+    QString url = "https://studygroupformer.herokuapp.com/studygroups/" + group_id;
+    QUrl myURL(url);
+    QNetworkRequest request(myURL);
+
+
+
+
+    request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
+
+    QNetworkReply *reply = mgr.deleteResource(request);
+
+
+    QEventLoop eventLoop;
+    QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+    eventLoop.exec();
+
+    if (reply->error() == QNetworkReply::NoError) {
+
+
+
+        //success
+            qDebug() << " Success";
+
+             delete reply;
+
+
+    }
+    else {
+        //failure
+        qDebug() << "Failure" <<reply->errorString();
+        delete reply;
+
+    }
+}
+
 
 User HTTPInterface::getAppUser(){
     return AppUser;

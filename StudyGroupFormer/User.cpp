@@ -5,6 +5,7 @@ User::User(){
     m_firstname = "null";
     m_lastname = "null";
     m_username = "null";
+    isAdmin = false;
 }
 
 User::User(QJsonValueRef first, QJsonValueRef last, QJsonValueRef username, QJsonArray groups){
@@ -22,6 +23,10 @@ void User::updateUser(QJsonValueRef first, QJsonValueRef last, QJsonValueRef use
     this->m_email = email.toString();
     this->m_id = id;
 
+}
+
+void User::setAdmin(bool isadmin){
+    isAdmin = admin;
 }
 
 void User::updateGroups(QJsonArray studygroups){
