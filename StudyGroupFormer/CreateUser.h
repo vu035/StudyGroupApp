@@ -39,10 +39,13 @@ private slots:
 
     void on_CreateEmail_textEdited(const QString &arg1);
 
+    void ChangeStatusBar(int bar);
+
 private:
     Ui::CreateUser *ui;
     CreateUser *create_user_window;
     HTTPInterface *web_interface;
+    int BarStatus;
 };
 
 #endif // CREATEUSER_H
