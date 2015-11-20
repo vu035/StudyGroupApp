@@ -27,6 +27,8 @@ private:
     static bool instanceFlag;
     static HTTPInterface *singleinstance;
     User AppUser;
+    QNetworkAccessManager mgr;
+
     HTTPInterface()
     {
         //private constructor
