@@ -7,6 +7,7 @@
 #include <QString>
 #include <QDate>
 #include "User.h"
+#include <GroupInfo.h>
 
 namespace Ui {
 class AllGroups;
@@ -32,8 +33,16 @@ private slots:
 
     void on_Usergroup_cellClicked(int row);
 
+    void on_showGroupButton_clicked();
+
 private:
     Ui::AllGroups *ui;
+
+protected:
+    GroupInfo *profile_group_info_window;
+
+signals:
+    void sendProfileGroupID(QString newID);
 };
 
 #endif // ALLGROUPS_H
