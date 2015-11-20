@@ -108,5 +108,9 @@ void AllGroups::on_showGroupButton_clicked()
 {
     emit sendProfileGroupID(affiliation_id);
     profile_group_info_window->show();
+    while(profile_group_info_window->isVisible()){
+
+        profile_group_info_window->chatPoller();
+    }
 
 }
