@@ -37,6 +37,8 @@ public:
     static HTTPInterface* getInstance(); //returns mem address of single instance
 
     QJsonArray getAllGroups();
+    QJsonArray getAllUsers();
+    void deleteUser(QString user_id);
     void getUserGroups(User current_user);
     void postCreateGroup(QString department, QString class_num, QString date, QString time, QString description);
     void postCreateUser(QString email, QString password, QString firstname, QString lastname, QString username);
