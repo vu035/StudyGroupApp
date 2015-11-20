@@ -12,6 +12,8 @@ CreateUser::CreateUser(QWidget *parent) :
     ui->CreateAccountButton->setEnabled(false);
     ui->CreateUserSuccess->setHidden(true);
     web_interface = HTTPInterface::getInstance();
+
+    BarStatus = 0;
 }
 
 CreateUser::~CreateUser()
@@ -97,33 +99,45 @@ void CreateUser::on_CreateAccountButton_clicked()
 
 void CreateUser::on_CreateFirstName_editingFinished()
 {
-    ui->CreateUserProgressBar->setValue(17);
+    BarStatus = BarStatus + 20;
+    ChangeStatusBar(BarStatus);
 }
 
 
 void CreateUser::on_CreateLastName_editingFinished()
 {
-    ui->CreateUserProgressBar->setValue(34);
+    BarStatus = BarStatus + 20;
+    ChangeStatusBar(BarStatus);
 }
 
 void CreateUser::on_CreateUsername_editingFinished()
 {
-    ui->CreateUserProgressBar->setValue(50);
+    BarStatus = BarStatus + 10;
+    ChangeStatusBar(BarStatus);
 }
 
 void CreateUser::on_CreatePassword_editingFinished()
 {
-    ui->CreateUserProgressBar->setValue(67);
+    BarStatus = BarStatus + 10;
+    ChangeStatusBar(BarStatus);
 }
 
 void CreateUser::on_CreatePasswordCopy_editingFinished()
 {
-    ui->CreateUserProgressBar->setValue(84);
+    BarStatus = BarStatus + 20;
+    ChangeStatusBar(BarStatus);
 }
 
 void CreateUser::on_CreateEmail_textEdited(const QString &arg1)
 {
-    ui->CreateUserProgressBar->setValue(100);
+    BarStatus = BarStatus + 20;
+    ChangeStatusBar(BarStatus);
     ui->CreateAccountButton->setEnabled(true);
     ui->CreateUserSuccess->setHidden(false);
+}
+
+void CreateUser::ChangeStatusBar(int bar)
+{
+    int value = bar;
+    ui->CreateUserProgressBar->setValue(value);
 }
