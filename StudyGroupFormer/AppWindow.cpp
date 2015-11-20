@@ -27,6 +27,7 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
     //set qheaderview to stretch fit qtablewidget
     QHeaderView* header = ui->listOfAllGroups->horizontalHeader();
     header->setSectionResizeMode(QHeaderView::Stretch);
+    web_interface = HTTPInterface::getInstance();
 
 }
 
@@ -51,6 +52,7 @@ void AppWindow::setColumnsOfTable()
     ui->listOfAllGroups->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->listOfAllGroups->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->listOfAllGroups->verticalHeader()->setVisible(false);
+    ui->listOfAllGroups->verticalHeader()->font().bold();
     ui->listOfAllGroups->setColumnCount(MAX_NUM_OF_COLUMNS);
     ui->listOfAllGroups->setRowCount(MAX_NUM_OF_ROWS);
     ui->listOfAllGroups->setHorizontalHeaderLabels(setColumnNames);
@@ -60,7 +62,7 @@ void AppWindow::setColumnsOfTable()
 void AppWindow::setGroupsVisibleInTable()
 {
     QThread::usleep(100);
-    QJsonArray groupData = getAllGroups();
+    QJsonArray groupData = web_interface->getAllGroups();
 
         ui->listOfAllGroups->setShowGrid(false);
     foreach (const QJsonValue &value, groupData)
@@ -93,15 +95,20 @@ void AppWindow::on_UserProfile_clicked()
 
 void AppWindow::on_successful_login()
 {
-    ui->usernameLabel->setText(getAppUser().m_username);
+    ui->usernameLabel->setText(web_interface->getAppUser().m_username);
     qDebug() << "User has joined the following studygroups:";
-    foreach (const QJsonValue &value, getAppUser().m_studygroups)
+    foreach (const QJsonValue &value, web_interface->getAppUser().m_studygroups)
     {
         QJsonObject json_obj = value.toObject();
         qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
 
     }
     qDebug() << "end";
+}
+
+void AppWindow::resetRowCount()
+{
+    m_rowCount=0;
 }
 
 void AppWindow::on_getGroupInfo_clicked()
@@ -143,7 +150,7 @@ void AppWindow::on_CreateGroup_clicked()
     else
     {
         qDebug()<< courseDescription;
-        postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup ,timeOfStudyGroup,courseDescription);
+        web_interface->postCreateGroup(selectedCourseName, selectedCourseNumber, dateOfStudyGroup ,timeOfStudyGroup,courseDescription);
         on_refreshButton_clicked();
         ui->courseDescriptionTextBox->clear();
     }

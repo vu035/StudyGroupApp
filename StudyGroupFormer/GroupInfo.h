@@ -2,10 +2,16 @@
 #define GROUPINFO_H
 
 #include <QDialog>
+#include <QTime>
+#include "HTTPInterface.h"
+#include "AppWindow.h"
+#include <QScrollBar>
 
 namespace Ui {
 class GroupInfo;
 }
+
+class HTTPInterface;
 
 class GroupInfo : public QDialog
 {
@@ -30,6 +36,7 @@ private slots:
     void on_leGroupMessage_returnPressed();
 private:
     Ui::GroupInfo *ui;
+    HTTPInterface *web_interface;
 };
 
 #endif // GROUPINFO_H

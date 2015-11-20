@@ -1,10 +1,6 @@
 #include "AllGroups.h"
 #include "ui_AllGroups.h"
-#include "LoginWindow.h"
-#include "HTTPInterface.h"
-#include <QDebug>
-#include <QDate>
-#include <QString>
+
 
 const int MAX_NUM_OF_COLUMNS = 4;
 const int MAX_NUM_OF_ROWS = 40;
@@ -26,6 +22,7 @@ AllGroups::AllGroups(QWidget *parent) :
     profile_group_info_window = new GroupInfo(this);
     profile_group_info_window->setGeometry(geometry());
     connect(this, SIGNAL(sendProfileGroupID(QString)), profile_group_info_window, SLOT(setLabelText(QString)));
+    web_interface = HTTPInterface::getInstance();
 }
 
 AllGroups::~AllGroups()
@@ -34,22 +31,22 @@ AllGroups::~AllGroups()
 }
 
 void AllGroups::User_Profile(){
-    ui->firstnamelabel->setText(getAppUser().m_firstname);
-    ui->lastnamelabel->setText(getAppUser().m_lastname);
-    ui->usernamelabel->setText(getAppUser().m_username);
-    ui->emaillabel->setText(getAppUser().m_email);
+    ui->firstnamelabel->setText(web_interface->getAppUser().m_firstname);
+    ui->lastnamelabel->setText(web_interface->getAppUser().m_lastname);
+    ui->usernamelabel->setText(web_interface->getAppUser().m_username);
+    ui->emaillabel->setText(web_interface->getAppUser().m_email);
 
     Study_Group_Info();
 }
 
 void AllGroups::Study_Group_Info(){
-    getUserGroups(getAppUser());
+    web_interface->getUserGroups(web_interface->getAppUser());
     ui->Usergroup->clearContents();
 
    int m_rowCount  = 0;
    int m_columnCount = 0;
 
-    QJsonArray QJsonA = getAppUser().m_studygroups;
+    QJsonArray QJsonA = web_interface->getAppUser().m_studygroups;
 
     foreach (const QJsonValue &value, QJsonA)
     {
@@ -88,9 +85,9 @@ void AllGroups::on_leaveButton_clicked()
 {
      if (affiliation_id != NULL)
      {
-          postLeaveGroup(affiliation_id, getAppUser().m_id);
+          web_interface->postLeaveGroup(affiliation_id, web_interface->getAppUser().m_id);
           Study_Group_Info();
-          qDebug() << getAppUser().m_studygroups;
+          qDebug() << web_interface->getAppUser().m_studygroups;
      }
 }
 

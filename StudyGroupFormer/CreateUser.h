@@ -2,10 +2,19 @@
 #define CREATEUSER_H
 
 #include <QDialog>
+#include "LoginWindow.h"
+#include "HTTPInterface.h"
+#include "AppWindow.h"
+#include <QDebug>
+#include <QMessageBox>
+#include <QThread>
+
 
 namespace Ui {
 class CreateUser;
 }
+
+class HTTPInterface;
 
 class CreateUser : public QDialog
 {
@@ -33,6 +42,7 @@ private slots:
 private:
     Ui::CreateUser *ui;
     CreateUser *create_user_window;
+    HTTPInterface *web_interface;
 };
 
 #endif // CREATEUSER_H
