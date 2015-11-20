@@ -28,7 +28,7 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
     QHeaderView* header = ui->listOfAllGroups->horizontalHeader();
     header->setSectionResizeMode(QHeaderView::Stretch);
     web_interface = HTTPInterface::getInstance();
-
+    setAdminUserDropdown();
 }
 
 void AppWindow::addItemsToCourseNameComboBox()
@@ -36,6 +36,19 @@ void AppWindow::addItemsToCourseNameComboBox()
     QStringList courseNameComboBoxList;
     courseNameComboBoxList << "ENGL" << "MATH"<< "CS";
     ui->courseNameComboBox->addItems(courseNameComboBoxList);
+}
+
+void AppWindow::setAdminUserDropdown()
+{
+    QJsonArray userData = web_interface->getAllUsers();
+    QStringList UserList;
+    foreach (const QJsonValue &value, userData)
+    {
+        QJsonObject json_obj = value.toObject();
+        UserList << QString::number(json_obj["id"].toInt()) +" "+ json_obj["email"].toString() ;
+    }
+    ui->userlistbox->addItems(UserList);
+
 }
 
 AppWindow::~AppWindow()
@@ -215,4 +228,10 @@ void AppWindow::on_deleteButton_clicked()
     setColumnsOfTable();
     setGroupsVisibleInTable();
 
+}
+
+void AppWindow::on_userdeleteButton_2_clicked()
+{
+    web_interface->deleteUser(ui->userlistbox->currentText().split(' ').first());
+    setAdminUserDropdown();
 }

@@ -71,6 +71,48 @@ QJsonArray HTTPInterface::getAllGroups(){
     return json_array;
 }
 
+
+QJsonArray HTTPInterface::getAllUsers(){
+    QJsonArray json_array;
+    // create custom temporary event loop on stack
+    QEventLoop eventLoop;
+
+    // "quit()" the event-loop, when the network request "finished()"
+
+    QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+
+    // the HTTP request
+    QNetworkRequest req( QUrl( QString("https://studygroupformer.herokuapp.com/users") ) );
+    QNetworkReply *reply = mgr.get(req);
+    eventLoop.exec(); // blocks stack until "finished()" has been called
+
+    if (reply->error() == QNetworkReply::NoError) {
+        //success
+        QString strReply = (QString)reply->readAll();
+
+        //parse json
+        //qDebug() << "Response:" << strReply;
+        QJsonDocument jsonResponse = QJsonDocument::fromJson(strReply.toUtf8());
+
+        json_array = jsonResponse.array();
+        foreach (const QJsonValue &value, json_array) {
+            QJsonObject json_obj = value.toObject();
+            qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
+
+
+        }
+        delete reply;
+        return json_array;
+
+    }
+    else{
+        //failure
+        qDebug() << "Failure" <<reply->errorString();
+        delete reply;
+    }
+    return json_array;
+}
+
 //get all groups for a particular user
 void HTTPInterface::getUserGroups(User current_user){
    QJsonArray json_array;
@@ -503,6 +545,44 @@ void HTTPInterface::deleteGroup(QString group_id){
 
     }
 }
+
+void HTTPInterface::deleteUser(QString user_id){
+
+        QString url = "https://studygroupformer.herokuapp.com/users/" + user_id;
+        QUrl myURL(url);
+        QNetworkRequest request(myURL);
+
+
+
+
+        request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
+
+        QNetworkReply *reply = mgr.deleteResource(request);
+
+
+        QEventLoop eventLoop;
+        QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+        eventLoop.exec();
+
+        if (reply->error() == QNetworkReply::NoError) {
+
+
+
+            //success
+                qDebug() << " Success";
+
+                 delete reply;
+
+
+        }
+        else {
+            //failure
+            qDebug() << "Failure" <<reply->errorString();
+            delete reply;
+
+        }
+}
+
 
 
 User HTTPInterface::getAppUser(){
