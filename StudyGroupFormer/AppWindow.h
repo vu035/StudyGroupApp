@@ -49,6 +49,8 @@ private slots:
     void on_CreateGroup_clicked();
     void on_courseNameComboBox_currentIndexChanged(const QString &itemSelected);
 
+    void on_deleteButton_clicked();
+
 protected:
     Ui::AppWindow *ui;
     LoginWindow *main_login_window;

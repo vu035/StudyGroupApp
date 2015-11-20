@@ -467,6 +467,44 @@ QJsonArray HTTPInterface::getGroupComments(QString group_id){
     return json_array;
 }
 
+
+void HTTPInterface::deleteGroup(QString group_id){
+    QString url = "https://studygroupformer.herokuapp.com/studygroups/" + group_id;
+    QUrl myURL(url);
+    QNetworkRequest request(myURL);
+
+
+
+
+    request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
+
+    QNetworkReply *reply = mgr.deleteResource(request);
+
+
+    QEventLoop eventLoop;
+    QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+    eventLoop.exec();
+
+    if (reply->error() == QNetworkReply::NoError) {
+
+
+
+        //success
+            qDebug() << " Success";
+
+             delete reply;
+
+
+    }
+    else {
+        //failure
+        qDebug() << "Failure" <<reply->errorString();
+        delete reply;
+
+    }
+}
+
+
 User HTTPInterface::getAppUser(){
     return AppUser;
 }
