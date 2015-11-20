@@ -53,6 +53,9 @@ void LoginWindow::login(){
         //debug output
         //getAllGroups();
 
+        //here we should set our admin flad
+        //if(web_interface->isAdmin(
+
       //hide window
         setVisible(false);
        //hide();
