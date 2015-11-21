@@ -68,6 +68,7 @@ void LoginWindow::login(){
        main_app_window->clearListOfAllGroups();
        main_app_window->setColumnsOfTable();
        main_app_window->setGroupsVisibleInTable();
+       main_app_window->setAdminUserDropdown();
 
     }
 }

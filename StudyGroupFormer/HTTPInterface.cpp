@@ -95,12 +95,13 @@ QJsonArray HTTPInterface::getAllUsers(){
         QJsonDocument jsonResponse = QJsonDocument::fromJson(strReply.toUtf8());
 
         json_array = jsonResponse.array();
+        /*
         foreach (const QJsonValue &value, json_array) {
             QJsonObject json_obj = value.toObject();
-            qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
+            qDebug() << json_obj["id"].toInt() ;
 
 
-        }
+        }*/
         delete reply;
         return json_array;
 
@@ -308,11 +309,11 @@ bool HTTPInterface::postLogin(QString email, QString password){
             QJsonObject json_obj = jsonResponse.object();
              //qDebug() << json_obj;
             int userID = json_obj["id"].toInt();
-            qDebug() <<json_obj["Admin"].toBool();
+           // qDebug() <<json_obj["Admin"].toBool();
              //define current user object here
              AppUser.updateUser(json_obj["Firstname"], json_obj["Lastname"], json_obj["Username"], json_obj["email"], userID);
             AppUser.isAdmin = json_obj["Admin"].toBool();
-             qDebug() << AppUser.isAdmin <<  "!isadmin!!!!";
+            // qDebug() << AppUser.isAdmin <<  "!isadmin!!!!";
 
              delete reply;
              return true;
@@ -493,7 +494,7 @@ QJsonArray HTTPInterface::getGroupComments(QString group_id){
 
          QJsonDocument jsonResponse = QJsonDocument::fromJson(strReply.toUtf8());
           json_array = jsonResponse.array();
-           qDebug() << "hello" << json_array;
+          // qDebug() << "hello" << json_array;
 
 
 

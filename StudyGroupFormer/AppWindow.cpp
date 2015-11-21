@@ -27,7 +27,6 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
     QHeaderView* header = ui->listOfAllGroups->horizontalHeader();
     header->setSectionResizeMode(QHeaderView::Stretch);
     web_interface = HTTPInterface::getInstance();
-    setAdminUserDropdown();
     ui->deleteButton->hide();
     ui->userdeleteButton_2->hide();
     ui->adminprivButton->hide();
@@ -138,6 +137,7 @@ void AppWindow::on_successful_login()
         ui->adminprivButton->show();
         ui->userlistbox->show();
     }
+    /*
     qDebug() << "User has joined the following studygroups:";
     foreach (const QJsonValue &value, web_interface->getAppUser().m_studygroups)
     {
@@ -146,6 +146,7 @@ void AppWindow::on_successful_login()
 
     }
     qDebug() << "end";
+    */
 }
 
 void AppWindow::resetRowCount()
