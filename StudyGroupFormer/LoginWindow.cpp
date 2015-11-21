@@ -46,7 +46,7 @@ void LoginWindow::login(){
         //postCreateComment("2", uname, "hey all this is a fresh comment from the db");
         //postJoinGroup("5", getAppUser().m_id);
         //get AppUser's groups from db and set AppUser groups
-        web_interface->getGroupComments("2");
+        //web_interface->getGroupComments("2");
         web_interface->getUserGroups(web_interface->getAppUser());
         //postLeaveGroup("1", getAppUser().m_id);
         //getStudyGroup("1");
@@ -68,6 +68,7 @@ void LoginWindow::login(){
        main_app_window->clearListOfAllGroups();
        main_app_window->setColumnsOfTable();
        main_app_window->setGroupsVisibleInTable();
+       main_app_window->setAdminUserDropdown();
 
     }
 }

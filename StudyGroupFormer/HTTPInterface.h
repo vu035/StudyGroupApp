@@ -37,6 +37,8 @@ public:
     static HTTPInterface* getInstance(); //returns mem address of single instance
 
     QJsonArray getAllGroups();
+    QJsonArray getAllUsers();
+    void deleteUser(QString user_id);
     void getUserGroups(User current_user);
     void postCreateGroup(QString department, QString class_num, QString date, QString time, QString description);
     void postCreateUser(QString email, QString password, QString firstname, QString lastname, QString username);
@@ -45,8 +47,10 @@ public:
     bool postLogin(QString email, QString password);
     void postCreateComment(QString group_id, QString username, QString comment_text);
     void deleteGroup(QString group_id);
+    void setAdminPrivilege(QString user_email);
     QJsonArray getGroupComments(QString group_id);
     QJsonObject getStudyGroup(QString group_id);
+
     User getAppUser();
 
     ~HTTPInterface()

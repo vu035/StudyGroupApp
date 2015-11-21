@@ -15,16 +15,17 @@ public:
     QString m_email;
     int m_id;
     QJsonArray m_studygroups;
+    bool isAdmin;
 
     User();
     User(QJsonValueRef first, QJsonValueRef last, QJsonValueRef username, QJsonArray groups);
     void updateUser(QJsonValueRef first, QJsonValueRef last, QJsonValueRef username, QJsonValueRef email, int id);
     void updateGroups(QJsonArray studygroups);
-    void isAdmin(bool isadmin);
+    void setAdmin(bool isadmin);
 
 
 private:
-    bool isAdmin;
+
 
 signals:
 

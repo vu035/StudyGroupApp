@@ -14,11 +14,10 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
 
     group_info_window = new GroupInfo(this);
     group_info_window->setGeometry(geometry());
-
     main_login_window = new LoginWindow(this);
     this->setFixedSize(900, 600);
-
     connect(this, SIGNAL(sendGroupID(QString)), group_info_window, SLOT(setLabelText(QString)));
+    //connect(qApp, SIGNAL(aboutToQuit()),this,SLOT(closeEvent(QCloseEvent*)));
     ui->setupUi(this);
     m_rowCount=0;
     addItemsToCourseNameComboBox();
@@ -28,7 +27,25 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
     QHeaderView* header = ui->listOfAllGroups->horizontalHeader();
     header->setSectionResizeMode(QHeaderView::Stretch);
     web_interface = HTTPInterface::getInstance();
+    ui->deleteButton->hide();
+    ui->userdeleteButton_2->hide();
+    ui->adminprivButton->hide();
+    ui->userlistbox->hide();
 
+}
+
+void AppWindow::closeEvent (QCloseEvent *event)
+{
+    QMessageBox::StandardButton resBtn = QMessageBox::question( this, "Study Group APP",
+                                                                tr("Are you sure?\n"),
+                                                                QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+                                                                QMessageBox::Yes);
+    if (resBtn != QMessageBox::Yes) {
+        event->ignore();
+    } else {
+        event->accept();
+        QApplication::quit();
+    }
 }
 
 void AppWindow::addItemsToCourseNameComboBox()
@@ -38,9 +55,26 @@ void AppWindow::addItemsToCourseNameComboBox()
     ui->courseNameComboBox->addItems(courseNameComboBoxList);
 }
 
+void AppWindow::setAdminUserDropdown()
+{
+    QJsonArray userData = web_interface->getAllUsers();
+    QStringList UserList;
+    foreach (const QJsonValue &value, userData)
+    {
+        QJsonObject json_obj = value.toObject();
+        UserList << QString::number(json_obj["id"].toInt()) +" "+ json_obj["email"].toString() ;
+    }
+    ui->userlistbox->addItems(UserList);
+
+}
+
 AppWindow::~AppWindow()
 {
     delete ui;
+    delete main_all_groups_window;
+    delete group_info_window;
+    delete main_login_window;
+    qDebug() << "closed main window";
 }
 
 void AppWindow::setColumnsOfTable()
@@ -96,6 +130,14 @@ void AppWindow::on_UserProfile_clicked()
 void AppWindow::on_successful_login()
 {
     ui->usernameLabel->setText(web_interface->getAppUser().m_username);
+    if(web_interface->getAppUser().isAdmin == true)
+    {
+        ui->deleteButton->show();
+        ui->userdeleteButton_2->show();
+        ui->adminprivButton->show();
+        ui->userlistbox->show();
+    }
+    /*
     qDebug() << "User has joined the following studygroups:";
     foreach (const QJsonValue &value, web_interface->getAppUser().m_studygroups)
     {
@@ -104,6 +146,7 @@ void AppWindow::on_successful_login()
 
     }
     qDebug() << "end";
+    */
 }
 
 void AppWindow::resetRowCount()
@@ -215,4 +258,15 @@ void AppWindow::on_deleteButton_clicked()
     setColumnsOfTable();
     setGroupsVisibleInTable();
 
+}
+
+void AppWindow::on_userdeleteButton_2_clicked()
+{
+    web_interface->deleteUser(ui->userlistbox->currentText().split(' ').first());
+    setAdminUserDropdown();
+}
+
+void AppWindow::on_adminprivButton_clicked()
+{
+    web_interface->setAdminPrivilege(ui->userlistbox->currentText().split(' ').last());
 }

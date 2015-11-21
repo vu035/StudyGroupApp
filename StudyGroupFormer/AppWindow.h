@@ -40,6 +40,7 @@ public:
     void on_successful_login();
     int getIdOfSelectedRow();
     void resetRowCount();
+    void setAdminUserDropdown();
 
 private slots:
     void on_UserProfile_clicked();
@@ -48,8 +49,13 @@ private slots:
     void on_listOfAllGroups_cellClicked(int row);
     void on_CreateGroup_clicked();
     void on_courseNameComboBox_currentIndexChanged(const QString &itemSelected);
+    void closeEvent (QCloseEvent *event);
 
     void on_deleteButton_clicked();
+
+    void on_userdeleteButton_2_clicked();
+
+    void on_adminprivButton_clicked();
 
 protected:
     Ui::AppWindow *ui;
