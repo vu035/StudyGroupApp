@@ -15,6 +15,7 @@ public:
     QString m_email;
     int m_id;
     QJsonArray m_studygroups;
+    bool isAdmin;
 
     User();
     User(QJsonValueRef first, QJsonValueRef last, QJsonValueRef username, QJsonArray groups);
@@ -24,7 +25,7 @@ public:
 
 
 private:
-    bool isAdmin;
+
 
 signals:
 

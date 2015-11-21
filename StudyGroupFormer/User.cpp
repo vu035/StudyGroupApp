@@ -5,7 +5,7 @@ User::User(){
     m_firstname = "null";
     m_lastname = "null";
     m_username = "null";
-    isAdmin = false;
+    isAdmin = "null";
 }
 
 User::User(QJsonValueRef first, QJsonValueRef last, QJsonValueRef username, QJsonArray groups){

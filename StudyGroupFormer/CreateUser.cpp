@@ -128,7 +128,7 @@ void CreateUser::on_CreatePasswordCopy_editingFinished()
     ChangeStatusBar(BarStatus);
 }
 
-void CreateUser::on_CreateEmail_textEdited(const QString &arg1)
+void CreateUser::on_CreateEmail_textEdited()
 {
     BarStatus = BarStatus + 20;
     ChangeStatusBar(BarStatus);

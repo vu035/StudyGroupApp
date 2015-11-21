@@ -28,6 +28,11 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
     header->setSectionResizeMode(QHeaderView::Stretch);
     web_interface = HTTPInterface::getInstance();
     setAdminUserDropdown();
+    ui->deleteButton->hide();
+    ui->userdeleteButton_2->hide();
+    ui->adminprivButton->hide();
+    ui->userlistbox->hide();
+
 }
 
 void AppWindow::closeEvent (QCloseEvent *event)
@@ -126,6 +131,13 @@ void AppWindow::on_UserProfile_clicked()
 void AppWindow::on_successful_login()
 {
     ui->usernameLabel->setText(web_interface->getAppUser().m_username);
+    if(web_interface->getAppUser().isAdmin == true)
+    {
+        ui->deleteButton->show();
+        ui->userdeleteButton_2->show();
+        ui->adminprivButton->show();
+        ui->userlistbox->show();
+    }
     qDebug() << "User has joined the following studygroups:";
     foreach (const QJsonValue &value, web_interface->getAppUser().m_studygroups)
     {
@@ -251,4 +263,9 @@ void AppWindow::on_userdeleteButton_2_clicked()
 {
     web_interface->deleteUser(ui->userlistbox->currentText().split(' ').first());
     setAdminUserDropdown();
+}
+
+void AppWindow::on_adminprivButton_clicked()
+{
+    web_interface->setAdminPrivilege(ui->userlistbox->currentText().split(' ').last());
 }

@@ -37,7 +37,7 @@ private slots:
 
     void on_CreatePasswordCopy_editingFinished();
 
-    void on_CreateEmail_textEdited(const QString &arg1);
+    void on_CreateEmail_textEdited();
 
     void ChangeStatusBar(int bar);
 
