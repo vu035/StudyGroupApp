@@ -47,8 +47,10 @@ public:
     bool postLogin(QString email, QString password);
     void postCreateComment(QString group_id, QString username, QString comment_text);
     void deleteGroup(QString group_id);
+    void setAdminPrivilege(QString user_email);
     QJsonArray getGroupComments(QString group_id);
     QJsonObject getStudyGroup(QString group_id);
+
     User getAppUser();
 
     ~HTTPInterface()

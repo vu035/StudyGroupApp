@@ -55,6 +55,8 @@ private slots:
 
     void on_userdeleteButton_2_clicked();
 
+    void on_adminprivButton_clicked();
+
 protected:
     Ui::AppWindow *ui;
     LoginWindow *main_login_window;
