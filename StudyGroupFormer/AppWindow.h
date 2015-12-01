@@ -8,7 +8,7 @@
 #include "LoginWindow.h"
 #include "GroupInfo.h"
 #include "AllGroups.h"
-
+#include "AppWindowData.h"
 
 
 namespace Ui {
@@ -20,6 +20,7 @@ class User;
 class HTTPInterface;
 class AllGroups;
 class GroupInfo;
+class AppWindowData;
 
 
 class AppWindow : public QMainWindow
@@ -31,7 +32,6 @@ public:
     AllGroups *main_all_groups_window;
     //explicit AppWindow(LoginWindow *login_window);
     explicit AppWindow(QWidget *parent = 0);
-
     void addItemsToCourseNameComboBox();
     ~AppWindow();
     void setColumnsOfTable();
@@ -68,10 +68,16 @@ protected:
     QString courseDescription;
     int m_rowCount;
     int m_columnCount;
+    QStringList englishCourses;
+    QStringList mathCourses;
+    QStringList computerScienceCourses;
     HTTPInterface *web_interface;
+    AppWindowData *myAppWindow;
 
 signals:
     void sendGroupID(QString newID);
+
+
 };
 
 #endif // APPWINDOW_H

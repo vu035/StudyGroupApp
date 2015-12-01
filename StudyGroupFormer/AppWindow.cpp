@@ -11,22 +11,27 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
     ui(new Ui::AppWindow)
 {
     main_all_groups_window = new AllGroups();
-
     group_info_window = new GroupInfo(this);
     group_info_window->setGeometry(geometry());
     main_login_window = new LoginWindow(this);
+    myAppWindow = new AppWindowData();
+
     this->setFixedSize(900, 600);
+
     connect(this, SIGNAL(sendGroupID(QString)), group_info_window, SLOT(setLabelText(QString)));
+
     //connect(qApp, SIGNAL(aboutToQuit()),this,SLOT(closeEvent(QCloseEvent*)));
     ui->setupUi(this);
-    m_rowCount=0;
+    resetRowCount();
     addItemsToCourseNameComboBox();
     setColumnsOfTable();
+
     main_login_window->show();
     //set qheaderview to stretch fit qtablewidget
     QHeaderView* header = ui->listOfAllGroups->horizontalHeader();
     header->setSectionResizeMode(QHeaderView::Stretch);
     web_interface = HTTPInterface::getInstance();
+
     ui->deleteButton->hide();
     ui->userdeleteButton_2->hide();
     ui->adminprivButton->hide();
@@ -217,35 +222,17 @@ void AppWindow::on_courseNameComboBox_currentIndexChanged(const QString &itemSel
 
     if (QString::compare(itemSelected,"ENGL",Qt::CaseSensitive)==0)
     {
-        QStringList englishCourses;
-        englishCourses<<"100"<<"105"<<"107"<<"115"<<"203"<<"206"
-                        <<"211"<<"300A"<<"300B"<<"308A"<<"308B"
-                          <<"309A"<<"309B"<<"325"<<"330"<<"331"<<"332"
-                          <<"333"<<"310"<<"320"<<"315";
-        ui->courseNumberComboBox->addItems(englishCourses);
+        ui->courseNumberComboBox->addItems(myAppWindow->getEnglishCourses());
     }
 
     else if(QString::compare(itemSelected,"CS",Qt::CaseSensitive)==0)
     {
-        QStringList computerScienceCourses;
-        computerScienceCourses<<"111"<<"211"<<"231"<<"311"<<"331"<<"421"<<"433"<<"436"<<"441";
-        ui->courseNumberComboBox->addItems(computerScienceCourses);
+        ui->courseNumberComboBox->addItems(myAppWindow->getComputerScienceCourses());
     }
 
     else if(QString::compare(itemSelected,"MATH",Qt::CaseSensitive)==0)
     {
-        QStringList mathCourses;
-        mathCourses<<"10"<<"20"<<"22"<<"30"<<"30C"<<"100"<<"110"<<"115"<<"125"
-                     <<"132"<<"160"<<"162"<<"200"<<"210"<<"212"<<"242"<<"260"<<"262"
-                       <<"264"<<"270"<<"303"<<"304"<<"308"<<"311"<<"311B"<<"314"<<"315"
-                         <<"330"<<"340"<<"346"<<"350"<<"362"<<"374"<<"378"<<"390"<<"410"
-                           <<"422"<<"430"<<"440"<<"441"<<"442"<<"448"<<"464"<<"470"<<"472"
-                             <<"474"<<"480"<<"490"<<"491"<<"495"<<"498A"<<"498B"<<"498C"<<"499A"
-                               <<"499B"<<"499C"<<"505"<<"510"<<"520"<<"521"<<"522"<<"523"<<"528"
-                                 <<"530"<<"532"<<"534"<<"535"<<"536"<<"537"<<"538"<<"540"<<"541"
-                                   <<"542"<<"544"<<"550"<<"552"<<"555"<<"561"<<"563"<<"564"<<"570"
-                                     <<"571"<<"620"<<"621"<<"697"<<"699";
-        ui->courseNumberComboBox->addItems(mathCourses);
+        ui->courseNumberComboBox->addItems(myAppWindow->getMathCourses());
     }
 
 }
@@ -253,11 +240,10 @@ void AppWindow::on_courseNameComboBox_currentIndexChanged(const QString &itemSel
 void AppWindow::on_deleteButton_clicked()
 {
     web_interface->deleteGroup(m_group_info_id);
-    m_rowCount=0;
+    resetRowCount();
     clearListOfAllGroups();
     setColumnsOfTable();
     setGroupsVisibleInTable();
-
 }
 
 void AppWindow::on_userdeleteButton_2_clicked()
