@@ -68,9 +68,6 @@ protected:
     QString courseDescription;
     int m_rowCount;
     int m_columnCount;
-    QStringList englishCourses;
-    QStringList mathCourses;
-    QStringList computerScienceCourses;
     HTTPInterface *web_interface;
     AppWindowData *myAppWindow;
 
