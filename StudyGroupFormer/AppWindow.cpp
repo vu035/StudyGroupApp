@@ -79,7 +79,6 @@ AppWindow::~AppWindow()
     delete main_all_groups_window;
     delete group_info_window;
     delete main_login_window;
-    qDebug() << "closed main window";
 }
 
 void AppWindow::setColumnsOfTable()
@@ -190,7 +189,7 @@ void AppWindow::on_CreateGroup_clicked()
     if(courseDescription == ""|| courseDescription == NULL)
     {
         QMessageBox *messageBox = new QMessageBox;
-        messageBox->setText("Please enter in a description for your study group.");
+        messageBox->setText(myAppWindow->getGetNoDescriptionForGroupErrorMessage());
         qApp->setQuitOnLastWindowClosed(false);
         messageBox->show();
     }
@@ -208,7 +207,7 @@ void AppWindow::on_listOfAllGroups_cellClicked(int row)
 {
     if(ui->listOfAllGroups->item(row,0) != NULL)
     {
-    m_group_info_id = ui->listOfAllGroups->item(row, 0)->text();
+        m_group_info_id = ui->listOfAllGroups->item(row, 0)->text();
     }
     //emit sendGroupID(ui->listOfAllGroups->item(row, 0)->text());
 
@@ -217,8 +216,6 @@ void AppWindow::on_listOfAllGroups_cellClicked(int row)
 void AppWindow::on_courseNameComboBox_currentIndexChanged(const QString &itemSelected)
 {
     ui->courseNumberComboBox->clear();
-    qDebug()<<"ITEM CURRENTLY SELECTED";
-    qDebug()<<itemSelected;
 
     if (QString::compare(itemSelected,"ENGL",Qt::CaseSensitive)==0)
     {
