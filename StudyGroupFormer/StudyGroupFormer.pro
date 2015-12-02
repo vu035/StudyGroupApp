@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     AllGroups.cpp \
     User.cpp \
     HTTPInterface.cpp \
-    GroupInfo.cpp
+    GroupInfo.cpp \
+    AppWindowData.cpp
 
 
 HEADERS  += AppWindow.h \
@@ -28,7 +29,8 @@ HEADERS  += AppWindow.h \
     HTTPInterface.h\
     AllGroups.h \
     User.h \
-    GroupInfo.h
+    GroupInfo.h \
+    AppWindowData.h
 
 FORMS    += AppWindow.ui \
     LoginWindow.ui \
