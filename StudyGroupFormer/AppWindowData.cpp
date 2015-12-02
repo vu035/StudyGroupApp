@@ -5,6 +5,7 @@ AppWindowData::AppWindowData()
     populateEnglishCourses();
     populateComputerScienceCourses();
     populateMathCourses();
+    populateNoDescriptionForGroupErrorMessage();
 }
 
 void AppWindowData::populateEnglishCourses()
@@ -31,7 +32,12 @@ void AppWindowData::populateMathCourses()
                            <<"499B"<<"499C"<<"505"<<"510"<<"520"<<"521"<<"522"<<"523"<<"528"
                              <<"530"<<"532"<<"534"<<"535"<<"536"<<"537"<<"538"<<"540"<<"541"
                                <<"542"<<"544"<<"550"<<"552"<<"555"<<"561"<<"563"<<"564"<<"570"
-                                 <<"571"<<"620"<<"621"<<"697"<<"699";
+                              <<"571"<<"620"<<"621"<<"697"<<"699";
+}
+
+void AppWindowData::populateNoDescriptionForGroupErrorMessage()
+{
+    noDescriptionForGroupErrorMessage = "Please enter in a description for your study group.";
 }
 
 QStringList AppWindowData::getEnglishCourses()
@@ -47,4 +53,9 @@ QStringList AppWindowData::getComputerScienceCourses()
 QStringList AppWindowData::getMathCourses()
 {
     return mathCourses;
+}
+
+QString AppWindowData::getGetNoDescriptionForGroupErrorMessage()
+{
+    return noDescriptionForGroupErrorMessage;
 }
