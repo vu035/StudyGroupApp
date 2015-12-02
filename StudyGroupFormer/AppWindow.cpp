@@ -219,7 +219,6 @@ void AppWindow::on_courseNameComboBox_currentIndexChanged(const QString &itemSel
 
     if (QString::compare(itemSelected,"ENGL",Qt::CaseSensitive)==0)
     {
-        qDebug()<<myAppWindow->getEnglishCourses();
         ui->courseNumberComboBox->addItems(myAppWindow->getEnglishCourses());
     }
 
