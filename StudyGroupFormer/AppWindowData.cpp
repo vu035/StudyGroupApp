@@ -7,6 +7,7 @@ AppWindowData::AppWindowData()
     populateMathCourses();
     populateNoDescriptionForGroupErrorMessage();
     populateColumnNamesOfTable();
+    populateCourseNameComboBox();
 }
 
 void AppWindowData::populateEnglishCourses()
