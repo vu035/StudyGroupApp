@@ -6,27 +6,27 @@ QString m_group_info_id;
 const int MAX_NUM_OF_COLUMNS = 4;
 const int MAX_NUM_OF_ROWS = 40;
 
-//AppWindow::AppWindow(LoginWindow *login_window) : QMainWindow(login_window),
 AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
     ui(new Ui::AppWindow)
 {
     main_all_groups_window = new AllGroups();
     group_info_window = new GroupInfo(this);
-    group_info_window->setGeometry(geometry());
     main_login_window = new LoginWindow(this);
     myAppWindow = new AppWindowData();
+
+    group_info_window->setGeometry(geometry());
 
     this->setFixedSize(900, 600);
 
     connect(this, SIGNAL(sendGroupID(QString)), group_info_window, SLOT(setLabelText(QString)));
 
-    //connect(qApp, SIGNAL(aboutToQuit()),this,SLOT(closeEvent(QCloseEvent*)));
     ui->setupUi(this);
     resetRowCount();
     addItemsToCourseNameComboBox();
     setColumnsOfTable();
 
     main_login_window->show();
+
     //set qheaderview to stretch fit qtablewidget
     QHeaderView* header = ui->listOfAllGroups->horizontalHeader();
     header->setSectionResizeMode(QHeaderView::Stretch);
@@ -41,10 +41,11 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
 
 void AppWindow::closeEvent (QCloseEvent *event)
 {
-    QMessageBox::StandardButton resBtn = QMessageBox::question( this, "Study Group APP",
-                                                                tr("Are you sure?\n"),
-                                                                QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
-                                                                QMessageBox::Yes);
+    QMessageBox::StandardButton resBtn;
+    resBtn= QMessageBox::question( this, "Study Group APP",
+                                   tr("Are you sure?\n"),
+                                   QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+                                   QMessageBox::Yes);
     if (resBtn != QMessageBox::Yes) {
         event->ignore();
     } else {
@@ -55,9 +56,7 @@ void AppWindow::closeEvent (QCloseEvent *event)
 
 void AppWindow::addItemsToCourseNameComboBox()
 {
-    QStringList courseNameComboBoxList;
-    courseNameComboBoxList << "ENGL" << "MATH"<< "CS";
-    ui->courseNameComboBox->addItems(courseNameComboBoxList);
+    ui->courseNameComboBox->addItems(myAppWindow->getCourseNameComboBoxContent());
 }
 
 void AppWindow::setAdminUserDropdown()
@@ -79,14 +78,10 @@ AppWindow::~AppWindow()
     delete main_all_groups_window;
     delete group_info_window;
     delete main_login_window;
-    qDebug() << "closed main window";
 }
 
 void AppWindow::setColumnsOfTable()
 {
-    QStringList setColumnNames;
-    setColumnNames<<"ID"<<"Class Name"<<"Date"<<"Time";
-
     ui->listOfAllGroups->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->listOfAllGroups->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->listOfAllGroups->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -94,7 +89,7 @@ void AppWindow::setColumnsOfTable()
     ui->listOfAllGroups->verticalHeader()->font().bold();
     ui->listOfAllGroups->setColumnCount(MAX_NUM_OF_COLUMNS);
     ui->listOfAllGroups->setRowCount(MAX_NUM_OF_ROWS);
-    ui->listOfAllGroups->setHorizontalHeaderLabels(setColumnNames);
+    ui->listOfAllGroups->setHorizontalHeaderLabels(myAppWindow->getColumnNamesOfTable());
     ui->listOfAllGroups->setColumnHidden(0, true);
 }
 
@@ -172,7 +167,7 @@ void AppWindow::on_getGroupInfo_clicked()
 
 void AppWindow::on_refreshButton_clicked()
 {
-    m_rowCount=0;
+    resetRowCount();
     clearListOfAllGroups();
     setColumnsOfTable();
     setGroupsVisibleInTable();
@@ -190,7 +185,7 @@ void AppWindow::on_CreateGroup_clicked()
     if(courseDescription == ""|| courseDescription == NULL)
     {
         QMessageBox *messageBox = new QMessageBox;
-        messageBox->setText("Please enter in a description for your study group.");
+        messageBox->setText(myAppWindow->getGetNoDescriptionForGroupErrorMessage());
         qApp->setQuitOnLastWindowClosed(false);
         messageBox->show();
     }
@@ -208,7 +203,7 @@ void AppWindow::on_listOfAllGroups_cellClicked(int row)
 {
     if(ui->listOfAllGroups->item(row,0) != NULL)
     {
-    m_group_info_id = ui->listOfAllGroups->item(row, 0)->text();
+        m_group_info_id = ui->listOfAllGroups->item(row, 0)->text();
     }
     //emit sendGroupID(ui->listOfAllGroups->item(row, 0)->text());
 
@@ -217,8 +212,6 @@ void AppWindow::on_listOfAllGroups_cellClicked(int row)
 void AppWindow::on_courseNameComboBox_currentIndexChanged(const QString &itemSelected)
 {
     ui->courseNumberComboBox->clear();
-    qDebug()<<"ITEM CURRENTLY SELECTED";
-    qDebug()<<itemSelected;
 
     if (QString::compare(itemSelected,"ENGL",Qt::CaseSensitive)==0)
     {
@@ -240,9 +233,9 @@ void AppWindow::on_courseNameComboBox_currentIndexChanged(const QString &itemSel
 void AppWindow::on_deleteButton_clicked()
 {
     web_interface->deleteGroup(m_group_info_id);
+    setColumnsOfTable();
     resetRowCount();
     clearListOfAllGroups();
-    setColumnsOfTable();
     setGroupsVisibleInTable();
 }
 
