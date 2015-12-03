@@ -15,7 +15,7 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
     myAppWindow = new AppWindowData();
 
 
-    group_info_window->setGeometry(geometry());
+    //group_info_window->setGeometry(geometry());
 
     this->setFixedSize(900, 600);
 
