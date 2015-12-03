@@ -14,9 +14,6 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
     main_login_window = new LoginWindow(this);
     myAppWindow = new AppWindowData();
 
-
-    group_info_window->setGeometry(geometry());
-
     this->setFixedSize(900, 600);
 
     connect(this, SIGNAL(sendGroupID(QString)), group_info_window, SLOT(setLabelText(QString)));
@@ -29,7 +26,6 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent),
 
     main_login_window->show();
 
-    //set qheaderview to stretch fit qtablewidget
     QHeaderView* header = ui->listOfAllGroups->horizontalHeader();
     header->setSectionResizeMode(QHeaderView::Stretch);
     web_interface = HTTPInterface::getInstance();

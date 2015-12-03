@@ -30,7 +30,6 @@ class AppWindow : public QMainWindow
 public:
 
     AllGroups *main_all_groups_window;
-    //explicit AppWindow(LoginWindow *login_window);
     explicit AppWindow(QWidget *parent = 0);
     void addItemsToCourseNameComboBox();
     ~AppWindow();
@@ -50,11 +49,8 @@ private slots:
     void on_CreateGroup_clicked();
     void on_courseNameComboBox_currentIndexChanged(const QString &itemSelected);
     void closeEvent (QCloseEvent *event);
-
     void on_deleteButton_clicked();
-
     void on_userdeleteButton_2_clicked();
-
     void on_adminprivButton_clicked();
 
 protected:
@@ -73,8 +69,6 @@ protected:
 
 signals:
     void sendGroupID(QString newID);
-
-
 };
 
 #endif // APPWINDOW_H
