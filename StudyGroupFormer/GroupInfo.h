@@ -29,9 +29,7 @@ public slots:
 
 private slots:
     void on_joinButton_clicked();
-
     void on_btnSendMessage_clicked();
-
     void on_chatRefreshButton_clicked();
     void on_leGroupMessage_returnPressed();
 private:
