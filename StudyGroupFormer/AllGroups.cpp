@@ -20,7 +20,7 @@ AllGroups::AllGroups(QWidget *parent) :
     header->setSectionResizeMode(QHeaderView::Stretch);
 
     profile_group_info_window = new GroupInfo(this);
-    profile_group_info_window->setGeometry(geometry());
+    //profile_group_info_window->setGeometry(geometry());
     connect(this, SIGNAL(sendProfileGroupID(QString)), profile_group_info_window, SLOT(setLabelText(QString)));
     web_interface = HTTPInterface::getInstance();
 }
