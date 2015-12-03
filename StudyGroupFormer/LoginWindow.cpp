@@ -38,23 +38,11 @@ void LoginWindow::login(){
     QString uname = ui->username->text();
     //qDebug() << uname;
     QString pass = ui->password->text();
-    //postCreateGroup("CS", "311", "12-20-15", "1:00PM");
-    //postCreateUser("1@3", "root", "James", "Hannahan", "JH024");
 
     //if pass matches encrypted pass, show main window
     if(web_interface->postLogin(uname, pass)){
-        //postCreateComment("2", uname, "hey all this is a fresh comment from the db");
-        //postJoinGroup("5", getAppUser().m_id);
-        //get AppUser's groups from db and set AppUser groups
-        //web_interface->getGroupComments("2");
-        web_interface->getUserGroups(web_interface->getAppUser());
-        //postLeaveGroup("1", getAppUser().m_id);
-        //getStudyGroup("1");
-        //debug output
-        //getAllGroups();
 
-        //here we should set our admin flad
-        //if(web_interface->isAdmin(
+        web_interface->getUserGroups(web_interface->getAppUser());
 
       //hide window
         setVisible(false);
