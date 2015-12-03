@@ -52,8 +52,6 @@ void AllGroups::Study_Group_Info(){
     {
         QJsonObject json_obj = value.toObject();
         QString course = json_obj["department"].toString() + " " + QString::number(json_obj["class_number"].toInt());
-        //qDebug() << json_obj["id"].toInt() <<  json_obj["department"].toString() << json_obj["class_number"].toInt() << json_obj["date"].toString() << json_obj["time"].toString();
-        //qDebug()<< json_obj["id"].toInt() << course;
         ui->Usergroup->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(QString::number(json_obj["id"].toInt())));
         m_columnCount++;
         ui->Usergroup->setItem(m_rowCount,m_columnCount, new QTableWidgetItem(course));
