@@ -1,0 +1,32 @@
+title Generic Sequence Diagram
+
+User->StudyGroupApp: Logs in
+StudyGroupApp->Database: Checks credentials and validates them
+Database->StudyGroupApp: Responds credntials OK
+StudyGroupApp->User: Opens main window in app
+
+User->StudyGroupApp: List all groups
+StudyGroupApp->Database: Query databse for all groups
+Database->StudyGroupApp: send all group data
+StudyGroupApp->User: Refresh list of all groups
+
+User->StudyGroupApp: Create New Group
+StudyGroupApp->Database: query "create group"
+StudyGroupApp->User: Refresh list of all groups
+
+User->StudyGroupApp: Delete Group
+StudyGroupApp->Database: query "delete group"
+StudyGroupApp->User: Refresh list of all groups
+
+User->StudyGroupApp: Join Group
+StudyGroupApp->Database: query "delete group"
+StudyGroupApp->User: Refresh list of all groups
+
+User->StudyGroupApp: Leave Group
+StudyGroupApp->Database: query "Leave group"
+StudyGroupApp->User: Refresh list of all groups
+
+User->StudyGroupApp: View Group Info
+StudyGroupApp->Database: query "view group info"
+Database->StudyGroupApp: Responds with group info
+StudyGroupApp->User: Refresh group info of selected group
