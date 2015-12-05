@@ -221,9 +221,9 @@ void AppWindow::on_courseNameComboBox_currentIndexChanged(const QString &itemSel
 void AppWindow::on_deleteButton_clicked()
 {
     web_interface->deleteGroup(m_group_info_id);
-    setColumnsOfTable();
     resetRowCount();
     clearListOfAllGroups();
+    setColumnsOfTable();
     setGroupsVisibleInTable();
 }
 
